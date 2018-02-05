@@ -6,9 +6,10 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/08 13:09:32 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 15:20:25 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/05 15:59:33 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "rtv1.h"
 
@@ -19,7 +20,7 @@ void	create_image(t_stuff *e)
 		&e->img.bits_per_pixel, &e->img.size_line, &e->img.endian);
 }
 
-void ft_init_struct_opt_1(t_stuff *e, int option)
+void	ft_init_struct_opt_1(t_stuff *e, int option)
 {
 	e->d.equal = 0;
 	e->d.dot = 0;
