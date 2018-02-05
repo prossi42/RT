@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/08 13:09:32 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/01/31 22:53:28 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/05 15:20:25 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,28 @@ void	create_image(t_stuff *e)
 		&e->img.bits_per_pixel, &e->img.size_line, &e->img.endian);
 }
 
+void ft_init_struct_opt_1(t_stuff *e, int option)
+{
+	e->d.equal = 0;
+	e->d.dot = 0;
+	e->d.i = -1;
+	e->d.nbmsph = 0;
+	if (init_list_sph(&e->sph) == -1)
+		exit(-1);
+	e->d.nbmpla = 0;
+	if (init_list_pla(&e->pla) == -1)
+		exit(-1);
+	e->d.nbmlight = 0;
+	if (init_list_light(&e->light) == -1)
+		exit(-1);
+	e->d.nbmcyl = 0;
+	if (init_list_cyl(&e->cyl) == -1)
+		exit(-1);
+	e->d.nbmcone = 0;
+	if (init_list_cone(&e->cone) == -1)
+		exit(-1);
+}
+
 void	ft_init_struct(t_stuff *e, int option)
 {
 	if (option == 0)
@@ -28,26 +50,7 @@ void	ft_init_struct(t_stuff *e, int option)
 		e->b.i = 0;
 	}
 	if (option == 1)
-	{
-		e->d.equal = 0;
-		e->d.dot = 0;
-		e->d.i = -1;
-		e->d.nbmsph = 0;
-		if (init_list_sph(&e->sph) == -1)
-			exit(-1);
-		e->d.nbmpla = 0;
-		if (init_list_pla(&e->pla) == -1)
-			exit(-1);
-		e->d.nbmlight = 0;
-		if (init_list_light(&e->light) == -1)
-			exit(-1);
-		e->d.nbmcyl = 0;
-		if (init_list_cyl(&e->cyl) == -1)
-			exit(-1);
-		e->d.nbmcone = 0;
-		if (init_list_cone(&e->cone) == -1)
-			exit (-1);
-	}
+		ft_init_struct_opt_1(e, option);
 	if (option == 2)
 	{
 		e->c.distvue = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadows.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgaillar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 14:00:01 by jgaillar          #+#    #+#             */
-/*   Updated: 2017/12/15 14:00:03 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/05 15:12:56 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ double		shadows(t_stuff *e, t_vec *inter, t_rgb color)
 	caca.r = 0;
 	caca.g = 0;
 	caca.b = 0;
-
 	reboot_list_loop(e, 2);
 	while (e->light)
 	{
