@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:57:18 by jgaillar          #+#    #+#             */
-/*   Updated: 2017/12/05 10:26:51 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/05 10:52:46 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,9 @@ void		checkcyl(t_cyl *cyl, t_vec *raydir, t_vec *poscam)
 	c = dot_product(&l, &l) - (dot_product(&l, &cyl->norm) \
 	* dot_product(&l, &cyl->norm)) - cyl->ray * cyl->ray;
 	cyl->det = (b * b) - 4 * a * c;
-	// if (cyl->det != 0)
-	// {
 		cyl->t1 = (-b - sqrt(cyl->det)) / (2 * a);
 		cyl->t2 = (-b + sqrt(cyl->det)) / (2 * a);
 		cyl->t = (cyl->t1 <= cyl->t2 ? cyl->t1 : cyl->t2);
-	// }
-	// else
-		// cyl->t = (-b / 2 * a);
 }
 
 void		checkcone(t_cone *cone, t_vec *raydir, t_vec *poscam)
