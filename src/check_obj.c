@@ -131,8 +131,8 @@ void		checkcone(t_cone *cone, t_vec *raydir, t_vec *poscam)
 		cone->t = -1;
 	else if (cone->det != 0)
 	{
-		cone->t1 = -b - sqrt(cone->det) / (2 * a);
-		cone->t2 = -b + sqrt(cone->det) / (2 * a);
+		cone->t1 = (-b - sqrt(cone->det)) / (2 * a);
+		cone->t2 = (-b + sqrt(cone->det)) / (2 * a);
 		cone->t = (cone->t1 <= cone->t2 ? cone->t1 : cone->t2);
 	}
 	else

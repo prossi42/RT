@@ -15,6 +15,10 @@
 # define BUFF_SIZE 0xfffff
 # include <string.h>
 # include <sys/types.h>
+# define _G "[\033[34m%s \033[31m%s \033[32m%d \033[0m]"
+# define md "\n"
+# define DG(f, ...) printf(_G f md, __FILE__,__FUNCTION__,__LINE__, __VA_ARGS__)
+# define GD(f) printf(_G f md, __FILE__,__FUNCTION__,__LINE__)
 # include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
