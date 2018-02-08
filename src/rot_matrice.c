@@ -6,11 +6,11 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 14:22:59 by luca              #+#    #+#             */
-/*   Updated: 2018/02/07 14:46:50 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:03 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	rotation_z(t_vec *sujet, double radian)
 {

@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:00:46 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/05 11:57:42 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:25 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		ft_set_value(t_stuff *e)
 {

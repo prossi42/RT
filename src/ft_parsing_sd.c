@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 17:11:09 by prossi            #+#    #+#             */
-/*   Updated: 2017/12/01 12:16:28 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:22 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		ft_parsing_sd(t_stuff *e)
 {

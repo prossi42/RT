@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 19:01:12 by prossi            #+#    #+#             */
-/*   Updated: 2018/01/31 10:21:50 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:07 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		ft_check_fih(t_stuff *e)
 {

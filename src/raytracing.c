@@ -6,27 +6,27 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 11:09:06 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 08:24:28 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:00 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
-// t_vec		getrefray(t_stuff *e, t_vec *norm)
-// {
-// 	t_vec res;
-// 	t_vec	v;
-// 	double a;
-//
-// 	vecsous(&v, &e->poscam, &e->c.inter);
-// 	vecnorm(&v);
-// 	a = dot_product(&v, norm);
-// 	res.x = -v.x - (2 * a * norm->x);
-// 	res.y = -v.y - (2 * a * norm->y);
-// 	res.z = -v.z - (2 * a * norm->z);
-// 	vecnorm(&res);
-// 	return (res);
-// }
+t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *pos, t_vec *inter)
+{
+	t_vec res;
+	t_vec	v;
+	double a;
+
+	vecsous(&v, inter, pos);
+	vecnorm(&v);
+	a = dot_product(&v, norm);
+	res.x = v.x - (2 * a * norm->x);
+	res.y = v.y - (2 * a * norm->y);
+	res.z = v.z - (2 * a * norm->z);
+	vecnorm(&res);
+	return (res);
+}
 
 t_vec		revvec(t_vec *vec)
 {
@@ -38,7 +38,7 @@ t_vec		revvec(t_vec *vec)
 	return (ret);
 }
 
-t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *light)
+t_vec		getspeclight2(t_stuff *e, t_vec *norm, t_vec *light)
 {
 	t_vec	res;
 	t_vec	tmp2;
@@ -62,13 +62,13 @@ void		getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, t_light **light)
 	t_rgb tmp;
 	t_vec tmp3;
 
-	ref = getrefray(e, norm, &(*light)->lightdir);
+	ref = getspeclight2(e, norm, &(*light)->lightdir);
 	vecsous(&tmp3, &e->poscam, &e->c.inter);
 	vecnorm(&tmp3);
 	tmp3.x *= -1;
 	tmp3.y *= -1;
 	tmp3.z *= -1;
-	a = pow(dot_product(&ref, &tmp3), 100);
+	a = pow(dot_product(&ref, &tmp3), 1000);
 	tmp.r = ((*light)->color.r * (*light)->diff) * a;
 	tmp.g = ((*light)->color.g * (*light)->diff) * a;
 	tmp.b = ((*light)->color.b * (*light)->diff) * a;
@@ -87,6 +87,7 @@ t_rgb		getlight(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
 		: 0);
 	if ((*light)->ray > 0.00001 && angle > 0.00001)
 	{
+		e->test++;
 		if (e->l == 1)
 		{
 			rgb.r = colorobj->r * (*light)->amb;
@@ -96,8 +97,7 @@ t_rgb		getlight(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
 		rgb.r += ((*light)->color.r * (*light)->diff) * angle;
 		rgb.g += ((*light)->color.g * (*light)->diff) * angle;
 		rgb.b += ((*light)->color.b * (*light)->diff) * angle;
-		//if (e->c.obj != PLAN)
-			getspeclight(e, norm, &rgb, light);
+		getspeclight(e, norm, &rgb, light);
 		return (rgb);
 	}
 	if (e->l == 1)
@@ -105,15 +105,18 @@ t_rgb		getlight(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
 	return (rgb);
 }
 
-int		raythingy(t_stuff *e)
+t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
+	t_rgb	tmp2;
 	e->l = 0;
-	check(e, &e->raydir, &e->poscam, 1);
-	check_dist(e, 1);
-	reboot_list_loop(e, 3);
+	e->test = 0;
 	e->c.colorf.r = 0;
 	e->c.colorf.g = 0;
 	e->c.colorf.b = 0;
+	e->ray++;
+	check(e, raydir, pos, 1);
+	check_dist(e, 1);
+	reboot_list_loop(e, 3);
 	if (e->c.obj >= 0 && e->c.obj <= 3)
 	{
 		getintersection(e, e->c.dist);
@@ -183,13 +186,22 @@ int		raythingy(t_stuff *e)
 			e->d.color.b *= 0.1;
 			shadows(e, &e->c.inter, e->d.color);
 		}
+		if (e->ray < 1 && e->test > 0)
+		{
+			if (e->c.obj == SPHERE)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.3);
+			if (e->c.obj == PLAN)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 1);
+			if (e->c.obj == CYLINDRE)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
+		}
 	}
 	else if (e->c.obj == LIGHT)
 	{
 		searchlist(e, e->c.objlight, LIGHT);
 		rgb_add(&e->c.colorf, e->c.colorf, e->light->color, e->light->diff);
 	}
-	return (0);
+	return (e->c.colorf);
 }
 
 void		aff(t_stuff *e)
@@ -206,9 +218,13 @@ void		aff(t_stuff *e)
 		e->c.posx = -1;
 		while (++e->c.posx < WIDTH)
 		{
+			e->c.colorf.r = 0;
+			e->c.colorf.g = 0;
+			e->c.colorf.b = 0;
+			e->ray = -1;
 			reboot_list_loop(e, 3);
 			raydir(e, e->c.posx, e->c.posy);
-			raythingy(e);
+			e->c.colorf = raythingy(e, &e->raydir, &e->poscam);
 			color = rgbtohexa(e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 			if (e->pix > 0)
 			{

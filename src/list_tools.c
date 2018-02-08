@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 13:32:49 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/07 13:13:22 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:47 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	reboot_list(t_stuff *e)
 {

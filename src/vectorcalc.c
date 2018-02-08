@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:07:54 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/07 12:29:14 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:27 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		raydir(t_stuff *e, int x, int y)
 {

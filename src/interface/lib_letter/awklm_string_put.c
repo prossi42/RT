@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 18:01:05 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/01 18:58:33 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:25:03 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/rtv1.h"
+#include "../../../includes/rt.h"
 
 void	draw_high_letter_td(t_stuff *e)
 {

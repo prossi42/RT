@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 15:43:33 by prossi            #+#    #+#             */
-/*   Updated: 2017/12/01 11:13:01 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:22:10 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		check_data_plan_fh(t_stuff *e, char *nb)
 {

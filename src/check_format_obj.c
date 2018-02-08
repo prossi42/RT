@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:54:37 by jgaillar          #+#    #+#             */
-/*   Updated: 2017/12/01 15:05:37 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:22:47 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		cylindre(t_stuff *e, int y)
 {

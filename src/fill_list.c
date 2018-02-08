@@ -6,11 +6,11 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 12:52:39 by luca              #+#    #+#             */
-/*   Updated: 2018/02/05 13:26:27 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:02 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	fill_list_sph(t_sphere **sph, double *tabd, int nbm)
 {

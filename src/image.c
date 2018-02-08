@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:06:24 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 13:45:44 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:39 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void			mlx_pixel_put_to_image(t_img img, int x, int y, int color)
 {

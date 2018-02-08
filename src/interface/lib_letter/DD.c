@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 14:01:04 by prossi            #+#    #+#             */
-/*   Updated: 2018/01/12 15:21:18 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:25:13 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/rtv1.h"
+#include "../../../includes/rt.h"
 
 void	ft_init_segment_D(t_stuff *e, int option)
 {

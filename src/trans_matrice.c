@@ -6,11 +6,11 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 14:24:00 by luca              #+#    #+#             */
-/*   Updated: 2018/02/05 14:24:36 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:16 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	translation_x(t_vec *sujet, double value)
 {

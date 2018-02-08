@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/08 13:09:32 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/07 11:05:03 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:11 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	create_image(t_stuff *e)
 {

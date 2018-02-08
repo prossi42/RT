@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:20:24 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/05 11:22:19 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:22:52 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		check_check(t_stuff *e)
 {

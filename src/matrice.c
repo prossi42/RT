@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 14:08:00 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/07 13:17:02 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:53 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	matrice(char type, char axe, t_stuff *e, t_vec *sujet)
 {

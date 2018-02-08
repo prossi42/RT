@@ -6,11 +6,11 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 11:03:15 by luca              #+#    #+#             */
-/*   Updated: 2018/02/05 11:04:38 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:15 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		ft_compare_light_sd(char *str, int i)
 {

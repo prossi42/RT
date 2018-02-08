@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:17:03 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/07 13:08:40 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:50 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		ft_affich(t_stuff *e, int option)
 {

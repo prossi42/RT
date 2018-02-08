@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 11:30:28 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/07 10:52:14 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:22:06 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		check_data_light_fh(t_stuff *e, char *nb)
 {

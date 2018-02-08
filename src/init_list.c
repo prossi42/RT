@@ -6,11 +6,11 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 12:51:49 by luca              #+#    #+#             */
-/*   Updated: 2018/02/05 12:52:21 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:43 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		init_list_cone(t_cone **cone)
 {

@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:57:18 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/07 13:06:50 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:22:58 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		checksphere(t_sphere *sphere, t_vec *raydir, t_vec *poscam)
 {
@@ -126,8 +126,8 @@ void		checkcone(t_cone *cone, t_vec *raydir, t_vec *poscam)
 		cone->t = -1;
 	else if (cone->det != 0)
 	{
-		cone->t1 = -b - sqrt(cone->det) / (2 * a);
-		cone->t2 = -b + sqrt(cone->det) / (2 * a);
+		cone->t1 = (-b - sqrt(cone->det)) / (2 * a);
+		cone->t2 = (-b + sqrt(cone->det)) / (2 * a);
 		cone->t = (cone->t1 <= cone->t2 ? cone->t1 : cone->t2);
 	}
 	else

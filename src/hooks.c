@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 10:47:04 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/02 23:40:35 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:35 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	choose_sujet(t_stuff *e)
 {

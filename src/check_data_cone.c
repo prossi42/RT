@@ -6,11 +6,11 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 10:22:03 by luca              #+#    #+#             */
-/*   Updated: 2018/02/05 10:32:00 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:21:57 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		check_data_cone_fh(t_stuff *e, char *nb)
 {

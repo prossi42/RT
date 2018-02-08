@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 10:32:14 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/05 11:03:47 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:11 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		ft_compare_cone_sd(char *str, int i)
 {

@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 23:46:25 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/01 18:32:01 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:25:46 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/rtv1.h"
+#include "../../../includes/rt.h"
 
 void	ft_arc(t_stuff *e, int option)
 {
