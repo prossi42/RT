@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 10:07:54 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/01 12:05:39 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:27 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		raydir(t_stuff *e, int x, int y)
 {
@@ -30,12 +30,12 @@ void		raydir(t_stuff *e, int x, int y)
 	vecnorm(&e->raydir);
 }
 
-void	upleft(t_stuff *e)
+void		upleft(t_stuff *e)
 {
-	t_vec tmp;
-	t_vec tmp2;
-	t_vec tmp3;
-	t_vec o;
+	t_vec 	tmp;
+	t_vec 	tmp2;
+	t_vec 	tmp3;
+	t_vec 	o;
 
 	o.x = 0;
 	o.y = 0;
@@ -55,7 +55,7 @@ void	upleft(t_stuff *e)
 	vecnorm(&e->vecupleft);
 }
 
-void	vectorcalc(t_stuff *e)
+void		vectorcalc(t_stuff *e)
 {
 	vecsous(&e->dircam, &e->pr, &e->poscam);
 	vecnorm(&e->dircam);

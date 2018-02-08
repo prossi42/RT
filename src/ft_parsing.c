@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:00:46 by prossi            #+#    #+#             */
-/*   Updated: 2017/12/01 12:28:20 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:25 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		ft_set_value(t_stuff *e)
 {
@@ -35,7 +35,6 @@ int		ft_parsing(t_stuff *e)
 		;
 	if (e->b.y != 9)
 		return (-1);
-	// NE PAS OUBLIER DE MODIFIER LA VALEUR 9 SI SCENE NECESSITE PLUS DE 9 VALEUR
 	if (ft_check(e) == -1)
 		return (-1);
 	ft_set_value(e);

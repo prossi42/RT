@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img.c                                              :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:06:24 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 08:21:55 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:39 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void			mlx_pixel_put_to_image(t_img img, int x, int y, int color)
 {
@@ -49,6 +49,21 @@ double			rgbtohexa(int r, int g, int b)
 	return (color);
 }
 
+void			ft_set_segment(t_stuff *e, int x1, int y1, double color)
+{
+	int x0;
+	int y0;
+
+	x0 = WIDTH / 2;
+	y0 = LENGTH;
+	e->seg.dx = ft_abs(x1 - x0);
+	e->seg.sx = (x0 < x1 ? 1 : -1);
+	e->seg.dy = ft_abs(y1 - y0);
+	e->seg.sy = (y0 < y1 ? 1 : -1);
+	e->seg.err = (e->seg.dx > e->seg.dy \
+	? e->seg.dx : -e->seg.dy) / 2;
+}
+
 void			ft_segment(t_stuff *e, int x1, int y1, double color)
 {
 	int x0;
@@ -56,15 +71,7 @@ void			ft_segment(t_stuff *e, int x1, int y1, double color)
 
 	x0 = WIDTH / 2;
 	y0 = LENGTH;
-	//	 DON'T TOUCH
-	// x0 = (WIDTH / 2) + (WIN_X - WIDTH);
-	// y0 = LENGTH + (WIN_Y - LENGTH);
-	e->seg.dx = ft_abs(x1 - x0);
-	e->seg.sx = (x0 < x1 ? 1 : -1);
-	e->seg.dy = ft_abs(y1 - y0);
-	e->seg.sy = (y0 < y1 ? 1 : -1);
-	e->seg.err = (e->seg.dx > e->seg.dy \
-	? e->seg.dx : -e->seg.dy) / 2;
+	ft_set_segment(e, x1, y1, color);
 	while (1)
 	{
 		mlx_pixel_put(e->img.mlx_ptr, e->img.win_ptr, x0, y0, \

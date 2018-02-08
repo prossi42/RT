@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 11:23:23 by jgaillar          #+#    #+#             */
-/*   Updated: 2017/12/05 09:16:54 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:20 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		vecsous(t_vec *res, t_vec *i, t_vec *j)
 {

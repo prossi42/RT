@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1.h                                             :+:      :+:    :+:   */
+/*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 08:13:11 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:50 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTV1_H
+#ifndef RT_H
 
-# define RTV1_H
+# define RT_H
 # define WIDTH 1280
 # define LENGTH 720
 # define MT 16
@@ -29,37 +29,36 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 # include <stdio.h>
-// Define de la taille de la fenetre avec interface
 # define WIN_X 1800
 # define WIN_Y 1000
 
 typedef struct		s_vec
 {
-	double 			x;
-	double 			y;
-	double 			z;
-	double 			length;
+	double			x;
+	double			y;
+	double			z;
+	double			length;
 }					t_vec;
 
-typedef struct	s_mat   // Structure matrice
+typedef struct		s_mat
 {
-	double		angle;   // Angle de rotation en degre
-	double		radian;  // Angle en radian ---> obvious no ?
-	double		value;  // Valeur de la translation
-	char		type;  // 'r' rotation / 't' translation
-	char		axe; // Axe de rotation x, y ou z
-	int			type_sujet;  // 1 : pos obj // 2 : direction de l obj
-}				t_mat;
+	double			angle;
+	double			radian;
+	double			value;
+	char			type;
+	char			axe;
+	int				type_sujet;
+}					t_mat;
 
-typedef struct	s_seg
+typedef struct		s_seg
 {
-	int			dx;
-	int			dy;
-	int			sx;
-	int			sy;
-	int			err;
-	int			e2;
-}				t_seg;
+	int				dx;
+	int				dy;
+	int				sx;
+	int				sy;
+	int				err;
+	int				e2;
+}					t_seg;
 
 typedef struct		s_rgb
 {
@@ -221,6 +220,16 @@ typedef struct		s_light
 	struct s_light	*next;
 }					t_light;
 
+typedef	struct		s_tmp
+{
+	t_sphere		*tmpsph;
+	t_plan			*tmpplan;
+	t_cyl			*tmpcyl;
+	t_cone			*tmpcone;
+	t_light			*tmplight;
+	t_rgb			tmpcolor;
+}					t_tmp;
+
 typedef struct		s_img
 {
 	void			*mlx_ptr;
@@ -297,12 +306,13 @@ typedef struct		s_bres
 	int				xinc;
 	int				yinc;
 	int				ray_arc;
-	int	 			x_arc;
+	int				x_arc;
 	int				y_arc;
 }					t_bres;
 
 typedef	struct		s_stuff
 {
+	t_tmp			ref;
 	t_b				b;
 	t_c				c;
 	t_d				d;
@@ -329,6 +339,8 @@ typedef	struct		s_stuff
 	int				fd;
 	char			buf[BUFF_SIZE + 1];
 	int				l;
+	int				test;
+	int				ray;
 	t_mat			m;
 	t_ntmgtk		i;
 	t_letter		lt;
@@ -355,12 +367,14 @@ void				fill_list_pla(t_plan **pla, double *tabdpla, int nbmpla);
 int					ft_compare_light(char *str, int i);
 int					check_data_light(t_stuff *e, int y);
 int					init_list_light(t_light **light);
-void				fill_list_light(t_light **light, double *tabdlight, int nbmlight);
+void				fill_list_light(t_light **light, double *tabdlight, \
+					int nbmlight);
 int					init_list_cyl(t_cyl **cyl);
 int					check_data_cylindre(t_stuff *e, int y);
 void				fill_list_cyl(t_cyl **cyl, double *tabdcyl, int nbmcyl);
 int					ft_compare_cylindre(char *str, int i);
-t_rgb		getlight(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *es);
+t_rgb				getlight(t_vec *norm, t_light **light, t_rgb *colorobj, \
+					t_stuff *es);
 void				ft_exit(int code, t_stuff *e);
 void				ft_init_struct(t_stuff *e, int option);
 void				create_image(t_stuff *e);
@@ -374,7 +388,7 @@ void				upleft(t_stuff *e);
 void				raydir(t_stuff *e, int x, int y);
 void				checksphere(t_sphere *sphere, t_vec *raydir, t_vec *poscam);
 void				checkplan(t_plan *plan, t_vec *raydir, t_vec *poscam);
-void				mlx_pixel_put_to_image(t_img img, int x, int y ,int color);
+void				mlx_pixel_put_to_image(t_img img, int x, int y, int color);
 int					hooks(int keycode, t_stuff *e);
 void				echap(int keycode, t_stuff *e);
 void				cleanexit(t_stuff *e);
@@ -382,54 +396,60 @@ void				vecnorm(t_vec *i);
 void				veclength(t_vec *i);
 void				getintersection(t_stuff *e, double dist);
 void				movement(int keycode, t_stuff *e);
-int				raythingy(t_stuff *e);
+t_rgb				raythingy(t_stuff *e, t_vec *raydir, t_vec *pos);
 double				rgbtohexa(int r, int g, int b);
-void		checklight(t_light *light, t_vec *raydir, t_vec *poscam);
-void		checkcyl(t_cyl *cyl, t_vec *raydir, t_vec *poscam);
-void		checkcone(t_cone *cone, t_vec *raydir, t_vec *poscam);
-int			cone(t_stuff *e, int y);
-int			init_list_cone(t_cone **cone);
-int		check_data_cone(t_stuff *e, int y);
-void	fill_list_cone(t_cone **cone, double *tabdcone, int nbmcone);
-int		ft_compare_cone(char *str, int i);
-void	searchlist(t_stuff *e, int nmail, int nlist);
-void		check_dist(t_stuff *e, int option);
-void		check(t_stuff *e, t_vec *raydir, t_vec *pos, int option);
-int		cylindre(t_stuff *e, int y);
-int		light(t_stuff *e, int y);
-int		plan(t_stuff *e, int y);
-int		sphere(t_stuff *e, int y);
-int		cone(t_stuff *e, int y);
-int		ft_compare_cone_sd(char *str, int i);
-double		shadows(t_stuff *e, t_vec *inter, t_rgb color);
-int		mouse_hook(int button, int x, int y, t_stuff *e);
-void			ft_segment(t_stuff *e, int x1, int y1, double color);
-void			rgb_add(t_rgb *res, t_rgb i, t_rgb j, double k);
-void		getlightdir(t_stuff *e, t_vec inter);
-void		getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, t_light **light);
-t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *light);
-void		oklm(t_stuff *e);
-int		raythingydebug(t_stuff *e);
-void	matrice(char type, char axe, t_stuff *e, t_vec *sujet);
+void				checklight(t_light *light, t_vec *raydir, t_vec *poscam);
+void				checkcyl(t_cyl *cyl, t_vec *raydir, t_vec *poscam);
+void				checkcone(t_cone *cone, t_vec *raydir, t_vec *poscam);
+int					cone(t_stuff *e, int y);
+int					init_list_cone(t_cone **cone);
+int					check_data_cone(t_stuff *e, int y);
+void				fill_list_cone(t_cone **cone, double *tabdcone, \
+					int nbmcone);
+int					ft_compare_cone(char *str, int i);
+void				searchlist(t_stuff *e, int nmail, int nlist);
+void				check_dist(t_stuff *e, int option);
+void				check(t_stuff *e, t_vec *raydir, t_vec *pos, int option);
+int					cylindre(t_stuff *e, int y);
+int					light(t_stuff *e, int y);
+int					plan(t_stuff *e, int y);
+int					sphere(t_stuff *e, int y);
+int					cone(t_stuff *e, int y);
+int					ft_compare_cone_sd(char *str, int i);
+double				shadows(t_stuff *e, t_vec *inter, t_rgb color);
+int					mouse_hook(int button, int x, int y, t_stuff *e);
+void				ft_segment(t_stuff *e, int x1, int y1, double color);
+void				rgb_add(t_rgb *res, t_rgb i, t_rgb j, double k);
+void				getlightdir(t_stuff *e, t_vec inter);
+void				getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, \
+					t_light **light);
+t_vec				getrefray(t_stuff *e, t_vec *norm, t_vec *pos, \
+					t_vec *inter);
+void				oklm(t_stuff *e);
+int					raythingydebug(t_stuff *e);
+void				matrice(char type, char axe, t_stuff *e, t_vec *sujet);
+void				rotation_z(t_vec *sujet, double radian);
+void				rotation_x(t_vec *sujet, double radian);
+void				rotation_y(t_vec *sujet, double radian);
+void				translation_x(t_vec *sujet, double value);
+void				translation_y(t_vec *sujet, double value);
+void				translation_z(t_vec *sujet, double value);
+void				convert_deg_in_rad(int angle_degre, t_stuff *e);
+t_rgb				reflect(t_stuff *e, int obj, int nm);
+t_vec				getspeclight2(t_stuff *e, t_vec *norm, t_vec *light);
 
-
-//			INTERFACE
-
-int				launch_interface(t_stuff *e);
-void			pixel_put_to_img(t_mlx **mlx, int x, int y, int color);
-int				new_img(t_stuff *e);
-int				init_img(t_mlx **mlx);
-void			fill_img(t_mlx **mlx, int nbmail, t_stuff *e);
-void			objet_courant(t_stuff *e);
-void			reboot_list_interface(t_stuff *e, int option);
-void			searchlist_interface(t_stuff *e, int nmail);
-void			apercu_courant(t_stuff *e);
-void			fill_value_current(t_stuff *e);
-void			get_value_current(t_stuff *e);
-void			terminal(t_stuff *e);
-
-
-//			LIB_LETTER
+int					launch_interface(t_stuff *e);
+void				pixel_put_to_img(t_mlx **mlx, int x, int y, int color);
+int					new_img(t_stuff *e);
+int					init_img(t_mlx **mlx);
+void				fill_img(t_mlx **mlx, int nbmail, t_stuff *e);
+void				objet_courant(t_stuff *e);
+void				reboot_list_interface(t_stuff *e, int option);
+void				searchlist_interface(t_stuff *e, int nmail);
+void				apercu_courant(t_stuff *e);
+void				fill_value_current(t_stuff *e);
+void				get_value_current(t_stuff *e);
+void				terminal(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
@@ -460,4 +480,5 @@ void				Z(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);
+
 #endif

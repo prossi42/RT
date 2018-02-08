@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 14:31:38 by prossi            #+#    #+#             */
-/*   Updated: 2017/12/01 11:27:28 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:22:01 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		check_data_cylindre_fh(t_stuff *e, char *nb)
 {

@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 09:44:13 by jgaillar          #+#    #+#             */
-/*   Updated: 2017/12/05 09:39:36 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:24:24 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		veclength(t_vec *i)
 {

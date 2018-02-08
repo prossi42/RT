@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 22:13:22 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/05 08:07:17 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:27:57 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rtv1.h"
+#include "../../includes/rt.h"
 
 void	fill_value_current(t_stuff *e)
 {

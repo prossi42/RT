@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 18:28:57 by prossi            #+#    #+#             */
-/*   Updated: 2017/12/01 12:33:11 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:19 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		ft_compare_plan_sd(char *str, int i)
 {

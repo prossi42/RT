@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:10:46 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/05 07:56:00 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:27:48 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rtv1.h"
+#include "../../includes/rt.h"
 
 void	fill_value_apercu(t_stuff *e)
 {
@@ -160,7 +160,7 @@ void		aff_apercu(t_stuff *e)
 			reboot_list_loop(e, 3);
 			raydir_apercu(e, e->c.posx, e->c.posy);
 			e->poscam = e->i.poscam;
-			raythingy(e);
+			raythingy(e, &e->raydir, &e->poscam);
 			color = rgbtohexa(e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 			pixel_put_to_img(&e->i.mlx, e->c.posx, e->c.posy, color);
 		}

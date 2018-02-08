@@ -6,18 +6,19 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/02/05 08:04:24 by prossi           ###   ########.fr        #
+#    Updated: 2018/02/08 14:18:18 by lhermann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_PATH = src/
 
-SRC_NAME = main.c raytracing.c struct.c img.c vector.c vector2.c hooks.c \
+SRC_NAME = main.c raytracing.c struct.c image.c vector.c vector2.c hooks.c \
 			check_data_plan.c check_data_light.c check_data_sphere.c \
 			check_data_cylindre.c ft_check.c ft_compare_sd.c ft_compare.c \
 			ft_parsing_sd.c ft_parsing.c list_tools.c vectorcalc.c \
 			check_format.c check_format_obj.c check_data_cone.c check_obj.c \
-			shadows.c mouse_hook.c matrice.c\
+			shadows.c mouse_hook.c matrice.c rot_matrice.c trans_matrice.c \
+			init_list.c fill_list.c ft_compare_td.c \
 
 PATH_INTERFACE = src/interface/
 
@@ -39,7 +40,7 @@ OBJ_SRC_LIB_LETTER = $(SRC_NAME_LIB_LETTER:.c=.o)
 
 CPPFLAGS = -Iincludes
 
-NAME = rtv1
+NAME = RT
 
 CC = clang
 

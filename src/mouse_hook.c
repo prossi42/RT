@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 16:14:48 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 08:23:36 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:56 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int		mouse_hook(int button, int x, int y, t_stuff *e)
 {

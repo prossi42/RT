@@ -6,21 +6,27 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:20:24 by prossi            #+#    #+#             */
-/*   Updated: 2017/12/01 15:04:58 by jgaillar         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:22:52 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
+
+int		check_check(t_stuff *e)
+{
+	if (ft_strcmp(e->b.tab[0], "------") != 0)
+		return (-1);
+	if (ft_strcmp(e->b.tab[e->d.nbl - 1], "------") != 0)
+		return (-1);
+	return (0);
+}
 
 int		check_format(t_stuff *e)
 {
 	int		y;
 
 	y = -1;
-	if (ft_strcmp(e->b.tab[0], "------") != 0)
-		return (-1);
-	if (ft_strcmp(e->b.tab[e->d.nbl - 1], "------") != 0)
-		return (-1);
+	check_check(e);
 	while (e->b.tab[++y])
 	{
 		if (ft_strcmp(e->b.tab[y], "SPHERE") == 0)

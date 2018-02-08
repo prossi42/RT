@@ -6,11 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:17:03 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 08:22:24 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:50 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		ft_affich(t_stuff *e, int option)
 {
@@ -29,10 +29,10 @@ void		ft_affich(t_stuff *e, int option)
 		ft_putstr("\nError in Open or Read functions (scene/objets)\n\n");
 	if (option == 4)
 		ft_putstr("\nError in Parsing function (scene/objets)");
-	ft_exit (option, e);
+	ft_exit(option, e);
 }
 
-int		ft_open(t_stuff *e, char *argv)
+int			ft_open(t_stuff *e, char *argv)
 {
 	if ((e->b.fd = open(argv, O_RDONLY)) < 0)
 		return (-1);
@@ -41,9 +41,10 @@ int		ft_open(t_stuff *e, char *argv)
 	return (0);
 }
 
-void			ft_exit(int code, t_stuff *e)
+void		ft_exit(int code, t_stuff *e)
 {
-	int i;
+	int 	i;
+
 	i = -1;
 	if (e->img.data)
 		free(e->img.data);
@@ -53,7 +54,7 @@ void			ft_exit(int code, t_stuff *e)
 	exit(code);
 }
 
-int		main_sd(t_stuff *e, char **argv)
+int			main_sd(t_stuff *e, char **argv)
 {
 	if (ft_open(e, argv[2]) == -1)
 		ft_affich(e, 3);
@@ -65,25 +66,8 @@ int		main_sd(t_stuff *e, char **argv)
 	return (0);
 }
 
-//			DON'T TOUCH
 
-// void			color_window(t_stuff *e)
-// {
-// 	int		x;
-// 	int		y;
-//
-// 	y = -1;
-// 	while (++y < WIN_Y)
-// 	{
-// 		x = -1;
-// 		while (++x < WIN_X)
-// 		{
-// 			mlx_pixel_put(e->img.mlx_ptr, e->img.win_ptr, x, y, 0x6C0277);
-// 		}
-// 	}
-// }
-
-int				main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_stuff e;
 
@@ -96,13 +80,8 @@ int				main(int ac, char **av)
 		ft_affich(&e, 2);
 	main_sd(&e, av);
 	e.img.mlx_ptr = mlx_init();
-	// DON'T TOUCH
-	// e.img.win_ptr = mlx_new_window(e.img.mlx_ptr, WIN_X, WIN_Y,\
-	// 		"Raytracer");
 	e.img.win_ptr = mlx_new_window(e.img.mlx_ptr, WIDTH, LENGTH,\
 			"Raytracer");
-	// DON'T TOUCH
-	// color_window(&e);
 	create_image(&e);
 	aff(&e);
 	mlx_hook(e.img.win_ptr, 2, (1L << 0), hooks, &e);
