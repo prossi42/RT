@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:17:03 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/05 14:15:23 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/07 13:08:40 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		ft_affich(t_stuff *e, int option)
 	ft_exit(option, e);
 }
 
-int		ft_open(t_stuff *e, char *argv)
+int			ft_open(t_stuff *e, char *argv)
 {
 	if ((e->b.fd = open(argv, O_RDONLY)) < 0)
 		return (-1);
@@ -41,9 +41,9 @@ int		ft_open(t_stuff *e, char *argv)
 	return (0);
 }
 
-void			ft_exit(int code, t_stuff *e)
+void		ft_exit(int code, t_stuff *e)
 {
-	int i;
+	int 	i;
 
 	i = -1;
 	if (e->img.data)
@@ -54,7 +54,7 @@ void			ft_exit(int code, t_stuff *e)
 	exit(code);
 }
 
-int		main_sd(t_stuff *e, char **argv)
+int			main_sd(t_stuff *e, char **argv)
 {
 	if (ft_open(e, argv[2]) == -1)
 		ft_affich(e, 3);
@@ -67,7 +67,7 @@ int		main_sd(t_stuff *e, char **argv)
 }
 
 
-int				main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_stuff e;
 

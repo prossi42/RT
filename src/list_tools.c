@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 13:32:49 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/05 13:26:37 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/07 13:13:22 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	searchlist(t_stuff *e, int nmail, int nlist)
 	if (nlist == PLAN)
 	{
 		while (e->pla->nm != nmail)
-		e->pla = e->pla->next;
+			e->pla = e->pla->next;
 	}
 	if (nlist == CYLINDRE)
 	{
@@ -69,8 +69,8 @@ void	searchlist(t_stuff *e, int nmail, int nlist)
 	}
 	if (nlist == LIGHT)
 	{
-	while (e->light->nm != nmail)
-		e->light = e->light->next;
+		while (e->light->nm != nmail)
+			e->light = e->light->next;
 	}
 }
 

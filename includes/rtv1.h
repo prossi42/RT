@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/06 11:11:12 by luca             ###   ########.fr       */
+/*   Updated: 2018/02/07 14:46:43 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,6 +411,11 @@ t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *light);
 void		oklm(t_stuff *e);
 int		raythingydebug(t_stuff *e);
 void	matrice(char type, char axe, t_stuff *e, t_vec *sujet);
+void	rotation_z(t_vec *sujet, double radian);
+void	rotation_y(t_vec *sujet, double radian);
+void	rotation_x(t_vec *sujet, double radian);
+void	convert_deg_in_rad(int angle_degre, t_stuff *e);
+void	translation_x(t_vec *sujet, double value);
 
 
 //			INTERFACE

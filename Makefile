@@ -6,7 +6,7 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/02/06 12:43:14 by luca             ###   ########.fr        #
+#    Updated: 2018/02/07 12:29:13 by luca             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ OBJ_SRC_LIB_LETTER = $(SRC_NAME_LIB_LETTER:.c=.o)
 
 CPPFLAGS = -Iincludes
 
-NAME = RT
+NAME = rtv1
 
 CC = clang
 
