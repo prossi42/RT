@@ -53,10 +53,8 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 	if (obj == PLAN)
 	{
 		searchlist(e, e->c.objpla, PLAN);
-		vecsous(&e->pla->norml, &e->c.inter, &e->pla->pos);
-		vecnorm(&e->pla->norml);
 		e->ref.tmpplan = e->pla;
-		tmp = getrefray(e, &e->pla->norml, &e->poscam, &e->c.inter);
+		tmp = getrefray(e, &e->pla->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
 		e->pla = e->ref.tmpplan;
