@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 11:19:54 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/12 16:28:39 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void	malloc2d(t_stuff *e)
 	if (!(e->i.term.tab = (char **)malloc(sizeof(char *) * 4)))
 		err = 1;
 	i = -1;
-	while (e->i.term.tab[++i] && err != 1)
-	{
-		if (!(e->i.term.tab[i] = ft_strnew(100)))
-			err = 1;
-	}
 	if (err == 1)
 	{
 		ft_putstr("\nLe malloc du tableau (interface - terminal) a echoué\n");
 		exit (0);
+	}
+	while (e->i.term.tab[++i])
+	{
+		if (!(e->i.term.tab[i] = ft_strnew(100)))
+			err = 1;
 	}
 	e->i.term.tab[i] = NULL;
 }
