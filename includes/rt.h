@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/08 15:24:50 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:23:10 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,33 @@ typedef struct		s_mlx
 	struct s_mlx	*next;
 }					t_mlx;
 
+typedef struct		s_intermat
+{
+	int				act_rot;
+	int				act_trans;
+	int				col_box;
+	int				col_fond;
+	int				dir_or_pos;
+	int				act_xyz;
+	int				act_angle;
+	int				act_value;
+}					t_intermat;
+
+typedef struct		s_interterm
+{
+	char			**tab;
+	int				index;
+	int				indextab;
+	int				first;
+	char			*wbuf;
+	int				tabfill;
+}					t_interterm;
+
+typedef struct		s_newobj
+{
+	int				act_obj;
+}					t_newobj;
+
 typedef	struct		s_ntmgtk
 {
 	int				nb_img;
@@ -281,7 +308,9 @@ typedef	struct		s_ntmgtk
 	t_vec			upleft;
 	int				objet;
 	int				each_obj;
-	int				term;
+	t_intermat		mat;
+	t_interterm		term;
+	t_newobj		nobj;
 }					t_ntmgtk;
 
 typedef struct		s_letter
@@ -309,6 +338,14 @@ typedef struct		s_bres
 	int				x_arc;
 	int				y_arc;
 }					t_bres;
+
+typedef struct		s_camera
+{
+	struct s_camera	*prev;
+	t_vec			poscam;
+	int				nm;
+	struct s_camera *next;
+}					t_camera;
 
 typedef	struct		s_stuff
 {
@@ -439,6 +476,7 @@ t_rgb				reflect(t_stuff *e, int obj, int nm);
 t_vec				getspeclight2(t_stuff *e, t_vec *norm, t_vec *light);
 
 int					launch_interface(t_stuff *e);
+void 				init_struct(t_stuff *e, int option);
 void				pixel_put_to_img(t_mlx **mlx, int x, int y, int color);
 int					new_img(t_stuff *e);
 int					init_img(t_mlx **mlx);
@@ -450,6 +488,14 @@ void				apercu_courant(t_stuff *e);
 void				fill_value_current(t_stuff *e);
 void				get_value_current(t_stuff *e);
 void				terminal(t_stuff *e);
+void				create_obj(t_stuff *e);
+void				terminal(t_stuff *e);
+void				matrice_interface(t_stuff *e);
+void				mouse_hook_interface(t_stuff *e, int x, int y);
+void				key_hook_interface(int keycode, t_stuff *e);
+void				malloc2d(t_stuff *e);
+void				free2d(t_stuff *e);
+void				mouse_hook_newobj(t_stuff *e, int x, int y);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

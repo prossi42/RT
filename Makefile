@@ -6,7 +6,7 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/02/08 14:18:18 by lhermann         ###   ########.fr        #
+#    Updated: 2018/02/12 11:09:41 by prossi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ PATH_INTERFACE = src/interface/
 PATH_LIB_LETTER = src/interface/lib_letter
 
 SRC_NAME_INTERFACE = init_interface.c interface_list_tools.c pixel_put_to_img.c \
-objet_courant.c apercu_courant.c
+objet_courant.c apercu_courant.c create_obj.c terminal.c matrice_interface.c \
+mouse_hook_interface.c key_hook_interface.c mouse_hook_newobj.c
 
 SRC_NAME_LIB_LETTER = AA.c BB.c CC.c \
 DD.c EE.c FF.c GG.c HH.c II.c JJ.c KK.c LL.c MM.c NN.c OO.c PP.c QQ.c RR.c \

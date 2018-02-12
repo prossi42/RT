@@ -6,20 +6,20 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 22:13:22 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:27:57 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:20:19 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt.h"
+#include "rt.h"
 
 void	fill_value_current(t_stuff *e)
 {
-	if (e->c.obj == -1)
+	if (e->i.objet == -1)
 	{
 		e->i.mlx->data.pos = e->poscam;
 		e->i.mlx->data.dir = e->dircam;
 	}
-	else if (e->c.obj == SPHERE)
+	else if (e->i.objet == SPHERE)
 	{
 		e->i.mlx->data.pos = e->sph->pos;
 		e->i.mlx->data.dir.x = 0;
@@ -30,7 +30,7 @@ void	fill_value_current(t_stuff *e)
 		e->i.mlx->data.ray = e->sph->ray;
 		//DONT FORGET MATERIAUX
 	}
-	else if (e->c.obj == LIGHT)
+	else if (e->i.objet == LIGHT)
 	{
 		e->i.mlx->data.pos = e->light->pos;
 		e->i.mlx->data.dir.x = 0;
@@ -41,7 +41,7 @@ void	fill_value_current(t_stuff *e)
 		e->i.mlx->data.ray = e->light->ray;
 		//DONT FORGET MATERIAUX
 	}
-	else if (e->c.obj == CYLINDRE)
+	else if (e->i.objet == CYLINDRE)
 	{
 		e->i.mlx->data.pos = e->cyl->pos;
 		e->i.mlx->data.dir = e->cyl->norm;
@@ -50,7 +50,7 @@ void	fill_value_current(t_stuff *e)
 		e->i.mlx->data.ray = e->cyl->ray;
 		//DONT FORGET MATERIAUX
 	}
-	else if (e->c.obj == PLAN)
+	else if (e->i.objet == PLAN)
 	{
 		e->i.mlx->data.pos = e->pla->pos;
 		e->i.mlx->data.dir = e->pla->norm;
@@ -59,7 +59,7 @@ void	fill_value_current(t_stuff *e)
 		e->i.mlx->data.ray = 0;
 		//DONT FORGET MATERIAUX
 	}
-	else if (e->c.obj == CONE)
+	else if (e->i.objet == CONE)
 	{
 		e->i.mlx->data.pos = e->cone->pos;
 		e->i.mlx->data.dir = e->cone->norm;
@@ -73,16 +73,16 @@ void	fill_value_current(t_stuff *e)
 void	get_value_current(t_stuff *e)
 {
 	reboot_list_loop(e, 3);
-	if (e->c.obj == SPHERE)
-		searchlist(e, e->c.objsph, SPHERE);
-	else if (e->c.obj == LIGHT)
-		searchlist(e, e->c.objlight, LIGHT);
-	else if (e->c.obj == CYLINDRE)
-		searchlist(e, e->c.objcyl, CYLINDRE);
-	else if (e->c.obj == PLAN)
-		searchlist(e, e->c.objpla, PLAN);
-	else if (e->c.obj == CONE)
-		searchlist(e, e->c.objcone, CONE);
+	if (e->i.objet == SPHERE)
+		searchlist(e, e->i.each_obj, SPHERE);
+	else if (e->i.objet == LIGHT)
+		searchlist(e, e->i.each_obj, LIGHT);
+	else if (e->i.objet == CYLINDRE)
+		searchlist(e, e->i.each_obj, CYLINDRE);
+	else if (e->i.objet == PLAN)
+		searchlist(e, e->i.each_obj, PLAN);
+	else if (e->i.objet == CONE)
+		searchlist(e, e->i.each_obj, CONE);
 	fill_value_current(e);
 }
 
@@ -99,10 +99,6 @@ void	cadre_current(t_stuff *e)
 		{
 			//	COULEUR DE L IMAGE
 			pixel_put_to_img(&e->i.mlx, x, y, 0x6C0277);
-			// if (x == e->i.mlx->img_x - 1 || x == e->i.mlx->img_x - 2 || x == 0 || x == 1)
-			// 	pixel_put_to_img(&e->i.mlx, x, y, 0x000000);
-			// if (y == e->i.mlx->img_y - 1 || y == e->i.mlx->img_y - 2 || y == 0 || y == 1)
-			// 	pixel_put_to_img(&e->i.mlx, x, y, 0x000000);
 			if (((y == 5 || y == 6) && x >= 150 && x <= 370) || \
 			((y == 60 || y == 61) && x >= 150 && x <= 370) || \
 			(y >= 5 && y <= 60 && ((x == 150 || x == 151) || \
@@ -121,20 +117,26 @@ void	title_current(t_stuff *e)
 	e->lt.coeff = 0.5;
 	e->lt.couleur = 0x000000;
 	e->lt.space = 40;
-	if (e->c.obj == -1)
+	if (e->i.objet == -1)
 		awklm_string_put("CAMERA", e);
-	if (e->c.obj == 0)
+	if (e->i.objet == 0)
 		awklm_string_put("SPHERE", e);
-	if (e->c.obj == 1)
+	if (e->i.objet == 1)
+	{
+		e->lt.posx = 220;
 		awklm_string_put("PLAN", e);
-	if (e->c.obj == 2)
+	}
+	if (e->i.objet == 2)
 	{
 		e->lt.posx = 180;
 		awklm_string_put("CYLINDRE", e);
 	}
-	if (e->c.obj == 3)
+	if (e->i.objet == 3)
+	{
+		e->lt.posx = 220;
 		awklm_string_put("CONE", e);
-	if (e->c.obj == 4)
+	}
+	if (e->i.objet == 4)
 	{
 		e->lt.posx = 210;
 		awklm_string_put("LIGHT", e);
@@ -282,7 +284,7 @@ void	string_put_current(t_stuff *e)
 	mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 416, 83, 0x000000, buf);
 	//
 	//		DIRECTION OBJET
-	if (e->c.obj != 0 && e->c.obj != 4)
+	if (e->i.objet != 0 && e->i.objet != 4)
 	{
 		sprintf(buf, "%.2f", e->i.mlx->data.dir.x);
 		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 166, 125, 0x000000, buf);
@@ -293,7 +295,7 @@ void	string_put_current(t_stuff *e)
 	}
 	//
 	//		COULEUR OBJET
-	if (e->c.obj != -1)
+	if (e->i.objet != -1)
 	{
 		sprintf(buf, "%d", e->i.mlx->data.color.r);
 		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 190, 167, 0x000000, buf);
@@ -304,7 +306,7 @@ void	string_put_current(t_stuff *e)
 	}
 	//
 	//		TEXTURE OBJET
-	if (e->c.obj != -1)
+	if (e->i.objet != -1)
 	{
 		e->i.mlx->data.text.c1.r = 0;
 		e->i.mlx->data.text.c1.g = 0;
@@ -336,7 +338,7 @@ void	string_put_current(t_stuff *e)
 	}
 	//
 	//		RAYON OBJET
-	if (e->c.obj == 0 || e->c.obj == 2 || e->c.obj == 4)
+	if (e->i.objet == 0 || e->i.objet == 2 || e->i.objet == 4)
 	{
 		sprintf(buf, "%.2f", e->i.mlx->data.ray);
 		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 291, 251, 0x000000, buf);
@@ -361,7 +363,7 @@ void	objet_courant(t_stuff *e)
 	cadre_current(e);
 	title_current(e);
 	position_current(e);
-	if (e->c.obj != 0 || e->c.obj != 4)
+	if (e->i.objet != 0 || e->i.objet != 4)
 		direction_current(e);
 	color_current(e);
 	texture_current(e);

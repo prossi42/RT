@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 21:28:03 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:28:01 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:20:23 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt.h"
+#include "rt.h"
 
 void	pixel_put_to_img(t_mlx **mlx, int x, int y, int color)
 {
