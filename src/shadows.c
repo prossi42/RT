@@ -41,6 +41,7 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 
 	reboot_list_loop(e, 3);
 	e->ref.tmpcolor = e->c.colorf;
+	e->ref.tmpl = e->l;
 	if (obj == SPHERE)
 	{
 		searchlist(e, e->c.objsph, SPHERE);
@@ -80,5 +81,6 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 		e->cone = e->ref.tmpcone;
 	}
 	e->c.colorf = e->ref.tmpcolor;
+	e->l = e->ref.tmpl;
 	return (tmp2);
 }

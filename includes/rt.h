@@ -228,6 +228,7 @@ typedef	struct		s_tmp
 	t_cone			*tmpcone;
 	t_light			*tmplight;
 	t_rgb			tmpcolor;
+	int				tmpl
 }					t_tmp;
 
 typedef struct		s_img
