@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 09:56:01 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:27:52 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:19:58 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt.h"
+#include "rt.h"
 
 void	fill_img(t_mlx **mlx, int nbmail, t_stuff *e)
 {

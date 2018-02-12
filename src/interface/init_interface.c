@@ -6,52 +6,74 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:27:45 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:19:54 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void	free2d(t_stuff *e)
+{
+	int		i;
+
+	i = -1;
+	while (e->i.term.tab[++i])
+	{
+		ft_strdel(&e->i.term.tab[i]);
+	}
+	free(e->i.term.tab);
+}
+
+void	malloc2d(t_stuff *e)
+{
+	int		i;
+	int		err;
+
+	if (!(e->i.term.tab = (char **)malloc(sizeof(char *) * 4)))
+		err = 1;
+	i = -1;
+	while (e->i.term.tab[++i] && err != 1)
+	{
+		if (!(e->i.term.tab[i] = ft_strnew(100)))
+			err = 1;
+	}
+	if (err == 1)
+	{
+		ft_putstr("\nLe malloc du tableau (interface - terminal) a echoué\n");
+		exit (0);
+	}
+	e->i.term.tab[i] = NULL;
+}
 
 void 	init_struct(t_stuff *e, int option)
 {
 	if (option == 0 && e->i.first == 0)
 	{
 		e->i.nb_img = 0;
-		e->i.term = 0;
+		e->i.objet = -1;
+		e->i.each_obj = 0;
 	}
-}
-
-void	draw_terminal(t_stuff *e)
-{
-	int		x;
-	int		y;
-
-	y = -1;
-	while (++y < e->i.img_y)
+	if (option == 1 && e->i.first == 0)
 	{
-		x = -1;
-		while (++x < e->i.img_x)
-		{
-			pixel_put_to_img(&e->i.mlx, x, y, 0x6A455D);
-		}
+		e->i.mat.act_trans = 0;
+		e->i.mat.act_rot = 0;
+		e->i.mat.dir_or_pos = 0;
+		e->i.mat.act_xyz = 0;
+		e->i.mat.col_fond = 0x800000;
+		e->i.mat.col_box = 0x6A455D;
+		e->i.mat.act_angle = 0;
+		e->i.mat.act_value = 0;
 	}
-	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->i.mlx->img, WIN_X - WIDTH, WIN_Y - LENGTH - 30);
-}
-
-void	terminal(t_stuff *e)
-{
-	if (e->i.first == 0)
+	if (option == 2 && e->i.first == 0)
 	{
-		e->i.img_x = 400;
-		e->i.img_y = 30;
-		new_img(e);
-		draw_terminal(e);
+		e->i.term.index = 0;
+		e->i.term.first = 0;
+		e->i.term.indextab = 0;
+		e->i.term.tabfill = 0;
 	}
-	else
+	if (option == 3 && e->i.first == 0)
 	{
-		reboot_list_interface(e, 1);
-		searchlist_interface(e, 2);
-		//e->i.term dans les hooks...
+		e->i.nobj.act_obj = 0;
 	}
 }
 
@@ -60,7 +82,9 @@ int		launch_interface(t_stuff *e)
 	init_struct(e, 0);
 	objet_courant(e);
 	apercu_courant(e);
+	create_obj(e);
 	terminal(e);
+	matrice_interface(e);
 	if (e->i.first == 0)
 	{
 		e->i.first = 1;

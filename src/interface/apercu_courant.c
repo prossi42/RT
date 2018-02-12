@@ -6,11 +6,11 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:10:46 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:27:48 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:19:43 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt.h"
+#include "rt.h"
 
 void	fill_value_apercu(t_stuff *e)
 {
@@ -148,6 +148,8 @@ void		aff_apercu(t_stuff *e)
 {
 	double color;
 	t_vec	tmp_poscam;
+	int		j;
+	int		i;
 
 	vectorcalc_apercu(e);
 	tmp_poscam = e->poscam;
@@ -157,13 +159,31 @@ void		aff_apercu(t_stuff *e)
 		e->c.posx = -1;
 		while (++e->c.posx < e->i.mlx->img_x)
 		{
+			e->c.colorf.r = 0;
+			e->c.colorf.g = 0;
+			e->c.colorf.b = 0;
+			e->ray = -1;
 			reboot_list_loop(e, 3);
 			raydir_apercu(e, e->c.posx, e->c.posy);
 			e->poscam = e->i.poscam;
-			raythingy(e, &e->raydir, &e->poscam);
+			e->c.colorf = raythingy(e, &e->raydir, &e->poscam);
 			color = rgbtohexa(e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
-			pixel_put_to_img(&e->i.mlx, e->c.posx, e->c.posy, color);
+			if (e->pix > 0)
+			{
+				j = -1;
+				while (++j <= e->pix)
+				{
+					i = -1;
+					while (++i <= e->pix)
+						pixel_put_to_img(&e->i.mlx, e->c.posx + i, e->c.posy + j, color);
+				}
+				e->c.posx += e->pix;
+			}
+			else
+				pixel_put_to_img(&e->i.mlx, e->c.posx, e->c.posy, color);
 		}
+		if (e->pix > 0)
+			e->c.posy += e->pix;
 	}
 	reboot_list_loop(e, 3);
 	// e->c.obj = -1;

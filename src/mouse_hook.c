@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 16:14:48 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/08 15:23:56 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 10:15:16 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,11 @@ int		mouse_hook(int button, int x, int y, t_stuff *e)
 {
 	double color;
 
-	if (button == 1 && (x >= 0 && x <= WIDTH) && (y >= 0 && y <= LENGTH))
-	// DON'T TOUCH
-	// if (button == 1 && (x >= (WIN_X - WIDTH) && x <= WIN_X) && (y >= (WIN_Y - LENGTH) && y <= WIN_Y))
+	if (button == 1 && (x >= (WIN_X - WIDTH) && x <= WIN_X) && (y >= (WIN_Y - LENGTH) && y <= WIN_Y))
 	{
-		e->i.term = 0;
-			// DON'T TOUCH
-		// mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
-		mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, 0, 0);
+		mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
 		reboot_list_loop(e, 3);
-		//	DON'T TOUCH
-		// raydir(e, x - (WIN_X - WIDTH), y - (WIN_Y - LENGTH));
-		raydir(e, x, y);
+		raydir(e, x - (WIN_X - WIDTH), y - (WIN_Y - LENGTH));
 		check(e, &e->raydir, &e->poscam, 1);
 		check_dist(e, 1);
 		if (e->c.obj == 0)
@@ -72,14 +65,13 @@ int		mouse_hook(int button, int x, int y, t_stuff *e)
 		}
 		if (e->c.obj > -1)
 			ft_segment(e, x, y, color);
-		// Recuperation du pointeur d'objet pour l interface
 		e->i.objet = e->c.obj;
-		// launch_interface(e);
+		objet_courant(e);
+		apercu_courant(e);
 	}
-	// else if (button == 1 && y > 0 && y < 30 && x > WIN_X - WIDTH && x < WIN_X - WIDTH + 300)
-	// {
-	// 	e->i.term = 1;
-	// 	terminal(e);
-	// }
+	else if (button == 1 && ((x > 0 && x <= WIN_X && y > 0 && y < WIN_Y - LENGTH) || (x > 0 && x < WIN_X - WIDTH && y > 0 && y < WIN_Y)))
+	{
+		mouse_hook_interface(e, x, y);
+	}
 	return (0);
 }

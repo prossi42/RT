@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:17:03 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/08 15:23:50 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 10:37:49 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			main(int ac, char **av)
 		ft_affich(&e, 2);
 	main_sd(&e, av);
 	e.img.mlx_ptr = mlx_init();
-	e.img.win_ptr = mlx_new_window(e.img.mlx_ptr, WIDTH, LENGTH,\
+	e.img.win_ptr = mlx_new_window(e.img.mlx_ptr, WIN_X, WIN_Y,\
 			"Raytracer");
 	create_image(&e);
 	aff(&e);

@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:06:24 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/08 15:23:39 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/12 10:16:47 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void			ft_set_segment(t_stuff *e, int x1, int y1, double color)
 	int x0;
 	int y0;
 
-	x0 = WIDTH / 2;
-	y0 = LENGTH;
+	x0 = (WIDTH / 2) + (WIN_X - WIDTH);
+	y0 = LENGTH + (WIN_Y - LENGTH);
 	e->seg.dx = ft_abs(x1 - x0);
 	e->seg.sx = (x0 < x1 ? 1 : -1);
 	e->seg.dy = ft_abs(y1 - y0);
@@ -69,8 +69,8 @@ void			ft_segment(t_stuff *e, int x1, int y1, double color)
 	int x0;
 	int y0;
 
-	x0 = WIDTH / 2;
-	y0 = LENGTH;
+	x0 = (WIDTH / 2) + (WIN_X - WIDTH);
+	y0 = LENGTH + (WIN_Y - LENGTH);
 	ft_set_segment(e, x1, y1, color);
 	while (1)
 	{
