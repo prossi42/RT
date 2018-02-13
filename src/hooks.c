@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 10:47:04 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/12 11:17:37 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/13 08:01:32 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	pixel(int keycode, t_stuff *e)
 
 int		hooks(int keycode, t_stuff *e)
 {
-	if (e->i.mat.act_angle == 0 && e->i.mat.act_value == 0)
+	if (e->i.mat.act_angle == 0 && e->i.mat.act_value == 0 && e->i.nobj.first == -1)
 	{
 		if (keycode == 36)
 			movement_matrice(keycode, e);
@@ -147,7 +147,7 @@ int		hooks(int keycode, t_stuff *e)
 			pixel(keycode, e);
 		aff(e);
 	}
-	if (e->i.mat.act_angle == 1 || e->i.mat.act_value == 1)
+	if (e->i.mat.act_angle == 1 || e->i.mat.act_value == 1 || e->i.nobj.first != 0)
 		key_hook_interface(keycode, e);
 	return (0);
 }

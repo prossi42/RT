@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 16:28:39 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/12 21:41:51 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void 	init_struct(t_stuff *e, int option)
 	if (option == 3 && e->i.first == 0)
 	{
 		e->i.nobj.act_obj = 0;
+		e->i.nobj.first = -1;
 	}
 }
 

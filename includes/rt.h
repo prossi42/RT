@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/12 11:23:10 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/12 21:41:35 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,8 @@ typedef struct		s_interterm
 typedef struct		s_newobj
 {
 	int				act_obj;
+	int				first;
+	int				type;
 }					t_newobj;
 
 typedef	struct		s_ntmgtk

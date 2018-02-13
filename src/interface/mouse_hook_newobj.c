@@ -6,11 +6,20 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/12 11:20:14 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/13 08:02:23 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void	set_value_new_objet(t_stuff *e)
+{
+	if (e->i.term.first == 0)
+		malloc2d(e);
+	e->i.term.wbuf = ft_strnew(100);
+	e->i.nobj.first = 0;
+	terminal(e);
+}
 
 void	new_sphere(t_stuff *e)
 {
@@ -20,16 +29,17 @@ void	new_sphere(t_stuff *e)
 	init_list_sph(&e->sph->next);
 	e->sph = e->sph->next;
 	e->sph->prev = e->tmp;
+	e->sph->nm = e->d.nbmsph;
+	e->d.nbmsph++;
+	set_value_new_objet(e);
+	reboot_list(e);
 	e->sph->pos.x = 10;
 	e->sph->pos.y = 0;
 	e->sph->pos.z = 0;
-	e->sph->nm = e->d.nbmsph;
 	e->sph->ray = 2;
 	e->sph->color.r = 255;
 	e->sph->color.g = 255;
 	e->sph->color.b = 255;
-	e->d.nbmsph++;
-	reboot_list(e);
 }
 
 void	newobj_sphere(t_stuff *e, int x)
