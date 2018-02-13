@@ -220,17 +220,6 @@ typedef struct		s_light
 	struct s_light	*next;
 }					t_light;
 
-typedef	struct		s_tmp
-{
-	t_sphere		*tmpsph;
-	t_plan			*tmpplan;
-	t_cyl			*tmpcyl;
-	t_cone			*tmpcone;
-	t_light			*tmplight;
-	t_rgb			tmpcolor;
-	int				tmpl
-}					t_tmp;
-
 typedef struct		s_img
 {
 	void			*mlx_ptr;
@@ -242,6 +231,18 @@ typedef struct		s_img
 	int				size;
 	char			*data;
 }					t_img;
+
+typedef	struct		s_tmp
+{
+	t_vec			tmpinter;
+	t_sphere		*tmpsph;
+	t_plan			*tmpplan;
+	t_cyl			*tmpcyl;
+	t_cone			*tmpcone;
+	t_light			*tmplight;
+	t_rgb			tmpcolor;
+	int				tmpl;
+}					t_tmp;
 
 typedef struct		s_data
 {
@@ -464,7 +465,6 @@ void				getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, \
 t_vec				getrefray(t_stuff *e, t_vec *norm, t_vec *pos, \
 					t_vec *inter);
 void				oklm(t_stuff *e);
-int					raythingydebug(t_stuff *e);
 void				matrice(char type, char axe, t_stuff *e, t_vec *sujet);
 void				rotation_z(t_vec *sujet, double radian);
 void				rotation_x(t_vec *sujet, double radian);
