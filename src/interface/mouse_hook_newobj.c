@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/14 08:19:22 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/14 11:02:13 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ void	new_sphere(t_stuff *e)
 	e->sph->prev = e->tmp;
 	e->sph->nm = e->d.nbmsph;
 	e->d.nbmsph++;
+	set_value_new_objet(e);
+	reboot_list(e);
+}
+
+void	new_plan(t_stuff *e)
+{
+	while (e->pla->next != NULL)
+		e->pla = e->pla->next;
+	e->tmppla = e->pla;
+	init_list_pla(&e->pla->next);
+	e->pla = e->pla->next;
+	e->pla->prev = e->tmppla;
+	e->pla->nm = e->d.nbmpla;
+	e->d.nbmpla++;
 	set_value_new_objet(e);
 	reboot_list(e);
 }
@@ -94,8 +108,8 @@ void	newobj_plan(t_stuff *e, int x)
 			e->i.each_obj = e->pla->nm;
 		}
 	}
-	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95)
-		ft_putstr("En cours...\n");
+	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95 && e->i.nobj.act_obj == 2)
+		new_plan(e);
 }
 
 void	newobj_cylindre(t_stuff *e, int x)

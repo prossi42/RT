@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 22:26:52 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/14 00:27:21 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/14 12:04:14 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,13 @@ void	aff_value(t_stuff *e)
 
 void	aff_tab(t_stuff *e)
 {
-	int		i;
-
-	i = -1;
 	if (e->i.term.tabfill == 1)
 	{
 		if (e->i.term.indextab >= 0)
 		{
 			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (0 * 40), 0xFFFFFF, e->i.term.tab[0]);
 		}
-		if (e->i.term.indextab >= 1)
+		if (e->i.term.indextab > 1)
 		{
 			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (1 * 40), 0xFFFFFF, e->i.term.tab[1]);
 		}
@@ -102,12 +99,16 @@ void	end_aff_newobj(t_stuff *e)
 {
 	if (e->i.objet == SPHERE)
 		end_aff_new_sphere(e);
+	if (e->i.objet == PLAN)
+		end_aff_new_plan(e);
 }
 
 void	aff_new_obj(t_stuff *e)
 {
 	if (e->i.objet == SPHERE)
 		aff_new_sphere(e);
+	if (e->i.objet == PLAN)
+		aff_new_plan(e);
 }
 
 void	terminal(t_stuff *e)

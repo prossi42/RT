@@ -6,15 +6,15 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/13 23:54:27 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/14 12:21:57 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_H
 
 # define RT_H
-# define WIDTH 1280
-# define LENGTH 720
+# define WIDTH 640
+# define LENGTH 360
 # define MT 16
 # define BUFF_SIZE 0xfffff
 # define SPHERE 0
@@ -29,8 +29,8 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 # include <stdio.h>
-# define WIN_X 1800
-# define WIN_Y 1000
+# define WIN_X 900
+# define WIN_Y 500
 
 typedef struct		s_vec
 {
@@ -501,6 +501,8 @@ void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
 void				aff_new_sphere(t_stuff *e);
 void				end_aff_new_sphere(t_stuff *e);
+void				aff_new_plan(t_stuff *e);
+void				end_aff_new_plan(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

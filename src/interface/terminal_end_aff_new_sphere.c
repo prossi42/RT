@@ -6,11 +6,11 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 13:52:43 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/14 08:09:04 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/14 11:02:49 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RT.h"
+#include "rt.h"
 
 void	end_aff_new_sphere(t_stuff *e)
 {
