@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/14 11:02:13 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/14 15:58:00 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ void	set_value_new_objet(t_stuff *e)
 
 void	new_sphere(t_stuff *e)
 {
+	t_sphere	*tmp;
+
 	while (e->sph->next != NULL)
 		e->sph = e->sph->next;
-	e->tmp = e->sph;
+	tmp = e->sph;
 	init_list_sph(&e->sph->next);
 	e->sph = e->sph->next;
-	e->sph->prev = e->tmp;
+	e->sph->prev = tmp;
 	e->sph->nm = e->d.nbmsph;
 	e->d.nbmsph++;
 	set_value_new_objet(e);

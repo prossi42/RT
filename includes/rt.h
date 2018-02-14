@@ -6,15 +6,15 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/14 12:21:57 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/14 15:56:28 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_H
 
 # define RT_H
-# define WIDTH 640
-# define LENGTH 360
+# define WIDTH 1280
+# define LENGTH 720
 # define MT 16
 # define BUFF_SIZE 0xfffff
 # define SPHERE 0
@@ -29,8 +29,8 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 # include <stdio.h>
-# define WIN_X 900
-# define WIN_Y 500
+# define WIN_X 1800
+# define WIN_Y 1000
 
 typedef struct		s_vec
 {
