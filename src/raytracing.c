@@ -28,16 +28,6 @@ t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *pos, t_vec *inter)
 	return (res);
 }
 
-t_vec		revvec(t_vec *vec)
-{
-	t_vec ret;
-
-	ret.x = vec->x * -1;
-	ret.y = vec->y * -1;
-	ret.z = vec->z * -1;
-	return (ret);
-}
-
 t_vec		getspeclight2(t_stuff *e, t_vec *norm, t_vec *light)
 {
 	t_vec	res;
@@ -109,11 +99,11 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
 	t_rgb	tmp2;
 	e->l = 0;
+	e->ray++;
 	e->test = 0;
 	e->c.colorf.r = 0;
 	e->c.colorf.g = 0;
 	e->c.colorf.b = 0;
-	e->ray++;
 	check(e, raydir, pos, 1);
 	check_dist(e, 1);
 	reboot_list_loop(e, 3);
@@ -189,12 +179,12 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 		if (e->ray < 1 && e->test > 0)
 		{
 			if (e->c.obj == SPHERE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.1);
-			if (e->c.obj == PLAN)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.3);
+			else if (e->c.obj == PLAN)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 1);
-			if (e->c.obj == CYLINDRE)
+			else if (e->c.obj == CYLINDRE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.1);
-			//if (e->c.obj == CONE)
+		//	else if (e->c.obj == CONE)
 			//	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.1);
 		}
 	}
@@ -386,7 +376,7 @@ void		check_dist(t_stuff *e, int option)
 			e->c.obj = (e->c.distcone < e->c.dist ? CONE : e->c.obj);
 			e->d.color.r = e->d.colcone.r;
 			e->d.color.g = e->d.colcone.g;
-			e->d.color.g = e->d.colcone.b;
+			e->d.color.b = e->d.colcone.b;
 		}
 		e->c.dist = e->c.distcone;
 	}

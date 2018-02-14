@@ -220,6 +220,19 @@ typedef struct		s_light
 	struct s_light	*next;
 }					t_light;
 
+typedef	struct		s_tmp
+{
+	t_vec			tmpinter;
+	t_sphere		*tmpsph;
+	t_plan			*tmpplan;
+	t_cyl			*tmpcyl;
+	t_cone			*tmpcone;
+	t_light			*tmplight;
+	t_rgb			tmpcolor;
+	int				tmpl;
+	int				tmpobj;
+}					t_tmp;
+
 typedef struct		s_img
 {
 	void			*mlx_ptr;
@@ -232,17 +245,6 @@ typedef struct		s_img
 	char			*data;
 }					t_img;
 
-typedef	struct		s_tmp
-{
-	t_vec			tmpinter;
-	t_sphere		*tmpsph;
-	t_plan			*tmpplan;
-	t_cyl			*tmpcyl;
-	t_cone			*tmpcone;
-	t_light			*tmplight;
-	t_rgb			tmpcolor;
-	int				tmpl;
-}					t_tmp;
 
 typedef struct		s_data
 {
@@ -527,5 +529,12 @@ void				Z(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);
+
+t_rgb				raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos);
+void				checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option);
+void				check_distdebug(t_stuff *e, int option);
+double				shadowsdebug(t_stuff *e, t_vec *inter, t_rgb color);
+t_rgb				reflectdebug(t_stuff *e, int obj, int nm);
+t_rgb				getlightdebug(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e);
 
 #endif

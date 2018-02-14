@@ -38,3 +38,13 @@ void		getlightdir(t_stuff *e, t_vec inter)
 	vecsous(&e->light->lightdir, &e->light->pos, &inter);
 	vecnorm(&e->light->lightdir);
 }
+
+t_vec		revvec(t_vec *vec)
+{
+	t_vec ret;
+
+	ret.x = vec->x * -1;
+	ret.y = vec->y * -1;
+	ret.z = vec->z * -1;
+	return (ret);
+}

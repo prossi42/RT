@@ -12,6 +12,38 @@
 
 #include "rt.h"
 
+t_rgb		getlightdebug(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
+{
+	t_rgb	rgb;
+	double	angle;
+
+	rgb.r = 0;
+	rgb.g = 0;
+	rgb.b = 0;
+	angle = ((*light)->ray > 0.00001 ? (dot_product(norm, &(*light)->lightdir)) \
+		: 0);
+	if (e->ray == 1)
+		ft_putendl("wsh alors");
+	if ((*light)->ray > 0.00001 && angle > 0.00001)
+	{
+		e->test++;
+		if (e->l == 1)
+		{
+			rgb.r = colorobj->r * (*light)->amb;
+			rgb.g = colorobj->g * (*light)->amb;
+			rgb.b = colorobj->b * (*light)->amb;
+		}
+		rgb.r += ((*light)->color.r * (*light)->diff) * angle;
+		rgb.g += ((*light)->color.g * (*light)->diff) * angle;
+		rgb.b += ((*light)->color.b * (*light)->diff) * angle;
+		getspeclight(e, norm, &rgb, light);
+		return (rgb);
+	}
+	if (e->l == 1)
+		rgb_add(&rgb, rgb, (*colorobj), (*light)->amb);
+	return (rgb);
+}
+
 t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 {
 	t_vec tmp;
@@ -21,26 +53,31 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 	e->ref.tmpcolor = e->c.colorf;
 	e->ref.tmpl = e->l;
 	e->ref.tmpinter = e->c.inter;
+	e->ref.tmpobj = e->c.obj;
+	ft_putendl("ref");
 	if (obj == SPHERE)
 	{
+		ft_putendl("SPHERE");
 		searchlist(e, e->c.objsph, SPHERE);
 		e->ref.tmpsph = e->sph;
 		tmp = getrefray(e, &e->sph->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
-		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->sph = e->ref.tmpsph;
 	}
 	else if (obj == PLAN)
 	{
+		ft_putendl("PLAN");
 		searchlist(e, e->c.objpla, PLAN);
 		e->ref.tmpplan = e->pla;
 		tmp = getrefray(e, &e->pla->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
-		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->pla = e->ref.tmpplan;
 	}
 	else if (obj == CYLINDRE)
 	{
+		ft_putendl("CYLINDRE");
 		searchlist(e, e->c.objcyl, CYLINDRE);
 		vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
 		vecnorm(&e->cyl->norml);
@@ -48,11 +85,12 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		e->ref.tmpcyl = e->cyl;
 		tmp = getrefray(e, &e->cyl->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
-		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->cyl = e->ref.tmpcyl;
 	}
 	else if (obj == CONE)
 	{
+		ft_putendl("CONE");
 		searchlist(e, e->c.objcone, CONE);
 		vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
 		vecnorm(&e->cone->norml);
@@ -60,12 +98,14 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		e->ref.tmpcone = e->cone;
 		tmp = getrefray(e, &e->cone->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
-		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->cone = e->ref.tmpcone;
 	}
+	printf("tmpr : [%d] | tmpg : [%d] | tmpb : [%d]\n", tmp2.r, tmp2.g, tmp2.b);
 	e->c.colorf = e->ref.tmpcolor;
 	e->l = e->ref.tmpl;
 	e->c.inter = e->ref.tmpinter;
+	e->c.obj = e->ref.tmpobj;
 	return (tmp2);
 }
 
@@ -82,8 +122,8 @@ double		shadowsdebug(t_stuff *e, t_vec *inter, t_rgb color)
 	{
 		reboot_list_loop(e, 1);
 		getlightdir(e, e->c.inter);
-		check(e, &e->light->lightdir, &e->c.inter, 2);
-		check_dist(e, 2);
+		checkdebug(e, &e->light->lightdir, &e->c.inter, 2);
+		check_distdebug(e, 2);
 		if (e->c.dist < e->light->t && e->c.dist > 0.00001 && e->c.obj != LIGHT)
 			rgb_add(&e->c.colorf, caca, color, 0.8);
 		e->light = e->light->next;
@@ -239,14 +279,17 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
 	t_rgb	tmp2;
 	e->l = 0;
+	e->ray++;
 	e->test = 0;
 	e->c.colorf.r = 0;
 	e->c.colorf.g = 0;
 	e->c.colorf.b = 0;
-	e->ray++;
 	checkdebug(e, raydir, pos, 1);
 	check_distdebug(e, 1);
 	reboot_list_loop(e, 3);
+	ft_putstr("ray : ");
+	ft_putnbr(e->ray);
+	ft_putchar('\n');
 	if (e->c.obj >= 0 && e->c.obj <= 3)
 	{
 		getintersection(e, e->c.dist);
@@ -254,8 +297,8 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 		{
 			getlightdir(e, e->c.inter);
 			reboot_list_loop(e, 1);
-			check(e, &e->light->lightdir, &e->c.inter, 2);
-			check_dist(e, 2);
+			checkdebug(e, &e->light->lightdir, &e->c.inter, 2);
+			check_distdebug(e, 2);
 			checklight(e->light, &e->light->lightdir, &e->c.inter);
 			reboot_list_loop(e, 1);
 			if (e->c.dist > e->light->t && e->c.dist > 0.00001 && e->light->t > 0.00001)
@@ -263,46 +306,54 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 				e->l++;
 				if (e->c.obj == SPHERE)
 				{
+					if (e->ray == 1)
+						ft_putendl("fdp");
 					searchlist(e, e->c.objsph, SPHERE);
 					vecsous(&e->sph->norm, &e->c.inter, &e->sph->pos);
 					vecnorm(&e->sph->norm);
 					rgb_add(&e->c.colorf, e->c.colorf, \
-						getlight(&e->sph->norm, &e->light, &e->sph->color, e), 1);
+						getlightdebug(&e->sph->norm, &e->light, &e->sph->color, e), 1);
 				}
 				else if (e->c.obj == PLAN)
 				{
+					if (e->ray == 1)
+						ft_putendl("ntm");
 					searchlist(e, e->c.objpla, PLAN);
 					if (dot_product(&e->raydir, &e->pla->norm) < 0)
 						rgb_add(&e->c.colorf, e->c.colorf, \
-							getlight(&e->pla->norm, &e->light, &e->pla->color, e), 1);
+							getlightdebug(&e->pla->norm, &e->light, &e->pla->color, e), 1);
 					else
 					{
 						e->pla->norml.x = e->pla->norm.x * -1;
 						e->pla->norml.y = e->pla->norm.y * -1;
 						e->pla->norml.z = e->pla->norm.z * -1;
 						rgb_add(&e->c.colorf, e->c.colorf, \
-							getlight(&e->pla->norml, &e->light, &e->pla->color, e), 1);
+							getlightdebug(&e->pla->norml, &e->light, &e->pla->color, e), 1);
 					}
 				}
 				else if (e->c.obj == CYLINDRE)
 				{
+					if (e->ray == 1)
+						ft_putendl("ntr");
 					searchlist(e, e->c.objcyl, CYLINDRE);
 					vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
 					vecnorm(&e->cyl->norml);
 					e->cyl->norml.z = 0;
 					vecnorm(&e->cyl->norml);
 					rgb_add(&e->c.colorf, e->c.colorf, \
-							getlight(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);
+							getlightdebug(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);
 				}
 				else if (e->c.obj == CONE)
 				{
+					if (e->ray == 1)
+						ft_putendl("pipi");
 					searchlist(e, e->c.objcone, CONE);
 					vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
 					vecnorm(&e->cone->norml);
 					e->cone->norml.z = 0;
 					vecnorm(&e->cone->norml);
 					rgb_add(&e->c.colorf, e->c.colorf,\
-					 	getlight(&e->cone->norml, &e->light, &e->cone->color, e), 1);
+					 	getlightdebug(&e->cone->norml, &e->light, &e->cone->color, e), 1);
 			 	}
 			}
 			e->light = e->light->next;
@@ -316,17 +367,22 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 			e->d.color.b *= 0.1;
 			shadowsdebug(e, &e->c.inter, e->d.color);
 		}
+		if (e->ray == 0)
+			printf("beforerefr : [%d] | beforerefg : [%d] | beforerefb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 		if (e->ray < 1 && e->test > 0)
 		{
 			if (e->c.obj == SPHERE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, SPHERE, e->c.objsph), 0.1);
-			if (e->c.obj == PLAN)
+			else if (e->c.obj == PLAN)
 				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, PLAN, e->c.objpla), 1);
-			if (e->c.obj == CYLINDRE)
+			else if (e->c.obj == CYLINDRE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, CYLINDRE, e->c.objcyl), 0.1);
-			//if (e->c.obj == CONE)
-			//	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.1);
+			else if (e->c.obj == CONE)
+				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, CONE, e->c.objcone), 0.1);
+			ft_putendl("ref");
 		}
+		ft_putendl("end ref");
+		printf("afterrefr : [%d] | afterrefg : [%d] | afterrefb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 	}
 	else if (e->c.obj == LIGHT)
 	{
@@ -397,11 +453,13 @@ int		mouse_hook(int button, int x, int y, t_stuff *e)
 	{
 		mouse_hook_interface(e, x, y);
 	}
-	else if (button == 2 && (x >= 0 && x <= WIDTH) && (y >= 0 && y <= LENGTH))
+	else if (button == 2 && (x >= (WIN_X - WIDTH) && x <= WIN_X) && (y >= (WIN_Y - LENGTH) && y <= WIN_Y))
 	{
 		reboot_list_loop(e, 3);
-		raydir(e, x, y);
+		raydir(e, x - (WIN_X - WIDTH), y - (WIN_Y - LENGTH));
+		e->ray = -1;
 		raythingydebug(e, &e->raydir, &e->poscam);
+		ft_putchar('\n');
 	}
 	return (0);
 }
