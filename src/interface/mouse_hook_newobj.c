@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/13 08:02:23 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/14 08:19:22 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	set_value_new_objet(t_stuff *e)
 {
+	printf("DEBUG : Avant malloc 2d set value newobj\n");
 	if (e->i.term.first == 0)
 		malloc2d(e);
+	printf("DEBUG : Apres malloc 2d set value newobj\n");
+	e->i.term.first = 1;
 	e->i.term.wbuf = ft_strnew(100);
 	e->i.nobj.first = 0;
 	terminal(e);
@@ -33,13 +36,6 @@ void	new_sphere(t_stuff *e)
 	e->d.nbmsph++;
 	set_value_new_objet(e);
 	reboot_list(e);
-	e->sph->pos.x = 10;
-	e->sph->pos.y = 0;
-	e->sph->pos.z = 0;
-	e->sph->ray = 2;
-	e->sph->color.r = 255;
-	e->sph->color.g = 255;
-	e->sph->color.b = 255;
 }
 
 void	newobj_sphere(t_stuff *e, int x)
@@ -68,7 +64,7 @@ void	newobj_sphere(t_stuff *e, int x)
 			e->i.each_obj = e->sph->nm;
 		}
 	}
-	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95)
+	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95 && e->i.nobj.act_obj == 1)
 		new_sphere(e);
 }
 

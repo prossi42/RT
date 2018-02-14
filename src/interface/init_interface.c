@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 21:41:51 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/13 23:55:33 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void 	init_struct(t_stuff *e, int option)
 	}
 	if (option == 2 && e->i.first == 0)
 	{
+		e->i.term.dot = 0;
 		e->i.term.index = 0;
 		e->i.term.first = 0;
 		e->i.term.indextab = 0;

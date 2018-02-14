@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/12 21:41:35 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/13 23:54:27 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,7 @@ typedef struct		s_interterm
 	int				first;
 	char			*wbuf;
 	int				tabfill;
+	int				dot;
 }					t_interterm;
 
 typedef struct		s_newobj
@@ -498,6 +499,8 @@ void				key_hook_interface(int keycode, t_stuff *e);
 void				malloc2d(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
+void				aff_new_sphere(t_stuff *e);
+void				end_aff_new_sphere(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
