@@ -115,7 +115,6 @@ typedef struct		s_c
 	int				objlight;
 	t_rgb			colorf;
 	t_vec			inter;
-
 }					t_c;
 
 typedef struct		s_b
@@ -230,7 +229,12 @@ typedef	struct		s_tmp
 	t_light			*tmplight;
 	t_rgb			tmpcolor;
 	int				tmpl;
-	int				tmpobj;
+	// int				tmpobj;
+	// int				tmpnm;
+	// int				tmpsphnm;
+	// int				tmpplanm;
+	// int				tmpcylnm;
+	// int				tmpconenm;
 }					t_tmp;
 
 typedef struct		s_img

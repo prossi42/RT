@@ -27,6 +27,8 @@ t_rgb		getlightdebug(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
 	if ((*light)->ray > 0.00001 && angle > 0.00001)
 	{
 		e->test++;
+		if (e->ray == 1)
+			ft_putendl("i'm in");
 		if (e->l == 1)
 		{
 			rgb.r = colorobj->r * (*light)->amb;
@@ -53,7 +55,7 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 	e->ref.tmpcolor = e->c.colorf;
 	e->ref.tmpl = e->l;
 	e->ref.tmpinter = e->c.inter;
-	e->ref.tmpobj = e->c.obj;
+//	e->ref.tmpobj = e->c.obj;
 	ft_putendl("ref");
 	if (obj == SPHERE)
 	{
@@ -105,7 +107,7 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 	e->c.colorf = e->ref.tmpcolor;
 	e->l = e->ref.tmpl;
 	e->c.inter = e->ref.tmpinter;
-	e->c.obj = e->ref.tmpobj;
+	//e->c.obj = e->ref.tmpobj;
 	return (tmp2);
 }
 
@@ -142,7 +144,8 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colsph.g;
 			e->d.color.b = e->d.colsph.b;
 		}
-		e->c.dist = e->c.distsph;
+		// e->ref.tmpnm = e->ref.tmpsphnm;
+		// e->c.dist = e->c.distsph;
 	}
 	if (e->c.distpla < e->c.dist && e->c.distpla > 0.00001)
 	{
@@ -153,7 +156,8 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colpla.g;
 			e->d.color.b = e->d.colpla.b;
 		}
-		e->c.dist = e->c.distpla;
+		// e->ref.tmpnm = e->ref.tmpplanm;
+		// e->c.dist = e->c.distpla;
 	}
 	if (e->c.distcyl < e->c.dist && e->c.distcyl > 0.00001)
 	{
@@ -164,7 +168,8 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colcyl.g;
 			e->d.color.b = e->d.colcyl.b;
 		}
-		e->c.dist = e->c.distcyl;
+		// e->ref.tmpnm = e->ref.tmpcylnm;
+		// e->c.dist = e->c.distcyl;
 	}
 	if (e->c.distcone < e->c.dist && e->c.distcone > 0.00001)
 	{
@@ -175,13 +180,15 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colcone.g;
 			e->d.color.g = e->d.colcone.b;
 		}
-		e->c.dist = e->c.distcone;
+		// e->ref.tmpnm = e->ref.tmpconenm;
+		// e->c.dist = e->c.distcone;
 	}
 	if (e->c.distlight < e->c.dist && e->c.distlight > 0.00001 && option == 1)
 	{
 		e->c.obj = (e->c.distlight < e->c.dist ? LIGHT : e->c.obj);
 		e->c.dist = e->c.distlight;
 	}
+//	e->ref.tmpobj = e->c.obj;
 }
 
 void		checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
@@ -208,6 +215,7 @@ void		checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
 				e->d.colsph.g = e->sph->color.g;
 				e->d.colsph.b = e->sph->color.b;
 			}
+			// e->ref.tmpsphnm = e->sph->nm;
 		}
 		e->sph = e->sph->next;
 	}
@@ -225,6 +233,7 @@ void		checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
 				e->d.colpla.g = e->pla->color.g;
 				e->d.colpla.b = e->pla->color.b;
 			}
+			// e->ref.tmpplanm = e->pla->nm;
 		}
 		e->pla = e->pla->next;
 	}
@@ -242,6 +251,7 @@ void		checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
 				e->d.colcyl.g = e->cyl->color.g;
 				e->d.colcyl.b = e->cyl->color.b;
 			}
+			// e->ref.tmpcylnm = e->cyl->nm;
 		}
 		e->cyl = e->cyl->next;
 	}
@@ -259,6 +269,7 @@ void		checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
 				e->d.colcone.g = e->cone->color.g;
 				e->d.colcone.b = e->cone->color.b;
 			}
+			// e->ref.tmpconenm = e->cone->nm;
 		}
 		e->cone = e->cone->next;
 	}
@@ -284,12 +295,20 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 	e->c.colorf.r = 0;
 	e->c.colorf.g = 0;
 	e->c.colorf.b = 0;
+	// e->ref.tmpnm = -1;
+	// e->ref.tmpsphnm = -1;
+	// e->ref.tmpplanm = -1;
+	// e->ref.tmpcylnm = -1;
+	// e->ref.tmpconenm = -1;
+	// e->ref.tmpobj = -1;
 	checkdebug(e, raydir, pos, 1);
 	check_distdebug(e, 1);
 	reboot_list_loop(e, 3);
 	ft_putstr("ray : ");
 	ft_putnbr(e->ray);
 	ft_putchar('\n');
+	if (e->ray == 1)
+		printf("obj : [%d]\n", e->c.obj);
 	if (e->c.obj >= 0 && e->c.obj <= 3)
 	{
 		getintersection(e, e->c.dist);
@@ -301,6 +320,11 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 			check_distdebug(e, 2);
 			checklight(e->light, &e->light->lightdir, &e->c.inter);
 			reboot_list_loop(e, 1);
+			// printf("obj : [%d] | nm : [%d]\n", e->ref.tmpobj, e->ref.tmpnm);
+			if (e->ray == 1)
+			{
+				printf("dist : [%f] | ldist | [%f]\n", e->c.dist, e->light->t);
+			}
 			if (e->c.dist > e->light->t && e->c.dist > 0.00001 && e->light->t > 0.00001)
 			{
 				e->l++;
@@ -374,7 +398,7 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 			if (e->c.obj == SPHERE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, SPHERE, e->c.objsph), 0.1);
 			else if (e->c.obj == PLAN)
-				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, PLAN, e->c.objpla), 1);
+				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, PLAN, e->c.objpla), 0.5);
 			else if (e->c.obj == CYLINDRE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, CYLINDRE, e->c.objcyl), 0.1);
 			else if (e->c.obj == CONE)
