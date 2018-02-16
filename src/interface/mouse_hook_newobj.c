@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/15 21:44:10 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/16 13:41:22 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ void	new_sphere(t_stuff *e)
 {
 	t_sphere	*tmp;
 
-	while (e->sph->next != NULL)
+	if (e->d.nbmsph != 0)
+	{
+		while (e->sph->next != NULL)
+			e->sph = e->sph->next;
+		tmp = e->sph;
+		init_list_sph(&e->sph->next);
 		e->sph = e->sph->next;
-	tmp = e->sph;
-	init_list_sph(&e->sph->next);
-	e->sph = e->sph->next;
-	e->sph->prev = tmp;
-	e->sph->nm = e->d.nbmsph;
+		e->sph->prev = tmp;
+		e->sph->nm = e->d.nbmsph;
+	}
 	e->d.nbmsph++;
 	set_value_new_objet(e);
 }
@@ -37,13 +40,16 @@ void	new_plan(t_stuff *e)
 {
 	t_plan		*tmp;
 
-	while (e->pla->next != NULL)
+	if (e->d.nbmpla != 0)
+	{
+		while (e->pla->next != NULL)
+			e->pla = e->pla->next;
+		tmp = e->pla;
+		init_list_pla(&e->pla->next);
 		e->pla = e->pla->next;
-	tmp = e->pla;
-	init_list_pla(&e->pla->next);
-	e->pla = e->pla->next;
-	e->pla->prev = tmp;
-	e->pla->nm = e->d.nbmpla;
+		e->pla->prev = tmp;
+		e->pla->nm = e->d.nbmpla;
+	}
 	e->d.nbmpla++;
 	set_value_new_objet(e);
 }
@@ -52,22 +58,25 @@ void	new_cylindre(t_stuff *e)
 {
 	t_cyl	*tmp;
 
-	while (e->cyl->next != NULL)
+	if (e->d.nbmcyl != 0)
+	{
+		while (e->cyl->next != NULL)
+			e->cyl = e->cyl->next;
+		tmp = e->cyl;
+		init_list_cyl(&e->cyl->next);
 		e->cyl = e->cyl->next;
-	tmp = e->cyl;
-	init_list_cyl(&e->cyl->next);
-	e->cyl = e->cyl->next;
-	e->cyl->prev = tmp;
-	e->cyl->nm = e->d.nbmcyl;
+		e->cyl->prev = tmp;
+		e->cyl->nm = e->d.nbmcyl;
+	}
 	e->d.nbmcyl++;
 	set_value_new_objet(e);
 }
 
 void	new_cone(t_stuff *e)
 {
-	t_cone	*tmp;
+	t_cone		*tmp;
 
-	if (e->d.nbmcone == 0)
+	if (e->d.nbmcone != 0)
 	{
 		while (e->cone->next != NULL)
 			e->cone = e->cone->next;
@@ -78,6 +87,24 @@ void	new_cone(t_stuff *e)
 		e->cone->nm = e->d.nbmcone;
 	}
 	e->d.nbmcone++;
+	set_value_new_objet(e);
+}
+
+void	new_light(t_stuff *e)
+{
+	t_light		*tmp;
+
+	if (e->d.nbmlight != 0)
+	{
+		while (e->light->next != NULL)
+			e->light = e->light->next;
+		tmp = e->light;
+		init_list_light(&e->light->next);
+		e->light = e->light->next;
+		e->light->prev = tmp;
+		e->light->nm = e->d.nbmlight;
+	}
+	e->d.nbmlight++;
 	set_value_new_objet(e);
 }
 
@@ -219,7 +246,7 @@ void	newobj_light(t_stuff *e, int x)
 			e->i.each_obj = e->light->nm;
 		}
 	}
-	else if (x >= ((((WIN_X - WIDTH) / 4) * 3) + 5) && x <= ((((WIN_X - WIDTH) / 4) * 3) + 30)  && e->i.nobj.act_obj == 5)
+	else if (x >= ((((WIN_X - WIDTH) / 4) * 3) + 5) && x <= ((((WIN_X - WIDTH) / 4) * 3) + 30) && e->i.nobj.act_obj == 5)
 	{
 		searchlist(e, e->i.each_obj, e->i.objet);
 		if (e->light->next != NULL)
@@ -228,8 +255,8 @@ void	newobj_light(t_stuff *e, int x)
 			e->i.each_obj = e->light->nm;
 		}
 	}
-	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95)
-		ft_putstr("En cours...\n");
+	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95 && e->i.nobj.act_obj == 5)
+		new_light(e);
 }
 
 // void	newobj_camera(t_stuff *e, int x)

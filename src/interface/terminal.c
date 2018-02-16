@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 22:26:52 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/16 07:57:04 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/16 13:59:15 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	aff_tab(t_stuff *e)
 			ft_strclr(e->i.term.tab[2]);
 			e->i.term.tab[2] = ft_strcpy(e->i.term.tab[2], e->i.term.tab[3]);
 			e->i.term.indextab -= 1;
-			ft_strclr(e->i.term.tab[3]);
 			redraw_tab(e);
 		}
 		if (e->i.term.indextab >= 0)
@@ -130,6 +129,8 @@ void	end_aff_newobj(t_stuff *e)
 		end_aff_new_cylindre(e);
 	else if (e->i.objet == CONE)
 		end_aff_new_cone(e);
+	else if (e->i.objet == LIGHT)
+		end_aff_new_light(e);
 }
 
 void	aff_new_obj(t_stuff *e)
@@ -142,6 +143,8 @@ void	aff_new_obj(t_stuff *e)
 		aff_new_cylindre(e);
 	else if (e->i.objet == CONE)
 		aff_new_cone(e);
+	else if (e->i.objet == LIGHT)
+		aff_new_light(e);
 }
 
 void	terminal(t_stuff *e)
@@ -156,7 +159,6 @@ void	terminal(t_stuff *e)
 	}
 	else
 	{
-		printf("DEBUG : Debut de terminal\n");
 		reboot_list_interface(e, 1);
 		searchlist_interface(e, 3);
 		draw_terminal(e);
@@ -170,7 +172,6 @@ void	terminal(t_stuff *e)
 		}
 		if (e->i.term.wbuf[e->i.term.index] == '\n')
 		{
-			printf("DEBUG : Debut de if \\n - terminal\n");
 			if (e->i.mat.act_angle != 0 || e->i.mat.act_value != 0)
 			{
 				end_aff_matrice(e);
@@ -183,9 +184,7 @@ void	terminal(t_stuff *e)
 			if (e->i.term.indextab <= 3)
 				e->i.term.indextab++;
 			e->i.term.dot = 0;
-			printf("DEBUG : fin de if \\n - terminal\n");
 		}
 		aff_tab(e);
-		printf("DEBUG : Fin de terminal\n");
 	}
 }

@@ -6,7 +6,7 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/02/15 15:35:51 by Awk-LM           ###   ########.fr        #
+#    Updated: 2018/02/16 13:43:10 by prossi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ mouse_hook_interface.c key_hook_interface.c mouse_hook_newobj.c \
 terminal_aff_new_sphere.c terminal_end_aff_new_sphere.c \
 terminal_aff_new_plan.c terminal_end_aff_new_plan.c terminal_aff_new_cylindre.c\
  terminal_end_aff_new_cylindre.c terminal_end_aff_new_cone.c\
- terminal_aff_new_cone.c
+ terminal_aff_new_cone.c terminal_aff_new_light.c terminal_end_aff_new_light.c
 
 SRC_NAME_LIB_LETTER = AA.c BB.c CC.c \
 DD.c EE.c FF.c GG.c HH.c II.c JJ.c KK.c LL.c MM.c NN.c OO.c PP.c QQ.c RR.c \
@@ -49,10 +49,10 @@ NAME = RT
 
 CC = clang
 
-CCFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra #-fsanitize=address -ggdb #-Werror
 
 FDFFLAGS = -framework OpenGL -framework Appkit -lpthread -D_REENTRANT \
-			-Ofast -march=native
+			-Ofast -march=native #-fsanitize=address -ggdb
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
