@@ -134,18 +134,21 @@ int		hooks(int keycode, t_stuff *e)
 {
 	if (e->i.mat.act_angle == 0 && e->i.mat.act_value == 0)
 	{
-		if (keycode == 36)
-			movement_matrice(keycode, e);
+		if (keycode == 43 || keycode == 47)
+			pixel(keycode, e);
 		else if (keycode == 53)
 			echap(keycode, e);
-		else if (keycode == 2 || keycode == 0 || keycode == 1 || keycode == 13 \
-			|| keycode == 49 || keycode == 8 || keycode == 125 || \
-			keycode == 126 || keycode == 124 || keycode == 123 || \
-			keycode == 78 || keycode == 69)
-			movement(keycode, e);
-		else if (keycode == 43 || keycode == 47)
-			pixel(keycode, e);
-		aff(e);
+		if (e->pix > 0)
+		{
+			if (keycode == 36)
+				movement_matrice(keycode, e);
+			else if (keycode == 2 || keycode == 0 || keycode == 1 || keycode == 13 \
+				|| keycode == 49 || keycode == 8 || keycode == 125 || \
+				keycode == 126 || keycode == 124 || keycode == 123 || \
+				keycode == 78 || keycode == 69)
+				movement(keycode, e);
+			aff(e);
+		}
 	}
 	if (e->i.mat.act_angle == 1 || e->i.mat.act_value == 1)
 		key_hook_interface(keycode, e);

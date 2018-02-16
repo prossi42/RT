@@ -228,13 +228,9 @@ typedef	struct		s_tmp
 	t_cone			*tmpcone;
 	t_light			*tmplight;
 	t_rgb			tmpcolor;
+	t_rgb			tmpscolor;
 	int				tmpl;
-	// int				tmpobj;
-	// int				tmpnm;
-	// int				tmpsphnm;
-	// int				tmpplanm;
-	// int				tmpcylnm;
-	// int				tmpconenm;
+	int				objet;
 }					t_tmp;
 
 typedef struct		s_img
@@ -481,6 +477,7 @@ void				translation_z(t_vec *sujet, double value);
 void				convert_deg_in_rad(int angle_degre, t_stuff *e);
 t_rgb				reflect(t_stuff *e, int obj, int nm);
 t_vec				getspeclight2(t_stuff *e, t_vec *norm, t_vec *light);
+t_vec				revvec(t_vec *vec);
 
 int					launch_interface(t_stuff *e);
 void 				init_struct(t_stuff *e, int option);
