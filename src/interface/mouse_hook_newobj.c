@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/14 15:58:00 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/15 21:44:10 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 void	set_value_new_objet(t_stuff *e)
 {
-	printf("DEBUG : Avant malloc 2d set value newobj\n");
-	if (e->i.term.first == 0)
-		malloc2d(e);
-	printf("DEBUG : Apres malloc 2d set value newobj\n");
-	e->i.term.first = 1;
-	e->i.term.wbuf = ft_strnew(100);
 	e->i.nobj.first = 0;
 	terminal(e);
 }
@@ -37,21 +31,54 @@ void	new_sphere(t_stuff *e)
 	e->sph->nm = e->d.nbmsph;
 	e->d.nbmsph++;
 	set_value_new_objet(e);
-	reboot_list(e);
 }
 
 void	new_plan(t_stuff *e)
 {
+	t_plan		*tmp;
+
 	while (e->pla->next != NULL)
 		e->pla = e->pla->next;
-	e->tmppla = e->pla;
+	tmp = e->pla;
 	init_list_pla(&e->pla->next);
 	e->pla = e->pla->next;
-	e->pla->prev = e->tmppla;
+	e->pla->prev = tmp;
 	e->pla->nm = e->d.nbmpla;
 	e->d.nbmpla++;
 	set_value_new_objet(e);
-	reboot_list(e);
+}
+
+void	new_cylindre(t_stuff *e)
+{
+	t_cyl	*tmp;
+
+	while (e->cyl->next != NULL)
+		e->cyl = e->cyl->next;
+	tmp = e->cyl;
+	init_list_cyl(&e->cyl->next);
+	e->cyl = e->cyl->next;
+	e->cyl->prev = tmp;
+	e->cyl->nm = e->d.nbmcyl;
+	e->d.nbmcyl++;
+	set_value_new_objet(e);
+}
+
+void	new_cone(t_stuff *e)
+{
+	t_cone	*tmp;
+
+	if (e->d.nbmcone == 0)
+	{
+		while (e->cone->next != NULL)
+			e->cone = e->cone->next;
+		tmp = e->cone;
+		init_list_cone(&e->cone->next);
+		e->cone = e->cone->next;
+		e->cone->prev = tmp;
+		e->cone->nm = e->d.nbmcone;
+	}
+	e->d.nbmcone++;
+	set_value_new_objet(e);
 }
 
 void	newobj_sphere(t_stuff *e, int x)
@@ -140,8 +167,8 @@ void	newobj_cylindre(t_stuff *e, int x)
 			e->i.each_obj = e->cyl->nm;
 		}
 	}
-	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95)
-		ft_putstr("En cours...\n");
+	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95 && e->i.nobj.act_obj == 3)
+		new_cylindre(e);
 }
 
 void	newobj_cone(t_stuff *e, int x)
@@ -151,6 +178,7 @@ void	newobj_cone(t_stuff *e, int x)
 		e->i.objet = CONE;
 		e->i.nobj.act_obj = 4;
 		e->i.each_obj = 0;
+		printf("Valeur de nbmcone : [%d]\n\n", e->d.nbmcone);
 	}
 	else if (x >= (((WIN_X - WIDTH) / 4) - 30) && x <= (((WIN_X - WIDTH) / 4) - 5) && e->i.nobj.act_obj == 4)
 	{
@@ -161,7 +189,7 @@ void	newobj_cone(t_stuff *e, int x)
 			e->i.each_obj = e->cone->nm;
 		}
 	}
-	else if (x >= ((((WIN_X - WIDTH) / 4) * 3) + 5) && x <= ((((WIN_X - WIDTH) / 4) * 3) + 30)  && e->i.nobj.act_obj == 4)
+	else if (x >= ((((WIN_X - WIDTH) / 4) * 3) + 5) && x <= ((((WIN_X - WIDTH) / 4) * 3) + 30) && e->i.nobj.act_obj == 4)
 	{
 		searchlist(e, e->i.each_obj, e->i.objet);
 		if (e->cone->next != NULL)
@@ -170,8 +198,8 @@ void	newobj_cone(t_stuff *e, int x)
 			e->i.each_obj = e->cone->nm;
 		}
 	}
-	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95)
-		ft_putstr("En cours...\n");
+	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95 && e->i.nobj.act_obj == 4)
+		new_cone(e);
 }
 
 void	newobj_light(t_stuff *e, int x)

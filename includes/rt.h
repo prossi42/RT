@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/14 15:56:28 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/16 08:10:18 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef struct		s_data
 	t_rgb			color;
 	t_texture		text;
 	double			ray;
+	double			angle;
 }					t_data;
 
 typedef struct		s_mlx
@@ -503,6 +504,10 @@ void				aff_new_sphere(t_stuff *e);
 void				end_aff_new_sphere(t_stuff *e);
 void				aff_new_plan(t_stuff *e);
 void				end_aff_new_plan(t_stuff *e);
+void				aff_new_cylindre(t_stuff *e);
+void				end_aff_new_cylindre(t_stuff *e);
+void				aff_new_cone(t_stuff *e);
+void				end_aff_new_cone(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

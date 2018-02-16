@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 15:28:50 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 18:22:24 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/15 11:54:01 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,20 +112,12 @@ void	mouse_hook_matrice(t_stuff *e, int x, int y)
 	}
 	else if (x > borderx + 430 && x < borderx + 510 && y > 100 && y < 140 && e->i.mat.act_angle == 0 && e->i.mat.act_value == 0)
 	{
-		if (e->i.term.first == 0)
-			malloc2d(e);
-		e->i.term.wbuf = ft_strnew(100);
 		e->i.mat.act_angle = 1;
-		e->i.term.first = 1;
 		terminal(e);
 	}
 	else if (x > borderx + 430 && x < borderx + 510 && y > 160 && y < 200 && e->i.mat.act_value == 0 && e->i.mat.act_angle == 0)
 	{
-		if (e->i.term.first == 0)
-			malloc2d(e);
-		e->i.term.wbuf = ft_strnew(100);
 		e->i.mat.act_value = 1;
-		e->i.term.first = 1;
 		terminal(e);
 	}
 	matrice_interface(e);

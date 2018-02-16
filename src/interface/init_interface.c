@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/13 23:55:33 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/15 22:11:39 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	malloc2d(t_stuff *e)
 	int		i;
 	int		err;
 
-	if (!(e->i.term.tab = (char **)malloc(sizeof(char *) * 4)))
+	if (!(e->i.term.tab = (char **)malloc(sizeof(char *) * 15)))
 		err = 1;
 	i = -1;
 	if (err == 1)
@@ -41,6 +41,11 @@ void	malloc2d(t_stuff *e)
 	{
 		if (!(e->i.term.tab[i] = ft_strnew(100)))
 			err = 1;
+		if (err == 1)
+		{
+			ft_putstr("\nLe malloc du tableau (interface - terminal) a echoué\n");
+			exit (0);
+		}
 	}
 	e->i.term.tab[i] = NULL;
 }
@@ -66,11 +71,14 @@ void 	init_struct(t_stuff *e, int option)
 	}
 	if (option == 2 && e->i.first == 0)
 	{
+		printf("\n !!!!!!!   NE DEVRAIS PAS S AFFICHER !!!!!!!!\n\n");
 		e->i.term.dot = 0;
 		e->i.term.index = 0;
 		e->i.term.first = 0;
 		e->i.term.indextab = 0;
 		e->i.term.tabfill = 0;
+		malloc2d(e);
+		e->i.term.wbuf = ft_strnew(100);
 	}
 	if (option == 3 && e->i.first == 0)
 	{
