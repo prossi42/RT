@@ -62,6 +62,7 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		searchlist(e, e->c.objsph, SPHERE);
 		e->ref.tmpsph = e->sph;
 		tmp = getrefray(e, &e->sph->norm, &e->poscam, &e->c.inter);
+		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->sph = e->ref.tmpsph;
@@ -72,6 +73,7 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		searchlist(e, e->c.objpla, PLAN);
 		e->ref.tmpplan = e->pla;
 		tmp = getrefray(e, &e->pla->norm, &e->poscam, &e->c.inter);
+		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->pla = e->ref.tmpplan;
@@ -85,6 +87,7 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		e->cyl->norml.z = 0;
 		e->ref.tmpcyl = e->cyl;
 		tmp = getrefray(e, &e->cyl->norm, &e->poscam, &e->c.inter);
+		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->cyl = e->ref.tmpcyl;
@@ -98,6 +101,7 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		e->cone->norml.z = 0;
 		e->ref.tmpcone = e->cone;
 		tmp = getrefray(e, &e->cone->norm, &e->poscam, &e->c.inter);
+		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
 		e->cone = e->ref.tmpcone;
@@ -281,6 +285,7 @@ void		checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
 
 t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
+	printf("refx : [%f] | refy : [%f] | refz : [%f] | refx : [%f] | refy : [%f] | refz : [%f]\n", raydir->x, raydir->y, raydir->z, e->raydir.x, e->raydir.y, e->raydir.z);	
 	t_rgb	tmp2;
 	e->l = 0;
 	e->ray++;
