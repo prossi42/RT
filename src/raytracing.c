@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 11:09:06 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/16 15:11:19 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/19 13:54:48 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, t_light **light)
 	tmp3.x *= -1;
 	tmp3.y *= -1;
 	tmp3.z *= -1;
-	a = pow(dot_product(&ref, &tmp3), 1000);
+	a = pow(dot_product(&ref, &tmp3), 300);
 	tmp.r = ((*light)->color.r * (*light)->diff) * a;
 	tmp.g = ((*light)->color.g * (*light)->diff) * a;
 	tmp.b = ((*light)->color.b * (*light)->diff) * a;
@@ -108,6 +108,10 @@ t_rgb		getlight(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
 t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
 	t_rgb	tmp2;
+	t_vec	v;
+	t_vec	project;
+	double	doti;
+
 	e->l = 0;
 	e->test = 0;
 	e->c.colorf.r = 0;
@@ -157,9 +161,14 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CYLINDRE)
 				{
 					searchlist(e, e->c.objcyl, CYLINDRE);
-					vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
-					vecnorm(&e->cyl->norml);
-					e->cyl->norml.z = 0;
+					// vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
+					vecsous(&v, &e->c.inter, &e->cyl->pos);
+					doti = dot_product(&v, &e->cyl->norm);
+					project.x = doti * e->cyl->norm.x;
+					project.y = doti * e->cyl->norm.y;
+					project.z = doti * e->cyl->norm.z;
+					vecsous(&e->cyl->norml, &v, &project);
+					// e->cyl->norml.z = 0;
 					vecnorm(&e->cyl->norml);
 					rgb_add(&e->c.colorf, e->c.colorf, \
 							getlight(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);

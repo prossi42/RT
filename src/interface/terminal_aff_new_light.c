@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 13:48:07 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/16 15:34:11 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/19 14:45:39 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	aff_new_light(t_stuff *e)
 	else if (e->i.nobj.first == 7)
 	{
 		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + 3 * 40, 0xFFFFFF, "Coeff. Amb. ? : ");
-		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, WIN_X - WIDTH - 360, (WIN_Y - LENGTH) * 3 + 3 * 40, 0xFFFFFF, e->i.term.wbuf);
+		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, WIN_X - WIDTH - 340, (WIN_Y - LENGTH) * 3 + 3 * 40, 0xFFFFFF, e->i.term.wbuf);
 	}
 	else if (e->i.nobj.first == 8)
 	{
 		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + 3 * 40, 0xFFFFFF, "Coeff. Diff. ? : ");
-		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, WIN_X - WIDTH - 360, (WIN_Y - LENGTH) * 3 + 3 * 40, 0xFFFFFF, e->i.term.wbuf);
+		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, WIN_X - WIDTH - 340, (WIN_Y - LENGTH) * 3 + 3 * 40, 0xFFFFFF, e->i.term.wbuf);
 	}
 }

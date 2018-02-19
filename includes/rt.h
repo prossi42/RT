@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/19 08:07:03 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/19 10:51:32 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -513,7 +513,17 @@ void				aff_new_light(t_stuff *e);
 void				end_aff_new_light(t_stuff *e);
 int					mouse_move(int x, int y, t_stuff *e);
 void				mouse_move_new_obj(int x, int y, t_stuff *e);
+void				set_value_new_objet(t_stuff *e);
+void				newobj_sphere(t_stuff *e, int x);
+void				newobj_plan(t_stuff *e, int x);
+void				newobj_cylindre(t_stuff *e, int x);
+void				newobj_cone(t_stuff *e, int x);
+void				newobj_light(t_stuff *e, int x);
 void				del_sphere(t_stuff *e);
+void				del_plan(t_stuff *e);
+void				del_cylindre(t_stuff *e);
+void				del_cone(t_stuff *e);
+void				del_light(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

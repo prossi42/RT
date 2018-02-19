@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 10:47:04 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/19 07:56:10 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/19 14:43:04 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	movement_matrice(int keycode, t_stuff *e)
 	apercu_courant(e);
 }
 
-void	move_objet(int keycode, t_vec *pos_obj)
+void	move_objet(int keycode, t_vec *pos_obj, t_stuff *e)
 {
 	if (keycode == 123)
 		pos_obj->y += 0.5;
@@ -83,6 +83,15 @@ void	move_objet(int keycode, t_vec *pos_obj)
 		pos_obj->z += 0.5;
 	else if (keycode == 78)
 		pos_obj->z -= 0.5;
+	else if (keycode == 0)
+		e->pr.y += 0.5;
+	else if (keycode == 1)
+		e->pr.z -= 0.5;
+	else if (keycode == 2)
+		e->pr.y -= 0.5;
+	else if (keycode == 13)
+		e->pr.z += 0.5;
+	vectorcalc(e);
 }
 
 void	movement(int keycode, t_stuff *e)
@@ -90,17 +99,17 @@ void	movement(int keycode, t_stuff *e)
 	if (e->i.objet != -1)
 		searchlist(e, e->i.each_obj, e->i.objet);
 	if (e->i.objet == -1)
-		move_objet(keycode, &e->poscam);
+		move_objet(keycode, &e->poscam, e);
 	else if (e->i.objet == SPHERE)
-		move_objet(keycode, &e->sph->pos);
+		move_objet(keycode, &e->sph->pos, e);
 	else if (e->i.objet == PLAN)
-		move_objet(keycode, &e->pla->pos);
+		move_objet(keycode, &e->pla->pos, e);
 	else if (e->i.objet == CONE)
-		move_objet(keycode, &e->cone->pos);
+		move_objet(keycode, &e->cone->pos, e);
 	else if (e->i.objet == CYLINDRE)
-		move_objet(keycode, &e->cyl->pos);
+		move_objet(keycode, &e->cyl->pos, e);
 	else if (e->i.objet == LIGHT)
-		move_objet(keycode, &e->light->pos);
+		move_objet(keycode, &e->light->pos, e);
 	objet_courant(e);
 	apercu_courant(e);
 }
