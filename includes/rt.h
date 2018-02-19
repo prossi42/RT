@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/12 11:23:10 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/19 10:51:32 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef struct		s_data
 	t_rgb			color;
 	t_texture		text;
 	double			ray;
+	double			angle;
 }					t_data;
 
 typedef struct		s_mlx
@@ -286,11 +287,15 @@ typedef struct		s_interterm
 	int				first;
 	char			*wbuf;
 	int				tabfill;
+	int				dot;
 }					t_interterm;
 
 typedef struct		s_newobj
 {
 	int				act_obj;
+	int				first;
+	int				type;
+	int				open;
 }					t_newobj;
 
 typedef	struct		s_ntmgtk
@@ -496,6 +501,29 @@ void				key_hook_interface(int keycode, t_stuff *e);
 void				malloc2d(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
+void				aff_new_sphere(t_stuff *e);
+void				end_aff_new_sphere(t_stuff *e);
+void				aff_new_plan(t_stuff *e);
+void				end_aff_new_plan(t_stuff *e);
+void				aff_new_cylindre(t_stuff *e);
+void				end_aff_new_cylindre(t_stuff *e);
+void				aff_new_cone(t_stuff *e);
+void				end_aff_new_cone(t_stuff *e);
+void				aff_new_light(t_stuff *e);
+void				end_aff_new_light(t_stuff *e);
+int					mouse_move(int x, int y, t_stuff *e);
+void				mouse_move_new_obj(int x, int y, t_stuff *e);
+void				set_value_new_objet(t_stuff *e);
+void				newobj_sphere(t_stuff *e, int x);
+void				newobj_plan(t_stuff *e, int x);
+void				newobj_cylindre(t_stuff *e, int x);
+void				newobj_cone(t_stuff *e, int x);
+void				newobj_light(t_stuff *e, int x);
+void				del_sphere(t_stuff *e);
+void				del_plan(t_stuff *e);
+void				del_cylindre(t_stuff *e);
+void				del_cone(t_stuff *e);
+void				del_light(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

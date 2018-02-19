@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 10:39:00 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 11:19:50 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/16 23:57:53 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,177 @@ void	add_obj(t_stuff *e)
 	draw_plus(e, ((e->i.mlx->img_x / 4) * 3) + 70, 230);
 }
 
+void	draw_open_garbage(t_stuff *e, int x, int y)
+{
+				// BASE DE LA POUBELLE
+	e->bs.xi = x;
+	e->bs.yi = y;
+	e->bs.xf = e->bs.xi + 20;
+	e->bs.yf = e->bs.yi;
+	e->lt.couleur = 0x6C0277;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.yi = y + 1;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.yi = y - 20;
+	e->bs.xf =e->bs.xi + 20;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.yi = y - 21;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.xf = e->bs.xi;
+	e->bs.yi = y - 20;
+	e->bs.yf = y;
+	ft_segment_letter(e);
+	e->bs.xi = x + 1;
+	e->bs.xf = e->bs.xi;
+	e->bs.yi = y - 20;
+	ft_segment_letter(e);
+	e->bs.xi = x + 20;
+	e->bs.yi = y - 20;
+	e->bs.xf = e->bs.xi;
+	e->bs.yf = y;
+	ft_segment_letter(e);
+	e->bs.xi = x + 21;
+	e->bs.yi = y - 20;
+	ft_segment_letter(e);
+		// COUVERCLE DE LA POUBELLE
+	e->bs.xi = x - 4;
+	e->bs.yi = y;
+	e->bs.xf = e->bs.xi;
+	e->bs.yf = e->bs.yi - 24;
+	ft_segment_letter(e);
+	e->bs.xi = x - 5;
+	e->bs.yi = y;
+	e->bs.xf = e->bs.xi;
+	ft_segment_letter(e);
+	e->bs.x_arc = x - 4;
+	e->bs.y_arc = y - 12;
+	e->bs.ray_arc = 12;
+	ft_arc(e, 2);
+	e->bs.ray_arc = 13;
+	ft_arc(e, 2);
+	e->bs.xi = x - 4 - 13;
+	e->bs.yi = y - 10;
+	e->bs.xf = e->bs.xi - 4;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x - 4 - 13;
+	e->bs.yi = y - 14;
+	e->bs.xf = e->bs.xi - 4;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = e->bs.xf;
+	e->bs.yi = e->bs.yf;
+	e->bs.xf = e->bs.xi;
+	e->bs.yf = e->bs.yi + 4;
+	ft_segment_letter(e);
+}
+
+void	draw_close_garbage(t_stuff *e, int x, int y)
+{
+			// BASE DE LA POUBELLE
+	e->bs.xi = x;
+	e->bs.yi = y;
+	e->bs.xf = e->bs.xi + 20;
+	e->bs.yf = e->bs.yi;
+	e->lt.couleur = 0x6C0277;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.yi = y + 1;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.yi = y - 20;
+	e->bs.xf =e->bs.xi + 20;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.yi = y - 21;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.xf = e->bs.xi;
+	e->bs.yi = y - 20;
+	e->bs.yf = y;
+	ft_segment_letter(e);
+	e->bs.xi = x + 1;
+	e->bs.xf = e->bs.xi;
+	e->bs.yi = y - 20;
+	ft_segment_letter(e);
+	e->bs.xi = x + 20;
+	e->bs.yi = y - 20;
+	e->bs.xf = e->bs.xi;
+	e->bs.yf = y;
+	ft_segment_letter(e);
+	e->bs.xi = x + 21;
+	e->bs.yi = y - 20;
+	ft_segment_letter(e);
+				// COUVERCLE DE LA POUBELLE
+	e->bs.xi = x - 2;
+	e->bs.yi = y - 22;
+	e->bs.xf = e->bs.xi + 24;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.xi = x - 2;
+	e->bs.yi = y - 23;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+	e->bs.x_arc = x + 10;
+	e->bs.y_arc = y - 22;
+	e->bs.ray_arc = 12;
+	ft_arc(e, 3);
+	e->bs.ray_arc = 13;
+	ft_arc(e, 3);
+	e->bs.xi = x + 8;
+	e->bs.yi = y - 23 - 13;
+	e->bs.xf = e->bs.xi;
+	e->bs.yf = e->bs.yi - 2;
+	ft_segment_letter(e);
+	e->bs.xi = x + 12;
+	e->bs.yi = y - 23 - 13;
+	e->bs.xf = e->bs.xi;
+	ft_segment_letter(e);
+	e->bs.xi = x + 8;
+	e->bs.xf = x + 12;
+	e->bs.yi = y - 23 - 13 - 2;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
+}
+
+void	del_obj(t_stuff *e)
+{
+	if (e->i.nobj.open != 1)
+		draw_close_garbage(e, (e->i.mlx->img_x / 4) - 90, 40);
+	else if (e->i.nobj.open == 1)
+		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 40);
+	if (e->i.nobj.open != 2)
+		draw_close_garbage(e, (e->i.mlx->img_x / 4) - 90, 85);
+	else if (e->i.nobj.open == 2)
+		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 85);
+	if (e->i.nobj.open != 3)
+		draw_close_garbage(e, (e->i.mlx->img_x / 4) - 90, 130);
+	else if (e->i.nobj.open == 3)
+		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 130);
+	if (e->i.nobj.open != 4)
+		draw_close_garbage(e, (e->i.mlx->img_x / 4) - 90, 175);
+	else if (e->i.nobj.open == 4)
+		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 175);
+	if (e->i.nobj.open != 5)
+		draw_close_garbage(e, (e->i.mlx->img_x / 4) - 90, 220);
+	else if (e->i.nobj.open == 5)
+		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 220);
+	if (e->i.nobj.open != 6)
+		draw_close_garbage(e, (e->i.mlx->img_x / 4) - 90, 265);
+	else if (e->i.nobj.open == 6)
+		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 265);
+}
+
 void	create_obj(t_stuff *e)
 {
 	if (e->i.first == 0)
@@ -215,5 +386,6 @@ void	create_obj(t_stuff *e)
 	draw_arrow(e);
 	name_new_obj(e);
 	add_obj(e);
+	del_obj(e);
 	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->i.mlx->img, 0, WIN_Y - LENGTH + WIN_Y - LENGTH);
 }

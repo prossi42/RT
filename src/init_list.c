@@ -6,7 +6,7 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 12:51:49 by luca              #+#    #+#             */
-/*   Updated: 2018/02/08 15:23:43 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/02/19 07:47:20 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		init_list_cone(t_cone **cone)
 	(*cone)->norm.y = 0;
 	(*cone)->norm.z = 0;
 	(*cone)->angle = 0;
+	(*cone)->nm = 0;
 	(*cone)->next = NULL;
 	return (0);
 }
@@ -46,6 +47,7 @@ int		init_list_cyl(t_cyl **cyl)
 	(*cyl)->norm.y = 0;
 	(*cyl)->norm.z = 0;
 	(*cyl)->ray = 0;
+	(*cyl)->nm = 0;
 	(*cyl)->next = NULL;
 	return (0);
 }
@@ -64,6 +66,7 @@ int		init_list_light(t_light **light)
 	(*light)->ray = 0;
 	(*light)->amb = 0;
 	(*light)->diff = 0;
+	(*light)->nm = 0;
 	(*light)->next = NULL;
 	return (0);
 }
@@ -80,6 +83,7 @@ int		init_list_sph(t_sphere **sph)
 	(*sph)->color.g = 0;
 	(*sph)->color.b = 0;
 	(*sph)->ray = 0;
+	(*sph)->nm = 0;
 	(*sph)->next = NULL;
 	return (0);
 }
@@ -98,6 +102,7 @@ int		init_list_pla(t_plan **pla)
 	(*pla)->norm.x = 0;
 	(*pla)->norm.y = 0;
 	(*pla)->norm.z = 0;
+	(*pla)->nm = 0;
 	(*pla)->next = NULL;
 	return (0);
 }

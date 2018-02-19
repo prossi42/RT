@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 22:13:22 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 11:20:19 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/19 07:40:55 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	fill_value_current(t_stuff *e)
 		e->i.mlx->data.dir = e->cone->norm;
 		e->i.mlx->data.color = e->cone->color;
 		e->i.mlx->data.text = e->cone->text;
-		e->i.mlx->data.ray = 0;
+		e->i.mlx->data.angle = e->cone->angle;
 		//DONT FORGET MATERIAUX
 	}
 }
@@ -267,7 +267,10 @@ void	ray_current(t_stuff *e)
 	draw_ray_current(e);
 	e->lt.posx = 45;
 	e->lt.posy = 268;
-	awklm_string_put("RAYON", e);
+	if (e->i.objet == SPHERE || e->i.objet == CYLINDRE || e->i.objet == LIGHT)
+		awklm_string_put("RAYON", e);
+	else if (e->i.objet == CONE)
+		awklm_string_put("ANGLE", e);
 }
 
 void	string_put_current(t_stuff *e)
@@ -341,6 +344,11 @@ void	string_put_current(t_stuff *e)
 	if (e->i.objet == 0 || e->i.objet == 2 || e->i.objet == 4)
 	{
 		sprintf(buf, "%.2f", e->i.mlx->data.ray);
+		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 291, 251, 0x000000, buf);
+	}
+	else if (e->i.objet == CONE)
+	{
+		sprintf(buf, "%.2f", e->i.mlx->data.angle);
 		mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 291, 251, 0x000000, buf);
 	}
 	ft_strdel(&buf);
