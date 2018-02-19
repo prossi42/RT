@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 22:17:03 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/16 11:13:47 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/18 22:56:42 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int			main(int ac, char **av)
 	mlx_hook(e->img.win_ptr, 2, (1L << 0), hooks, e);
 	mlx_hook(e->img.win_ptr, 17, (1L << 17), (int(*)())cleanexit, e);
 	mlx_hook(e->img.win_ptr, 4, (1L << 2), mouse_hook, e);
+	mlx_hook(e->img.win_ptr, 6, (1L << 6), mouse_move, e);
 	mlx_loop(e->img.mlx_ptr);
 	return (0);
 }

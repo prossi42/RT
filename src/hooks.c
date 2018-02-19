@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 10:47:04 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/13 23:52:43 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/19 07:56:10 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ void	choose_sujet(t_stuff *e)
 {
 	reboot_list_loop(e, 3);
 	e->c.obj = e->i.objet;
-	if (e->c.obj == SPHERE)
+	if (e->c.obj == SPHERE && e->d.nbmsph != 0)
 	{
 		searchlist(e, e->i.each_obj, SPHERE);
 		if (e->m.type_sujet == 1)
 			matrice(e->m.type, e->m.axe, e, &e->sph->pos);
 	}
-	else if (e->c.obj == LIGHT)
+	else if (e->c.obj == LIGHT && e->d.nbmlight != 0)
 	{
 		searchlist(e, e->i.each_obj, LIGHT);
 		matrice(e->m.type, e->m.axe, e, &e->light->pos);
 	}
-	else if (e->c.obj == CYLINDRE)
+	else if (e->c.obj == CYLINDRE && e->d.nbmcyl != 0)
 	{
 		searchlist(e, e->i.each_obj, CYLINDRE);
 		if (e->m.type_sujet == 1)
@@ -35,7 +35,7 @@ void	choose_sujet(t_stuff *e)
 		else
 			matrice(e->m.type, e->m.axe, e, &e->cyl->norm);
 	}
-	else if (e->c.obj == PLAN)
+	else if (e->c.obj == PLAN && e->d.nbmpla != 0)
 	{
 		searchlist(e, e->i.each_obj, PLAN);
 		if (e->m.type_sujet == 1)
@@ -43,7 +43,7 @@ void	choose_sujet(t_stuff *e)
 		else
 			matrice(e->m.type, e->m.axe, e, &e->pla->norm);
 	}
-	else if (e->c.obj == CONE)
+	else if (e->c.obj == CONE && e->d.nbmcone != 0)
 	{
 		searchlist(e, e->i.each_obj, CONE);
 		if (e->m.type_sujet == 1)

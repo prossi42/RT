@@ -6,7 +6,7 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/02/16 13:43:10 by prossi           ###   ########.fr        #
+#    Updated: 2018/02/19 08:06:08 by Awk-LM           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ mouse_hook_interface.c key_hook_interface.c mouse_hook_newobj.c \
 terminal_aff_new_sphere.c terminal_end_aff_new_sphere.c \
 terminal_aff_new_plan.c terminal_end_aff_new_plan.c terminal_aff_new_cylindre.c\
  terminal_end_aff_new_cylindre.c terminal_end_aff_new_cone.c\
- terminal_aff_new_cone.c terminal_aff_new_light.c terminal_end_aff_new_light.c
+ terminal_aff_new_cone.c terminal_aff_new_light.c terminal_end_aff_new_light.c \
+mouse_move.c mouse_move_new_obj.c del_sphere.c
 
 SRC_NAME_LIB_LETTER = AA.c BB.c CC.c \
 DD.c EE.c FF.c GG.c HH.c II.c JJ.c KK.c LL.c MM.c NN.c OO.c PP.c QQ.c RR.c \

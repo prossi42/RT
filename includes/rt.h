@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/16 14:22:06 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/19 08:07:03 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,6 +295,7 @@ typedef struct		s_newobj
 	int				act_obj;
 	int				first;
 	int				type;
+	int				open;
 }					t_newobj;
 
 typedef	struct		s_ntmgtk
@@ -510,6 +511,9 @@ void				aff_new_cone(t_stuff *e);
 void				end_aff_new_cone(t_stuff *e);
 void				aff_new_light(t_stuff *e);
 void				end_aff_new_light(t_stuff *e);
+int					mouse_move(int x, int y, t_stuff *e);
+void				mouse_move_new_obj(int x, int y, t_stuff *e);
+void				del_sphere(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
