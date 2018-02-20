@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 11:09:06 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/19 13:54:48 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/20 11:47:01 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	reboot_list_loop(e, 3);
 	if (e->c.obj >= 0 && e->c.obj <= 3)
 	{
-		getintersection(e, e->c.dist);
+		getintersection(e, e->c.dist, raydir, pos);
 		while (e->light)
 		{
 			getlightdir(e, e->c.inter);
@@ -161,14 +161,12 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CYLINDRE)
 				{
 					searchlist(e, e->c.objcyl, CYLINDRE);
-					// vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
 					vecsous(&v, &e->c.inter, &e->cyl->pos);
 					doti = dot_product(&v, &e->cyl->norm);
 					project.x = doti * e->cyl->norm.x;
 					project.y = doti * e->cyl->norm.y;
 					project.z = doti * e->cyl->norm.z;
 					vecsous(&e->cyl->norml, &v, &project);
-					// e->cyl->norml.z = 0;
 					vecnorm(&e->cyl->norml);
 					rgb_add(&e->c.colorf, e->c.colorf, \
 							getlight(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);
@@ -176,9 +174,13 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CONE)
 				{
 					searchlist(e, e->c.objcone, CONE);
-					vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
-					vecnorm(&e->cone->norml);
-					e->cone->norml.z = 0;
+					// vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
+					vecsous(&v, &e->c.inter, &e->cyl->pos);
+					doti = dot_product(&v, &e->cyl->norm);
+					project.x = doti * e->cyl->norm.x;
+					project.y = doti * e->cyl->norm.y;
+					project.z = doti * e->cyl->norm.z;
+					vecsous(&e->cyl->norml, &v, &project);
 					vecnorm(&e->cone->norml);
 					rgb_add(&e->c.colorf, e->c.colorf,\
 					 	getlight(&e->cone->norml, &e->light, &e->cone->color, e), 1);
@@ -203,8 +205,8 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 1);
 			else if (e->c.obj == CYLINDRE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
-			else if (e->c.obj == CONE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
+			// else if (e->c.obj == CONE)
+			// 	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
 		}
 	}
 	else if (e->c.obj == LIGHT)

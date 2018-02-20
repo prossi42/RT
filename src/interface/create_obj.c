@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 10:39:00 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/20 08:50:41 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/20 11:35:29 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -604,12 +604,12 @@ void	create_obj(t_stuff *e)
 	draw_central(e);
 	draw_del(e);
 	draw_add(e);
-	if (e->i.power == 1)
-		draw_obj(e);
-	else if (e->i.power == 2)
-		draw_garbage(e);
-	else if (e->i.power == 3)
-		draw_plus(e);
+	// if (e->i.nobj.power == 1)
+	// 	draw_obj(e);
+	// else if (e->i.nobj.power == 2)
+	// 	draw_garbage(e);
+	// else if (e->i.nobj.power == 3)
+	// 	draw_plus(e);
 	// draw_arrow(e);
 	// name_new_obj(e);
 	// add_obj(e);
