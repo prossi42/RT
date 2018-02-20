@@ -285,7 +285,7 @@ void		checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
 
 t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
-	printf("refx : [%f] | refy : [%f] | refz : [%f] | refx : [%f] | refy : [%f] | refz : [%f]\n", raydir->x, raydir->y, raydir->z, e->raydir.x, e->raydir.y, e->raydir.z);	
+	printf("refx : [%f] | refy : [%f] | refz : [%f] | refx : [%f] | refy : [%f] | refz : [%f]\n", raydir->x, raydir->y, raydir->z, e->raydir.x, e->raydir.y, e->raydir.z);
 	t_rgb	tmp2;
 	e->l = 0;
 	e->ray++;
@@ -303,7 +303,7 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 		printf("obj : [%d]\n", e->c.obj);
 	if (e->c.obj >= 0 && e->c.obj <= 3)
 	{
-		getintersection(e, e->c.dist);
+		getintersection(e, e->c.dist, raydir, pos);
 		if (e->ray == 1)
 			printf("interx : [%f] | intery : [%f] | interz : [%f]\n", e->c.inter.x, e->c.inter.y, e->c.inter.z);
 		while (e->light)

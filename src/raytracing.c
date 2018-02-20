@@ -109,7 +109,7 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	reboot_list_loop(e, 3);
 	if (e->c.obj >= 0 && e->c.obj <= 3)
 	{
-		getintersection(e, e->c.dist);
+		getintersection(e, e->c.dist, raydir, pos);
 		while (e->light)
 		{
 			getlightdir(e, e->c.inter);
@@ -183,9 +183,9 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 			else if (e->c.obj == PLAN)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.5);
 			else if (e->c.obj == CYLINDRE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.1);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 3);
 			else if (e->c.obj == CONE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.1);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 3);
 		}
 	}
 	else if (e->c.obj == LIGHT)

@@ -69,7 +69,7 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 		vecnorm(&e->cyl->norml);
 		e->cyl->norml.z = 0;
 		e->ref.tmpcyl = e->cyl;
-		tmp = getrefray(e, &e->cyl->norm, &e->poscam, &e->c.inter);
+		tmp = getrefray(e, &e->cyl->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
 		e->cyl = e->ref.tmpcyl;
@@ -81,7 +81,7 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 		vecnorm(&e->cone->norml);
 		e->cone->norml.z = 0;
 		e->ref.tmpcone = e->cone;
-		tmp = getrefray(e, &e->cone->norm, &e->poscam, &e->c.inter);
+		tmp = getrefray(e, &e->cone->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
 		e->cone = e->ref.tmpcone;

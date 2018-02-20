@@ -435,7 +435,7 @@ void				echap(int keycode, t_stuff *e);
 void				cleanexit(t_stuff *e);
 void				vecnorm(t_vec *i);
 void				veclength(t_vec *i);
-void				getintersection(t_stuff *e, double dist);
+void				getintersection(t_stuff *e, double dist, t_vec *raydir, t_vec *pos);
 void				movement(int keycode, t_stuff *e);
 t_rgb				raythingy(t_stuff *e, t_vec *raydir, t_vec *pos);
 double				rgbtohexa(int r, int g, int b);

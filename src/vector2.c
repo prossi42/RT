@@ -26,11 +26,11 @@ void		vecnorm(t_vec *i)
 	veclength(i);
 }
 
-void		getintersection(t_stuff *e, double dist)
+void		getintersection(t_stuff *e, double dist, t_vec *raydir, t_vec *pos)
 {
-	e->c.inter.x = e->poscam.x + (e->raydir.x * dist);
-	e->c.inter.y = e->poscam.y + (e->raydir.y * dist);
-	e->c.inter.z = e->poscam.z + (e->raydir.z * dist);
+	e->c.inter.x = pos->x + raydir->x * dist;
+	e->c.inter.y = pos->y + raydir->y * dist;
+	e->c.inter.z = pos->z + raydir->z * dist;
 }
 
 void		getlightdir(t_stuff *e, t_vec inter)
