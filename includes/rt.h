@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/19 10:51:32 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/20 01:19:47 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@ typedef struct		s_newobj
 	int				first;
 	int				type;
 	int				open;
+	int				power;
 }					t_newobj;
 
 typedef	struct		s_ntmgtk
@@ -339,7 +340,7 @@ typedef struct		s_bres
 	int				cumul;
 	int				xinc;
 	int				yinc;
-	int				ray_arc;
+	double			ray_arc;
 	int				x_arc;
 	int				y_arc;
 }					t_bres;

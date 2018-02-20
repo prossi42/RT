@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/16 23:50:58 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/20 01:21:16 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void 	init_struct(t_stuff *e, int option)
 		e->i.nobj.act_obj = 0;
 		e->i.nobj.first = -1;
 		e->i.nobj.open = 0;
+		e->i.nobj.power = 0;
 	}
 }
 

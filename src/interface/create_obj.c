@@ -6,29 +6,44 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 10:39:00 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/16 23:57:53 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/20 08:50:41 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+// void	draw_plus(t_stuff *e, int x, int y)
+// {
+// 	int		tmpx;
+// 	int		tmpy;
+//
+// 	tmpy = y - 1;
+// 	while (++tmpy <= y + 35)
+// 	{
+// 		tmpx = x - 1;
+// 		while (++tmpx < x + 25)
+// 		{
+// 			if ((tmpx == x + (25 / 2) || tmpx == x + (25 / 2) + 1) && tmpy >= y + (35 / 5) && tmpy <= y + ((35 / 5) * 4))
+// 				pixel_put_to_img(&e->i.mlx, tmpx, tmpy, 0x6C0277);
+// 			else if ((tmpy == y + (35 / 2) || tmpy == y + (35 / 2) + 1) && tmpx >= x + (25 / 6) && tmpx <= x + ((25 / 6) * 5))
+// 				pixel_put_to_img(&e->i.mlx, tmpx, tmpy, 0x6C0277);
+// 		}
+// 	}
+// }
+
 void	draw_plus(t_stuff *e, int x, int y)
 {
-	int		tmpx;
-	int		tmpy;
-
-	tmpy = y - 1;
-	while (++tmpy <= y + 35)
-	{
-		tmpx = x - 1;
-		while (++tmpx < x + 25)
-		{
-			if ((tmpx == x + (25 / 2) || tmpx == x + (25 / 2) + 1) && tmpy >= y + (35 / 5) && tmpy <= y + ((35 / 5) * 4))
-				pixel_put_to_img(&e->i.mlx, tmpx, tmpy, 0x6C0277);
-			else if ((tmpy == y + (35 / 2) || tmpy == y + (35 / 2) + 1) && tmpx >= x + (25 / 6) && tmpx <= x + ((25 / 6) * 5))
-				pixel_put_to_img(&e->i.mlx, tmpx, tmpy, 0x6C0277);
-		}
-	}
+	e->bs.xi = x + (25 / 2);
+	e->bs.yi = y + (25 / 5);
+	e->bs.xf = e->bs.xi;
+	e->bs.yf = e->bs.yi + 23;
+	e->lt.couleur = 0xFFD700;
+	ft_segment_letter(e);
+	e->bs.xi = x;
+	e->bs.yi = y + (35 / 2);
+	e->bs.xf = e->bs.xi + 25;
+	e->bs.yf = e->bs.yi;
+	ft_segment_letter(e);
 }
 
 void	draw_box_arrow(t_stuff *e, int x, int y)
@@ -49,7 +64,7 @@ void	draw_box_arrow(t_stuff *e, int x, int y)
 
 void	arrow(t_stuff *e, int x, int y, int option)
 {
-	e->lt.couleur = 0x6C0277;
+	e->lt.couleur = 0xFFD700;
 	if (option == 0)
 	{
 		e->bs.xi = x + 24;
@@ -101,29 +116,29 @@ void	arrow(t_stuff *e, int x, int y, int option)
 void	draw_arrow(t_stuff *e)
 {
 	//Supprimer les draw_box_arrow quand les hooks de souris seront fait
-	draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 5);
+	// draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 5);
 	arrow(e, (e->i.mlx->img_x / 4) - 30, 5, 0);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 5);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 5);
 	arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 5, 1);
-	draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 50);
+	// draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 50);
 	arrow(e, (e->i.mlx->img_x / 4) - 30, 50, 0);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 50);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 50);
 	arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 50, 1);
-	draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 95);
+	// draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 95);
 	arrow(e, (e->i.mlx->img_x / 4) - 30, 95, 0);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 95);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 95);
 	arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 95, 1);
-	draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 140);
+	// draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 140);
 	arrow(e, (e->i.mlx->img_x / 4) - 30, 140, 0);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 140);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 140);
 	arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 140, 1);
-	draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 185);
+	// draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 185);
 	arrow(e, (e->i.mlx->img_x / 4) - 30, 185, 0);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 185);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 185);
 	arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 185, 1);
-	draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 230);
+	// draw_box_arrow(e, (e->i.mlx->img_x / 4) - 30, 230);
 	arrow(e, (e->i.mlx->img_x / 4) - 30, 230, 0);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 230);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 230);
 	arrow(e, ((e->i.mlx->img_x / 4) * 3) + 5, 230, 1);
 }
 
@@ -138,20 +153,20 @@ void	draw_new_obj(t_stuff *e)
 		x = -1;
 		while (++x < e->i.mlx->img_x)
 		{
-			if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 5 || y == 6) || (y == 40 || y == 41))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 5 && y <= 41))
-				pixel_put_to_img(&e->i.mlx, x, y, 0x6C0277);
-			else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 50 || y == 51) || (y == 85 || y == 86))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 50 && y <= 86))
-				pixel_put_to_img(&e->i.mlx, x, y, 0x6C0277);
-			else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 95 || y == 96) || (y == 130 || y == 131))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 95 && y <= 131))
-				pixel_put_to_img(&e->i.mlx, x, y, 0x6C0277);
-			else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 140 || y == 141) || (y == 175 || y == 176))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 140 && y <= 176))
-				pixel_put_to_img(&e->i.mlx, x, y, 0x6C0277);
-			else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 185 || y == 186) || (y == 220 || y == 221))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 185 && y <= 221))
-				pixel_put_to_img(&e->i.mlx, x, y, 0x6C0277);
-			else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 230 || y == 231) || (y == 265 || y == 266))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 230 && y <= 266))
-				pixel_put_to_img(&e->i.mlx, x, y, 0x6C0277);
-			else
-				pixel_put_to_img(&e->i.mlx, x, y, 0x000000);
+			// if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 5 || y == 6) || (y == 40 || y == 41))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 5 && y <= 41))
+			// 	pixel_put_to_img(&e->i.mlx, x, y, 0xFFD700);
+			// else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 50 || y == 51) || (y == 85 || y == 86))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 50 && y <= 86))
+			// 	pixel_put_to_img(&e->i.mlx, x, y, 0xFFD700);
+			// else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 95 || y == 96) || (y == 130 || y == 131))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 95 && y <= 131))
+			// 	pixel_put_to_img(&e->i.mlx, x, y, 0xFFD700);
+			// else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 140 || y == 141) || (y == 175 || y == 176))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 140 && y <= 176))
+			// 	pixel_put_to_img(&e->i.mlx, x, y, 0xFFD700);
+			// else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 185 || y == 186) || (y == 220 || y == 221))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 185 && y <= 221))
+			// 	pixel_put_to_img(&e->i.mlx, x, y, 0xFFD700);
+			// else if ((x >= e->i.mlx->img_x / 4 && x <= (e->i.mlx->img_x / 4) * 3 && ((y == 230 || y == 231) || (y == 265 || y == 266))) || ((x == e->i.mlx->img_x / 4 || x == (e->i.mlx->img_x / 4) * 3) && y >= 230 && y <= 266))
+			// 	pixel_put_to_img(&e->i.mlx, x, y, 0xFFD700);
+			// else
+				pixel_put_to_img(&e->i.mlx, x, y, 0x202020);
 		}
 	}
 }
@@ -161,7 +176,7 @@ void	name_new_obj(t_stuff *e)
 	e->lt.posx = e->i.mlx->img_x / 4 + 100;
 	e->lt.posy = 35;
 	e->lt.coeff = 0.3;
-	e->lt.couleur = 0x6C0277;
+	e->lt.couleur = 0xFFD700;
 	e->lt.space = 40;
 	awklm_string_put("SPHERE", e);
 	e->lt.posx = e->i.mlx->img_x / 4 + 110;
@@ -183,29 +198,86 @@ void	name_new_obj(t_stuff *e)
 
 void	add_obj(t_stuff *e)
 {
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 5);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 5);
 	draw_plus(e, ((e->i.mlx->img_x / 4) * 3) + 70, 5);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 50);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 50);
 	draw_plus(e, ((e->i.mlx->img_x / 4) * 3) + 70, 50);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 95);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 95);
 	draw_plus(e, ((e->i.mlx->img_x / 4) * 3) + 70, 95);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 140);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 140);
 	draw_plus(e, ((e->i.mlx->img_x / 4) * 3) + 70, 140);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 185);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 185);
 	draw_plus(e, ((e->i.mlx->img_x / 4) * 3) + 70, 185);
-	draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 230);
+	// draw_box_arrow(e, ((e->i.mlx->img_x / 4) * 3) + 70, 230);
 	draw_plus(e, ((e->i.mlx->img_x / 4) * 3) + 70, 230);
 }
 
 void	draw_open_garbage(t_stuff *e, int x, int y)
 {
+	int		i;
+
+	i = -1;
+				// CONTOUR
+	e->bs.x_arc = x + 10;
+	e->bs.y_arc = y - 18;
+	e->bs.ray_arc = 20 + 1;
+	e->lt.couleur = 0xAF995B;
+	ft_arc(e, 9);
+	while (e->bs.ray_arc > 0)
+	{
+		e->bs.ray_arc--;
+		ft_arc(e, 9);
+	}
+	e->bs.x_arc = x + 10;
+	e->bs.y_arc = y - 18;
+	e->bs.ray_arc = 20 + 1;
+	while (e->bs.ray_arc > 0)
+	{
+		e->bs.y_arc--;
+		e->bs.ray_arc--;
+		ft_arc(e, 9);
+	}
+	e->bs.x_arc = x + 10;
+	e->bs.y_arc = y - 18;
+	e->bs.ray_arc = 20 + 1;
+	while (e->bs.ray_arc > 0)
+	{
+		e->bs.y_arc++;
+		e->bs.ray_arc--;
+		ft_arc(e, 9);
+	}
+	e->bs.x_arc = x + 10;
+	e->bs.y_arc = y - 18;
+	e->bs.ray_arc = 20 + 1;
+	while (e->bs.ray_arc > 0)
+	{
+		e->bs.x_arc++;
+		e->bs.ray_arc--;
+		ft_arc(e, 9);
+	}
+	e->bs.x_arc = x + 10;
+	e->bs.y_arc = y - 18;
+	e->bs.ray_arc = 20 + 1;
+	while (e->bs.ray_arc > 0)
+	{
+		e->bs.x_arc--;
+		e->bs.ray_arc--;
+		ft_arc(e, 9);
+	}
 				// BASE DE LA POUBELLE
 	e->bs.xi = x;
 	e->bs.yi = y;
 	e->bs.xf = e->bs.xi + 20;
 	e->bs.yf = e->bs.yi;
-	e->lt.couleur = 0x6C0277;
-	ft_segment_letter(e);
+	e->lt.couleur = 0x696969;
+	while (e->bs.yi > y - 20)
+	{
+		ft_segment_letter(e);
+		e->bs.xi = x;
+		e->bs.yi--;
+		e->bs.yf = e->bs.yi;
+	}
+	e->lt.couleur = 0x000000;
 	e->bs.xi = x;
 	e->bs.yi = y + 1;
 	e->bs.yf = e->bs.yi;
@@ -250,8 +322,10 @@ void	draw_open_garbage(t_stuff *e, int x, int y)
 	e->bs.y_arc = y - 12;
 	e->bs.ray_arc = 12;
 	ft_arc(e, 2);
-	e->bs.ray_arc = 13;
-	ft_arc(e, 2);
+	// e->bs.ray_arc = 13;
+	e->lt.couleur = 0x696969;
+	while (--e->bs.ray_arc > 0)
+		ft_arc(e, 2);
 	e->bs.xi = x - 4 - 13;
 	e->bs.yi = y - 10;
 	e->bs.xf = e->bs.xi - 4;
@@ -368,6 +442,150 @@ void	del_obj(t_stuff *e)
 		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 265);
 }
 
+void	ft_init_value(t_stuff *e, int option)
+{
+	if (option == 0)
+	{
+		e->lt.couleur = 0x000000;
+		e->bs.x_arc = e->i.mlx->img_x / 2;
+		e->bs.y_arc = e->i.mlx->img_y / 2;
+		e->bs.ray_arc = 100;
+	}
+	else if (option == 1)
+	{
+		e->bs.x_arc = (e->i.mlx->img_x / 2) - 10;
+		e->bs.ray_arc = 105;
+	}
+	else if (option == 2)
+	{
+		e->bs.x_arc = (e->i.mlx->img_x / 2) + 10;
+		e->bs.ray_arc = 105;
+	}
+	else if (option == 3)
+	{
+		e->bs.x_arc = e->i.mlx->img_x / 2;
+		e->bs.y_arc = e->i.mlx->img_y / 2 - 10;
+		e->bs.ray_arc = 105;
+	}
+	else if (option == 4)
+	{
+		e->bs.x_arc = e->i.mlx->img_x / 2;
+		e->bs.y_arc = e->i.mlx->img_y / 2 + 10;
+	}
+	else if (option == 5)
+	{
+		e->bs.x_arc = 0;
+		e->bs.y_arc = e->i.mlx->img_y / 2;
+		e->bs.ray_arc = 100;
+	}
+	else if (option == 6)
+	{
+		e->bs.x_arc = e->i.mlx->img_x;
+		e->bs.y_arc = e->i.mlx->img_y / 2;
+		e->bs.ray_arc = 100;
+	}
+}
+
+void	draw_central(t_stuff *e)
+{
+	int		i;
+
+	i = -1;
+	ft_init_value(e, 0);
+	if (e->i.nobj.power != 1)
+	{
+		ft_arc(e, 9);
+		while (e->bs.ray_arc > 0)
+		{
+			e->bs.ray_arc--;
+			e->bs.x_arc--;
+			ft_arc(e, 9);
+		}
+		ft_init_value(e, 0);
+		while (e->bs.ray_arc > 0)
+		{
+			e->bs.ray_arc--;
+			e->bs.x_arc++;
+			ft_arc(e, 9);
+		}
+	}
+	else if (e->i.nobj.power == 1)
+	{
+		while (--e->bs.ray_arc >= 0)
+		{
+			ft_arc(e, 9);
+			e->bs.x_arc--;
+			ft_arc(e, 9);
+			e->bs.x_arc++;
+		}
+	}
+	ft_init_value(e, 1);
+	while (++i < 5)
+	{
+		ft_arc(e, 10);
+		e->bs.x_arc--;
+	}
+	ft_init_value(e, 2);
+	i = -1;
+	while (++i < 5)
+	{
+		ft_arc(e, 11);
+		e->bs.x_arc++;
+	}
+	ft_init_value(e, 3);
+	i = -1;
+	while (++i < 5)
+	{
+		ft_arc(e, 12);
+		e->bs.y_arc--;
+	}
+	ft_init_value(e, 4);
+	i = -1;
+	while (++i < 5)
+	{
+		ft_arc(e, 13);
+		e->bs.y_arc++;
+	}
+}
+
+void	draw_del(t_stuff *e)
+{
+	ft_init_value(e, 5);
+	if (e->i.nobj.power != 2)
+	{
+		while (--e->bs.x_arc >= -100)
+		{
+			ft_arc(e, 1);
+			e->bs.ray_arc--;
+		}
+	}
+	else if (e->i.nobj.power == 2)
+	{
+		while (--e->bs.x_arc >= -100)
+		{
+			ft_arc(e, 1);
+		}
+	}
+}
+
+void	draw_add(t_stuff *e)
+{
+	ft_init_value(e, 6);
+	if (e->i.nobj.power != 3)
+	{
+		while (++e->bs.x_arc <= e->i.mlx->img_x + 100)
+		{
+			ft_arc(e, 2);
+			e->bs.ray_arc--;
+		}
+	}
+	else if (e->i.nobj.power == 3)
+	{
+		while (++e->bs.x_arc <= e->i.mlx->img_x + 100)
+			ft_arc(e, 2);
+	}
+}
+
 void	create_obj(t_stuff *e)
 {
 	if (e->i.first == 0)
@@ -383,9 +601,18 @@ void	create_obj(t_stuff *e)
 		searchlist_interface(e, 2);
 	}
 	draw_new_obj(e);
-	draw_arrow(e);
-	name_new_obj(e);
-	add_obj(e);
-	del_obj(e);
+	draw_central(e);
+	draw_del(e);
+	draw_add(e);
+	if (e->i.power == 1)
+		draw_obj(e);
+	else if (e->i.power == 2)
+		draw_garbage(e);
+	else if (e->i.power == 3)
+		draw_plus(e);
+	// draw_arrow(e);
+	// name_new_obj(e);
+	// add_obj(e);
+	// del_obj(e);
 	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->i.mlx->img, 0, WIN_Y - LENGTH + WIN_Y - LENGTH);
 }

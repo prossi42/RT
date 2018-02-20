@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 23:39:04 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/18 14:56:14 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/20 08:43:38 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,18 @@ void	check_x_n_active(t_stuff *e, int x, int option)
 
 void	mouse_move_new_obj(int x, int y, t_stuff *e)
 {
-	int		bordery;
+	int			centery;
+	int			centerx;
 
-	bordery = (WIN_Y - LENGTH) * 2;
-	if (y >= bordery + 5 && y <= bordery + 40)
-		check_x_n_active(e, x, 1);
-	else if (y >= bordery + 50 && y <= bordery + 85)
-		check_x_n_active(e, x, 2);
-	else if (y >= bordery + 95 && y <= bordery + 130)
-		check_x_n_active(e, x, 3);
-	else if (y >= bordery + 140 && y <= bordery + 175)
-		check_x_n_active(e, x, 4);
-	else if (y >= bordery + 185 && y <= bordery + 220)
-		check_x_n_active(e, x, 5);
-	else if (y >= bordery + 230 && y <= bordery + 265)
-		check_x_n_active(e, x, 6);
+	centery = (WIN_Y - LENGTH * 2) + ((WIN_Y - LENGTH) / 2);
+	centerx = (WIN_X - WIDTH) / 2;
+	if (x > centerx - 100 && x <= centerx + 100)
+		e->i.nobj.power = 1;
+	else if (x > 0 && x <= 100)
+		e->i.nobj.power = 2;
+	else if (x >= (WIN_X - WIDTH) - 100 && x < (WIN_X - WIDTH))
+		e->i.nobj.power = 3;
+	else
+		e->i.nobj.power = 0;
+	create_obj(e);
 }
