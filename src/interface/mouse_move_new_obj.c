@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 23:39:04 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/20 08:43:38 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/20 14:33:09 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	mouse_move_new_obj(int x, int y, t_stuff *e)
 
 	centery = (WIN_Y - LENGTH * 2) + ((WIN_Y - LENGTH) / 2);
 	centerx = (WIN_X - WIDTH) / 2;
-	if (x > centerx - 100 && x <= centerx + 100)
-		e->i.nobj.power = 1;
-	else if (x > 0 && x <= 100)
-		e->i.nobj.power = 2;
-	else if (x >= (WIN_X - WIDTH) - 100 && x < (WIN_X - WIDTH))
-		e->i.nobj.power = 3;
-	else
-		e->i.nobj.power = 0;
-	create_obj(e);
+	// if (x > centerx - 100 && x <= centerx + 100)
+	// 	e->i.nobj.power = 1;
+	// else if (x > 0 && x <= 100)
+	// 	e->i.nobj.power = 2;
+	// else if (x >= (WIN_X - WIDTH) - 100 && x < (WIN_X - WIDTH))
+	// 	e->i.nobj.power = 3;
+	// else
+	// 	e->i.nobj.power = 0;
+	// create_obj(e);
 }
