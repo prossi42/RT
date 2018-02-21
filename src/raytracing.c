@@ -98,6 +98,10 @@ t_rgb		getlight(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
 t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
 	t_rgb	tmp2;
+	t_vec	v;
+	t_vec	project;
+	double	doti;
+
 	e->l = 0;
 	e->ray++;
 	e->test = 0;
@@ -147,9 +151,12 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CYLINDRE)
 				{
 					searchlist(e, e->c.objcyl, CYLINDRE);
-					vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
-					vecnorm(&e->cyl->norml);
-					e->cyl->norml.z = 0;
+					vecsous(&v, &e->c.inter, &e->cyl->pos);
+					doti = dot_product(&v, &e->cyl->norm);
+					project.x = doti * e->cyl->norm.x;
+					project.y = doti * e->cyl->norm.y;
+					project.z = doti * e->cyl->norm.z;
+					vecsous(&e->cyl->norml, &v, &project);
 					vecnorm(&e->cyl->norml);
 					rgb_add(&e->c.colorf, e->c.colorf, \
 							getlight(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);
@@ -178,14 +185,14 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 		}
 		if (e->ray < 1 && e->test > 0)
 		{
-			if (e->c.obj == SPHERE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.5);
-			else if (e->c.obj == PLAN)
+		//	if (e->c.obj == SPHERE)
+			//	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.5);
+			if (e->c.obj == PLAN)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.5);
 			else if (e->c.obj == CYLINDRE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 3);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.5);
 			else if (e->c.obj == CONE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 3);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.5);
 		}
 	}
 	else if (e->c.obj == LIGHT)

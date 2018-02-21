@@ -65,9 +65,6 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 	else if (obj == CYLINDRE)
 	{
 		searchlist(e, e->c.objcyl, CYLINDRE);
-		vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
-		vecnorm(&e->cyl->norml);
-		e->cyl->norml.z = 0;
 		e->ref.tmpcyl = e->cyl;
 		tmp = getrefray(e, &e->cyl->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
@@ -77,9 +74,6 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 	else if (obj == CONE)
 	{
 		searchlist(e, e->c.objcone, CONE);
-		vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
-		vecnorm(&e->cone->norml);
-		e->cone->norml.z = 0;
 		e->ref.tmpcone = e->cone;
 		tmp = getrefray(e, &e->cone->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);

@@ -287,6 +287,10 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 {
 	printf("refx : [%f] | refy : [%f] | refz : [%f] | refx : [%f] | refy : [%f] | refz : [%f]\n", raydir->x, raydir->y, raydir->z, e->raydir.x, e->raydir.y, e->raydir.z);
 	t_rgb	tmp2;
+	t_vec	v;
+	t_vec	project;
+	double	doti;
+
 	e->l = 0;
 	e->ray++;
 	e->test = 0;
@@ -358,12 +362,15 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 					if (e->ray == 1)
 						ft_putendl("ntr");
 					searchlist(e, e->c.objcyl, CYLINDRE);
-					vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
-					vecnorm(&e->cyl->norml);
-					e->cyl->norml.z = 0;
+					vecsous(&v, &e->c.inter, &e->cyl->pos);
+					doti = dot_product(&v, &e->cyl->norm);
+					project.x = doti * e->cyl->norm.x;
+					project.y = doti * e->cyl->norm.y;
+					project.z = doti * e->cyl->norm.z;
+					vecsous(&e->cyl->norml, &v, &project);
 					vecnorm(&e->cyl->norml);
 					rgb_add(&e->c.colorf, e->c.colorf, \
-							getlightdebug(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);
+						getlight(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);
 				}
 				else if (e->c.obj == CONE)
 				{
