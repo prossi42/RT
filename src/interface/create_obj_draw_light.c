@@ -6,11 +6,34 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 16:07:40 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/22 18:14:13 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/22 22:19:51 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void	draw_light_sd(t_stuff *e)
+{
+	ft_ellipse(e, 1, 4);
+	ft_init_value_draw_light(e, 11);
+	ft_segment_letter(e);
+	ft_init_value_draw_light(e, 12);
+	ft_segment_letter(e);
+	ft_init_value_draw_light(e, 13);
+	ft_arc(e, 6);
+	ft_arc(e, 11);
+	ft_init_value_draw_light(e, 14);
+	ft_segment_letter(e);
+	ft_init_value_draw_light(e, 15);
+	ft_segment_letter(e);
+	ft_init_value_draw_light(e, 16);
+	ft_segment_letter(e);
+	ft_init_value_draw_light(e, 17);
+	ft_segment_letter(e);
+	ft_init_value_draw_light(e, 18);
+	ft_ellipse(e, 1, 1);
+	ft_ellipse(e, 2, 0);
+}
 
 void	draw_light(t_stuff *e)
 {
@@ -38,7 +61,5 @@ void	draw_light(t_stuff *e)
 	ft_init_value_draw_light(e, 9);
 	ft_ellipse(e, 2, 4);
 	ft_init_value_draw_light(e, 10);
-	ft_ellipse(e, 1, 4);
-	// ft_init_value_draw_light(e, 11);
-	ft_ellipse(e, 1, 3);
+	draw_light_sd(e);
 }

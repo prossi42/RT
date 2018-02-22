@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/20 14:35:17 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/22 23:44:29 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,41 @@ void	set_value_new_objet(t_stuff *e)
 
 void	mouse_hook_newobj(t_stuff *e, int x, int y)
 {
-	int		bordery;
+	int		centery;
 	int		centerx;
+	int		bordery;
 
 	bordery = (WIN_Y - LENGTH) * 2;
+	centery = bordery + ((((WIN_Y - LENGTH) * 3) - ((WIN_Y - LENGTH) * 2)) / 2);
 	centerx = (WIN_X - WIDTH) / 2;
-	if (x > centerx - 100 && x <= centerx + 100)
+	if (y >= centery - 100 && y <= centery + 100 && x > centerx - 100 && x <= centerx + 100)
 	{
 		if (e->i.nobj.power == 0)
 			e->i.nobj.power = 1;
 		else
 			e->i.nobj.power = 0;
-		create_obj(e);
 	}
+	else if (e->i.nobj.power == 1 && y > bordery && y < centery - 100 && x > centerx - 100 && x < centerx + 100)
+	{
+		if (e->i.objet < LIGHT)
+		{
+			e->i.objet++;
+			e->i.each_obj = 0;
+		}
+	}
+	else if (e->i.nobj.power == 1 && y > centery + 100 && y < (WIN_Y - LENGTH) * 3 && x > centerx - 100 && x < centerx + 100)
+	{
+		if (e->i.objet > -1)
+		{
+			e->i.objet--;
+			e->i.each_obj = 0;
+		}
+	}
+	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x > centerx + 100 && x < 402)
+	{
+		switch_next_objet(e);
+	}
+	create_obj(e);
 	// if (y >= bordery + 5 && y <= bordery + 40)
 	// 	newobj_sphere(e, x);
 	// if (y >= bordery + 50 && y <= bordery + 85)

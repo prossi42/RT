@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 17:25:13 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/22 00:41:31 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/22 22:45:21 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	draw_camera_sd(t_stuff *e)
 void	draw_camera(t_stuff *e)
 {
 	ft_init_value_draw_camera(e, 7);
-	printf("Valeur en x : [%d]\n", e->bs.xi);
-	printf("Valeur en y : [%d]\n", e->bs.yi);
 	ft_segment_letter(e);
 	ft_init_value_draw_camera(e, 8);
 	ft_segment_letter(e);

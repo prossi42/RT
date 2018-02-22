@@ -6,11 +6,66 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 16:15:26 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/22 18:15:06 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/22 22:24:05 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void	init_value_draw_light_fh(t_stuff *e, int option)
+{
+	if (option == 11)
+	{
+		e->bs.xi = (e->i.mlx->img_x / 2) - 2;
+		e->bs.yi = (e->i.mlx->img_y / 2) - 12;
+		e->bs.xf = e->bs.xi + 29;
+		e->bs.yf = e->bs.yi - 51;
+	}
+	else if (option == 12)
+	{
+		ft_init_value_draw_light(e, 11);
+		e->bs.xi = e->bs.xi + (29 / 4) + 5;
+		e->bs.yi = e->bs.yi - (51 / 4);
+		e->bs.xf = e->bs.xi + ((29 / 4) * 2) - 1;
+		e->bs.yf = e->bs.yi - ((51 / 4) * 2);
+	}
+	else if (option == 13)
+	{
+		ft_init_value_draw_light(e, 11);
+		e->bs.x_arc = e->bs.xi + (29 / 2) - 1;
+		e->bs.y_arc = e->bs.yi - (51 / 2) - 1;
+		e->bs.ray_arc = 15;
+	}
+}
+
+void	init_value_draw_light_td(t_stuff *e, int option)
+{
+	if (option == 7)
+	{
+		e->bs.xi = (e->i.mlx->img_x / 2) - 23;
+		e->bs.yi = (e->i.mlx->img_y / 2) - 58;
+		e->bs.xf = e->bs.xi - 47;
+		e->bs.yf = e->bs.yi + 42;
+	}
+	else if (option == 8)
+	{
+		e->bs.x_arc = (e->i.mlx->img_x / 2) - 7;
+		e->bs.y_arc = (e->i.mlx->img_y / 2) - 63;
+		e->bs.ray_arc = 15;
+	}
+	else if (option == 9)
+	{
+		e->bs.x_arc = (e->i.mlx->img_x / 2) + 23;
+		e->bs.y_arc = (e->i.mlx->img_y / 2) - 52;
+		e->bs.width = 40;
+		e->bs.height = 50;
+	}
+	else if (option == 10)
+	{
+		e->bs.y_arc += 28;
+		e->bs.x_arc -= 20;
+	}
+}
 
 void	init_value_draw_light_sd(t_stuff *e, int option)
 {
@@ -70,33 +125,10 @@ void	ft_init_value_draw_light(t_stuff *e, int option)
 		init_value_draw_light(e, option);
 	if (option >= 3 && option <= 6)
 		init_value_draw_light_sd(e, option);
-	else if (option == 7)
-	{
-		e->bs.xi = (e->i.mlx->img_x / 2) - 23;
-		e->bs.yi = (e->i.mlx->img_y / 2) - 58;
-		e->bs.xf = e->bs.xi - 47;
-		e->bs.yf = e->bs.yi + 42;
-	}
-	else if (option == 8)
-	{
-		e->bs.x_arc = (e->i.mlx->img_x / 2) - 7;
-		e->bs.y_arc = (e->i.mlx->img_y / 2) - 63;
-		e->bs.ray_arc = 15;
-	}
-	else if (option == 9)
-	{
-		e->bs.x_arc = (e->i.mlx->img_x / 2) + 23;
-		e->bs.y_arc = (e->i.mlx->img_y / 2) - 52;
-		e->bs.width = 40;
-		e->bs.height = 50;
-	}
-	else if (option == 10)
-	{
-		e->bs.y_arc += 22;
-		e->bs.x_arc -= 5;
-	}
-	else if (option == 11)
-	{
-		e->bs.y_arc -= 10;
-	}
+	if (option >= 7 && option <= 10)
+		init_value_draw_light_td(e, option);
+	if (option >= 11 && option <= 13)
+		init_value_draw_light_fh(e, option);
+	else
+		ft_init_value_draw_light_sd(e, option);
 }

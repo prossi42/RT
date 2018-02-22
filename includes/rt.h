@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/22 16:21:07 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/22 23:46:34 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -539,7 +539,10 @@ void				ft_init_value_draw_plan_sd(t_stuff *e, int option);
 void				ft_init_value_draw_plan_td(t_stuff *e, int option);
 void				ft_init_value_draw_cylindre_cone(t_stuff *e, int option);
 void				ft_init_value_draw_light(t_stuff *e, int option);
+void				ft_init_value_draw_light_sd(t_stuff *e, int option);
 void				draw_light(t_stuff *e);
+void				switch_next_objet(t_stuff *e);
+void				switch_prev_objet(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

@@ -6,7 +6,7 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/02/22 16:21:41 by prossi           ###   ########.fr        #
+#    Updated: 2018/02/22 23:34:12 by Awk-LM           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ create_obj_draw_central_background.c create_obj_draw_side_background.c \
 create_obj_draw_objects.c ft_init_value_draw_sphere.c ft_init_value_draw_plan.c\
   ft_init_value_draw_plan_sd.c ft_init_value_draw_plan_td.c \
  ft_init_value_draw_cylindre_cone.c create_obj_draw_light.c \
-ft_init_value_draw_light.c
+ft_init_value_draw_light.c ft_init_value_draw_light_sd.c \
+create_obj_switch_next_objet.c
 
 SRC_NAME_LIB_LETTER = AA.c BB.c CC.c \
 DD.c EE.c FF.c GG.c HH.c II.c JJ.c KK.c LL.c MM.c NN.c OO.c PP.c QQ.c RR.c \
