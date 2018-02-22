@@ -6,7 +6,7 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/02/19 10:52:01 by prossi           ###   ########.fr        #
+#    Updated: 2018/02/22 08:10:04 by Awk-LM           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,16 @@ terminal_aff_new_plan.c terminal_end_aff_new_plan.c terminal_aff_new_cylindre.c\
  terminal_aff_new_cone.c terminal_aff_new_light.c terminal_end_aff_new_light.c \
 mouse_move.c mouse_move_new_obj.c newobj_sphere.c newobj_plan.c \
 newobj_cylindre.c newobj_cone.c newobj_light.c del_sphere.c del_plan.c \
-del_cylindre.c del_cone.c del_light.c
+del_cylindre.c del_cone.c del_light.c create_obj_draw_camera.c \
+ft_init_value_draw_camera.c ft_init_value_draw_camera_sd.c \
+ft_init_value_draw_camera_td.c ft_init_value_draw_background.c \
+create_obj_draw_central_background.c create_obj_draw_side_background.c \
+create_obj_draw_objects.c ft_init_value_draw_objects.c
 
 SRC_NAME_LIB_LETTER = AA.c BB.c CC.c \
 DD.c EE.c FF.c GG.c HH.c II.c JJ.c KK.c LL.c MM.c NN.c OO.c PP.c QQ.c RR.c \
 SS.c TT.c UU.c VV.c WW.c XX.c YY.c ZZ.c ft_segment.c ft_arc.c \
-awklm_string_put.c
+awklm_string_put.c ft_ellipse.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

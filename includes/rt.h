@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/20 11:33:50 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/22 08:46:07 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,6 +343,8 @@ typedef struct		s_bres
 	double			ray_arc;
 	int				x_arc;
 	int				y_arc;
+	int				width;
+	int				height;
 }					t_bres;
 
 typedef struct		s_camera
@@ -525,6 +527,14 @@ void				del_plan(t_stuff *e);
 void				del_cylindre(t_stuff *e);
 void				del_cone(t_stuff *e);
 void				del_light(t_stuff *e);
+void				ft_init_value_draw_camera(t_stuff *e, int option);
+void				ft_init_value_draw_camera_sd(t_stuff *e, int option);
+void				ft_init_value_draw_camera_td(t_stuff *e, int option);
+void				draw_central_background(t_stuff *e);
+void				init_value_draw_background(t_stuff *e, int option);
+void				draw_side_background(t_stuff *e);
+void				ft_init_value_draw_objects(t_stuff *e, int option);
+void				draw_objects(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
@@ -555,5 +565,6 @@ void				Z(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);
+void				ft_ellipse(t_stuff *e);
 
 #endif
