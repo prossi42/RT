@@ -52,31 +52,31 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 	t_rgb tmp2;
 
 	reboot_list_loop(e, 3);
-	e->ref.tmpcolor = e->c.colorf;
-	e->ref.tmpl = e->l;
-	e->ref.tmpinter = e->c.inter;
+	e->ref->tmpcolor = e->c.colorf;
+	e->ref->tmpl = e->l;
+	e->ref->tmpinter = e->c.inter;
 	ft_putendl("ref");
 	if (obj == SPHERE)
 	{
 		ft_putendl("SPHERE");
 		searchlist(e, e->c.objsph, SPHERE);
-		e->ref.tmpsph = e->sph;
+		e->ref->tmpsph = e->sph;
 		tmp = getrefray(e, &e->sph->norm, &e->poscam, &e->c.inter);
 		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
-		e->sph = e->ref.tmpsph;
+		e->sph = e->ref->tmpsph;
 	}
 	else if (obj == PLAN)
 	{
 		ft_putendl("PLAN");
 		searchlist(e, e->c.objpla, PLAN);
-		e->ref.tmpplan = e->pla;
+		e->ref->tmpplan = e->pla;
 		tmp = getrefray(e, &e->pla->norm, &e->poscam, &e->c.inter);
 		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
-		e->pla = e->ref.tmpplan;
+		e->pla = e->ref->tmpplan;
 	}
 	else if (obj == CYLINDRE)
 	{
@@ -85,12 +85,12 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
 		vecnorm(&e->cyl->norml);
 		e->cyl->norml.z = 0;
-		e->ref.tmpcyl = e->cyl;
+		e->ref->tmpcyl = e->cyl;
 		tmp = getrefray(e, &e->cyl->norm, &e->poscam, &e->c.inter);
 		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
-		e->cyl = e->ref.tmpcyl;
+		e->cyl = e->ref->tmpcyl;
 	}
 	else if (obj == CONE)
 	{
@@ -99,17 +99,17 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 		vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
 		vecnorm(&e->cone->norml);
 		e->cone->norml.z = 0;
-		e->ref.tmpcone = e->cone;
+		e->ref->tmpcone = e->cone;
 		tmp = getrefray(e, &e->cone->norm, &e->poscam, &e->c.inter);
 		printf("refx : [%f] | refy : [%f] | refz : [%f]\n", tmp.x, tmp.y, tmp.z);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingydebug(e, &tmp, &e->c.inter);
-		e->cone = e->ref.tmpcone;
+		e->cone = e->ref->tmpcone;
 	}
 	printf("tmpr : [%d] | tmpg : [%d] | tmpb : [%d]\n", tmp2.r, tmp2.g, tmp2.b);
-	e->c.colorf = e->ref.tmpcolor;
-	e->l = e->ref.tmpl;
-	e->c.inter = e->ref.tmpinter;
+	e->c.colorf = e->ref->tmpcolor;
+	e->l = e->ref->tmpl;
+	e->c.inter = e->ref->tmpinter;
 	return (tmp2);
 }
 
@@ -146,7 +146,7 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colsph.g;
 			e->d.color.b = e->d.colsph.b;
 		}
-		e->ref.objet = (e->c.distsph < e->c.dist ? SPHERE : -1);
+		e->ref->objet = (e->c.distsph < e->c.dist ? SPHERE : -1);
 		e->c.dist = e->c.distsph;
 	}
 	if (e->c.distpla < e->c.dist && e->c.distpla > 0.00001)
@@ -158,7 +158,7 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colpla.g;
 			e->d.color.b = e->d.colpla.b;
 		}
-		e->ref.objet = (e->c.distpla < e->c.dist ? PLAN : -1);
+		e->ref->objet = (e->c.distpla < e->c.dist ? PLAN : -1);
 		e->c.dist = e->c.distpla;
 	}
 	if (e->c.distcyl < e->c.dist && e->c.distcyl > 0.00001)
@@ -170,7 +170,7 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colcyl.g;
 			e->d.color.b = e->d.colcyl.b;
 		}
-		e->ref.objet = (e->c.distcyl < e->c.dist ? CYLINDRE : -1);
+		e->ref->objet = (e->c.distcyl < e->c.dist ? CYLINDRE : -1);
 		e->c.dist = e->c.distcyl;
 	}
 	if (e->c.distcone < e->c.dist && e->c.distcone > 0.00001)
@@ -182,7 +182,7 @@ void		check_distdebug(t_stuff *e, int option)
 			e->d.color.g = e->d.colcone.g;
 			e->d.color.b = e->d.colcone.b;
 		}
-		e->ref.objet = (e->c.distcone < e->c.dist ? CONE : -1);
+		e->ref->objet = (e->c.distcone < e->c.dist ? CONE : -1);
 		e->c.dist = e->c.distcone;
 	}
 	if (e->c.distlight < e->c.dist && e->c.distlight > 0.00001 && option == 1)
@@ -319,7 +319,7 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 			checkdebug(e, &e->light->lightdir, &e->c.inter, 2);
 			check_distdebug(e, 2);
 			if (e->ray == 1)
-				printf("objet : [%d]\n", e->ref.objet);
+				printf("objet : [%d]\n", e->ref->objet);
 			checklight(e->light, &e->light->lightdir, &e->c.inter);
 			reboot_list_loop(e, 1);
 			if (e->ray == 1)

@@ -12,6 +12,24 @@
 
 #include "rt.h"
 
+t_vec		getrefracray(t_vec *norm, t_vec *pos, t_vec *inter, double fac)
+{
+	t_vec	res;
+	t_vec	v;
+	double	a;
+	double	b;
+
+	vecsous(&v, inter, pos);
+	vecnorm(&v);
+	a = dot_product(&v, norm);
+	b = 1 / fac;
+	res.x = b * v.x - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->x;
+	res.y = b * v.y - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->y;
+	res.z = b * v.z - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->z;
+	vecnorm(&res);
+	return (res);
+}
+
 t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *pos, t_vec *inter)
 {
 	t_vec res;
@@ -185,9 +203,9 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 		}
 		if (e->ray < 1 && e->test > 0)
 		{
-		//	if (e->c.obj == SPHERE)
-			//	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.5);
-			if (e->c.obj == PLAN)
+			if (e->c.obj == SPHERE)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.5);
+			else if (e->c.obj == PLAN)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.5);
 			else if (e->c.obj == CYLINDRE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.5);

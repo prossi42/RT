@@ -40,49 +40,51 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 	t_rgb tmp2;
 
 	reboot_list_loop(e, 3);
-	e->ref.tmpcolor = e->c.colorf;
-	e->ref.tmpl = e->l;
-	e->ref.tmpinter = e->c.inter;
-	e->ref.tmpscolor = e->d.color;
+	e->ref->tmpcolor = e->c.colorf;
+	e->ref->tmpl = e->l;
+	e->ref->tmpinter = e->c.inter;
+	e->ref->tmpscolor = e->d.color;
+	e->ref->objet = e->c.obj;
 	if (obj == SPHERE)
 	{
 		searchlist(e, e->c.objsph, SPHERE);
-		e->ref.tmpsph = e->sph;
+		e->ref->tmpsph = e->sph;
 		tmp = getrefray(e, &e->sph->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->sph = e->ref.tmpsph;
+		e->sph = e->ref->tmpsph;
 	}
 	else if (obj == PLAN)
 	{
 		searchlist(e, e->c.objpla, PLAN);
-		e->ref.tmpplan = e->pla;
+		e->ref->tmpplan = e->pla;
 		tmp = getrefray(e, &e->pla->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->pla = e->ref.tmpplan;
+		e->pla = e->ref->tmpplan;
 	}
 	else if (obj == CYLINDRE)
 	{
 		searchlist(e, e->c.objcyl, CYLINDRE);
-		e->ref.tmpcyl = e->cyl;
+		e->ref->tmpcyl = e->cyl;
 		tmp = getrefray(e, &e->cyl->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->cyl = e->ref.tmpcyl;
+		e->cyl = e->ref->tmpcyl;
 	}
 	else if (obj == CONE)
 	{
 		searchlist(e, e->c.objcone, CONE);
-		e->ref.tmpcone = e->cone;
+		e->ref->tmpcone = e->cone;
 		tmp = getrefray(e, &e->cone->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->cone = e->ref.tmpcone;
+		e->cone = e->ref->tmpcone;
 	}
-	e->c.colorf = e->ref.tmpcolor;
-	e->l = e->ref.tmpl;
-	e->c.inter = e->ref.tmpinter;
-	e->d.color = e->ref.tmpscolor;
+	e->c.colorf = e->ref->tmpcolor;
+	e->l = e->ref->tmpl;
+	e->c.inter = e->ref->tmpinter;
+	e->d.color = e->ref->tmpscolor;
+	e->c.obj = e->ref->objet;
 	return (tmp2);
 }

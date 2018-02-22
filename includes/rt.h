@@ -219,20 +219,6 @@ typedef struct		s_light
 	struct s_light	*next;
 }					t_light;
 
-typedef	struct		s_tmp
-{
-	t_vec			tmpinter;
-	t_sphere		*tmpsph;
-	t_plan			*tmpplan;
-	t_cyl			*tmpcyl;
-	t_cone			*tmpcone;
-	t_light			*tmplight;
-	t_rgb			tmpcolor;
-	t_rgb			tmpscolor;
-	int				tmpl;
-	int				objet;
-}					t_tmp;
-
 typedef struct		s_img
 {
 	void			*mlx_ptr;
@@ -245,6 +231,22 @@ typedef struct		s_img
 	char			*data;
 }					t_img;
 
+typedef	struct		s_tree
+{
+	struct s_tree	*prev;
+	t_vec			tmpinter;
+	t_sphere		*tmpsph;
+	t_plan			*tmpplan;
+	t_cyl			*tmpcyl;
+	t_cone			*tmpcone;
+	t_light			*tmplight;
+	t_rgb			tmpcolor;
+	t_rgb			tmpscolor;
+	int				tmpl;
+	int				objet;
+	struct s_tree	*left;
+	struct s_tree	*right;
+}					t_tree;
 
 typedef struct		s_data
 {
@@ -353,7 +355,7 @@ typedef struct		s_camera
 
 typedef	struct		s_stuff
 {
-	t_tmp			ref;
+	t_tree			*ref;
 	t_b				b;
 	t_c				c;
 	t_d				d;
@@ -435,7 +437,8 @@ void				echap(int keycode, t_stuff *e);
 void				cleanexit(t_stuff *e);
 void				vecnorm(t_vec *i);
 void				veclength(t_vec *i);
-void				getintersection(t_stuff *e, double dist, t_vec *raydir, t_vec *pos);
+void				getintersection(t_stuff *e, double dist, t_vec *raydir,\
+	 				t_vec *pos);
 void				movement(int keycode, t_stuff *e);
 t_rgb				raythingy(t_stuff *e, t_vec *raydir, t_vec *pos);
 double				rgbtohexa(int r, int g, int b);
@@ -478,6 +481,9 @@ void				convert_deg_in_rad(int angle_degre, t_stuff *e);
 t_rgb				reflect(t_stuff *e, int obj, int nm);
 t_vec				getspeclight2(t_stuff *e, t_vec *norm, t_vec *light);
 t_vec				revvec(t_vec *vec);
+t_vec				getrefracray(t_vec *norm, t_vec *pos, t_vec *inter, \
+					double fac);
+int					init_tree(t_tree **tree);
 
 int					launch_interface(t_stuff *e);
 void 				init_struct(t_stuff *e, int option);
