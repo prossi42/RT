@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 10:39:00 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/22 00:08:43 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/22 16:06:29 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,6 +440,20 @@ void	del_obj(t_stuff *e)
 		draw_close_garbage(e, (e->i.mlx->img_x / 4) - 90, 265);
 	else if (e->i.nobj.open == 6)
 		draw_open_garbage(e, (e->i.mlx->img_x / 4) - 90, 265);
+}
+
+void	draw_objects(t_stuff *e)
+{
+	if (e->i.objet == SPHERE)
+		draw_sphere(e);
+	else if (e->i.objet == PLAN)
+		draw_plan(e);
+	else if (e->i.objet == CYLINDRE)
+		draw_cylindre(e);
+	else if (e->i.objet == CONE)
+		draw_cone(e);
+	else
+		draw_light(e);
 }
 
 void	draw_obj(t_stuff *e)
