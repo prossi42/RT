@@ -20,11 +20,11 @@ int		init_tree(t_tree **tree)
 	(*tree)->tmpinter.x = 0;
 	(*tree)->tmpinter.y = 0;
 	(*tree)->tmpinter.z = 0;
-	init_list_sph(&(*tree)->tmpsph);
-	init_list_pla(&(*tree)->tmpplan);
-	init_list_cyl(&(*tree)->tmpcyl);
-	init_list_cone(&(*tree)->tmpcone);
-	init_list_light(&(*tree)->tmplight);
+	(*tree)->tmpsph = NULL;
+	(*tree)->tmpplan = NULL;
+	(*tree)->tmpcyl = NULL;
+	(*tree)->tmpcone = NULL;
+	(*tree)->tmplight = NULL;
 	(*tree)->tmpcolor.r = 0;
 	(*tree)->tmpcolor.g = 0;
 	(*tree)->tmpcolor.b = 0;

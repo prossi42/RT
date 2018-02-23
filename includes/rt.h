@@ -16,6 +16,7 @@
 # define WIDTH 1280
 # define LENGTH 720
 # define MT 16
+# define RAY 100
 # define BUFF_SIZE 0xfffff
 # define SPHERE 0
 # define PLAN 1
@@ -244,6 +245,7 @@ typedef	struct		s_tree
 	t_rgb			tmpscolor;
 	int				tmpl;
 	int				objet;
+	int				id;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }					t_tree;
@@ -355,7 +357,7 @@ typedef struct		s_camera
 
 typedef	struct		s_stuff
 {
-	t_tree			*ref;
+	t_tree			*tree;
 	t_b				b;
 	t_c				c;
 	t_d				d;

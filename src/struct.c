@@ -39,7 +39,6 @@ void	ft_init_struct_opt_1(t_stuff *e, int option)
 	e->d.nbmcone = 0;
 	if (init_list_cone(&e->cone) == -1)
 		exit(-1);
-	init_tree(&e->ref);
 }
 
 void	ft_init_struct(t_stuff *e, int option)

@@ -201,16 +201,16 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 			e->d.color.b *= 0.1;
 			shadows(e, &e->c.inter, e->d.color);
 		}
-		if (e->ray < 1 && e->test > 0)
+		if (e->ray < RAY && e->test > 0)
 		{
 			if (e->c.obj == SPHERE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.3);
 			else if (e->c.obj == PLAN)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.3);
 			else if (e->c.obj == CYLINDRE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
 			else if (e->c.obj == CONE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
 		}
 	}
 	else if (e->c.obj == LIGHT)
@@ -238,7 +238,7 @@ void		aff(t_stuff *e)
 			e->c.colorf.r = 0;
 			e->c.colorf.g = 0;
 			e->c.colorf.b = 0;
-			e->ray = -1;
+			e->ray = 0;
 			reboot_list_loop(e, 3);
 			raydir(e, e->c.posx, e->c.posy);
 			e->c.colorf = raythingy(e, &e->raydir, &e->poscam);
