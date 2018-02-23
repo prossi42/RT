@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/19 10:51:32 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/22 23:46:34 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@ typedef struct		s_newobj
 	int				first;
 	int				type;
 	int				open;
+	int				power;
 }					t_newobj;
 
 typedef	struct		s_ntmgtk
@@ -339,9 +340,11 @@ typedef struct		s_bres
 	int				cumul;
 	int				xinc;
 	int				yinc;
-	int				ray_arc;
+	double			ray_arc;
 	int				x_arc;
 	int				y_arc;
+	int				width;
+	int				height;
 }					t_bres;
 
 typedef struct		s_camera
@@ -436,7 +439,7 @@ void				echap(int keycode, t_stuff *e);
 void				cleanexit(t_stuff *e);
 void				vecnorm(t_vec *i);
 void				veclength(t_vec *i);
-void				getintersection(t_stuff *e, double dist);
+void				getintersection(t_stuff *e, double dist, t_vec *raydir, t_vec *pos);
 void				movement(int keycode, t_stuff *e);
 t_rgb				raythingy(t_stuff *e, t_vec *raydir, t_vec *pos);
 double				rgbtohexa(int r, int g, int b);
@@ -524,6 +527,22 @@ void				del_plan(t_stuff *e);
 void				del_cylindre(t_stuff *e);
 void				del_cone(t_stuff *e);
 void				del_light(t_stuff *e);
+void				ft_init_value_draw_camera(t_stuff *e, int option);
+void				ft_init_value_draw_camera_sd(t_stuff *e, int option);
+void				ft_init_value_draw_camera_td(t_stuff *e, int option);
+void				draw_central_background(t_stuff *e);
+void				init_value_draw_background(t_stuff *e, int option);
+void				draw_side_background(t_stuff *e);
+void				ft_init_value_draw_sphere(t_stuff *e, int option);
+void				ft_init_value_draw_plan(t_stuff *e, int option);
+void				ft_init_value_draw_plan_sd(t_stuff *e, int option);
+void				ft_init_value_draw_plan_td(t_stuff *e, int option);
+void				ft_init_value_draw_cylindre_cone(t_stuff *e, int option);
+void				ft_init_value_draw_light(t_stuff *e, int option);
+void				ft_init_value_draw_light_sd(t_stuff *e, int option);
+void				draw_light(t_stuff *e);
+void				switch_next_objet(t_stuff *e);
+void				switch_prev_objet(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
@@ -554,5 +573,6 @@ void				Z(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);
+void				ft_ellipse(t_stuff *e, int piece, int option);
 
 #endif
