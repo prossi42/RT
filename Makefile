@@ -60,7 +60,7 @@ NAME = RT
 
 CC = clang
 
-CFLAGS = -Wall -Wextra #-fsanitize=address -ggdb #-Werror
+CFLAGS = -Wall -Wextra -g -ggdb #-fsanitize=address  #-Werror 
 
 FDFFLAGS = -framework OpenGL -framework Appkit -lpthread -D_REENTRANT \
 			-Ofast -march=native #-fsanitize=address -ggdb

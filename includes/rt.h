@@ -386,11 +386,22 @@ typedef	struct		s_stuff
 	int				l;
 	int				test;
 	int				ray;
+	pthread_t		*th;
+	int				imt;
+	int				jmt;
+	double 			end;
 	t_mat			m;
 	t_ntmgtk		i;
 	t_letter		lt;
 	t_bres			bs;
 }					t_stuff;
+
+typedef	struct		s_tmpmt
+{
+	t_stuff			*stuff;
+	double			start;
+	double			end;
+}					t_tmpmt;
 
 void				vectorcalc(t_stuff *e);
 void				reboot_list(t_stuff *e);
@@ -423,7 +434,8 @@ t_rgb				getlight(t_vec *norm, t_light **light, t_rgb *colorobj, \
 void				ft_exit(int code, t_stuff *e);
 void				ft_init_struct(t_stuff *e, int option);
 void				create_image(t_stuff *e);
-void				aff(t_stuff *e);
+void				*aff(t_tmpmt *tmp);
+void				multi_thread(t_stuff *stuff);
 void				vecsous(t_vec *res, t_vec *i, t_vec *j);
 void				vecadd(t_vec *res, t_vec *i, t_vec *j);
 double				dot_product(t_vec *i, t_vec *j);

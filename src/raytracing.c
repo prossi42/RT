@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 11:09:06 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/20 11:47:01 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/19 13:54:48 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,14 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CYLINDRE)
 				{
 					searchlist(e, e->c.objcyl, CYLINDRE);
+					// vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
 					vecsous(&v, &e->c.inter, &e->cyl->pos);
 					doti = dot_product(&v, &e->cyl->norm);
 					project.x = doti * e->cyl->norm.x;
 					project.y = doti * e->cyl->norm.y;
 					project.z = doti * e->cyl->norm.z;
 					vecsous(&e->cyl->norml, &v, &project);
+					// e->cyl->norml.z = 0;
 					vecnorm(&e->cyl->norml);
 					rgb_add(&e->c.colorf, e->c.colorf, \
 							getlight(&e->cyl->norml, &e->light, &e->cyl->color, e), 1);
@@ -174,13 +176,9 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CONE)
 				{
 					searchlist(e, e->c.objcone, CONE);
-					// vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
-					vecsous(&v, &e->c.inter, &e->cyl->pos);
-					doti = dot_product(&v, &e->cyl->norm);
-					project.x = doti * e->cyl->norm.x;
-					project.y = doti * e->cyl->norm.y;
-					project.z = doti * e->cyl->norm.z;
-					vecsous(&e->cyl->norml, &v, &project);
+					vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
+					vecnorm(&e->cone->norml);
+					e->cone->norml.z = 0;
 					vecnorm(&e->cone->norml);
 					rgb_add(&e->c.colorf, e->c.colorf,\
 					 	getlight(&e->cone->norml, &e->light, &e->cone->color, e), 1);
@@ -205,8 +203,8 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 1);
 			else if (e->c.obj == CYLINDRE)
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
-			// else if (e->c.obj == CONE)
-			// 	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
+			else if (e->c.obj == CONE)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
 		}
 	}
 	else if (e->c.obj == LIGHT)
@@ -217,20 +215,24 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	return (e->c.colorf);
 }
 
-void		aff(t_stuff *e)
+void		*aff(t_tmpmt *tmp)
 {
 	int i;
 	int j;
 	double color;
+	t_stuff	*e;
 
 	i = 0;
 	j = 0;
-	e->c.posy = -1;
-	while (++e->c.posy < LENGTH)
+	e = tmp->stuff;
+	e->c.posy = tmp->start - 1;
+	e->end = tmp->end;
+	while (++e->c.posy < e->end)
 	{
 		e->c.posx = -1;
 		while (++e->c.posx < WIDTH)
 		{
+			printf("\ny\n");
 			e->c.colorf.r = 0;
 			e->c.colorf.g = 0;
 			e->c.colorf.b = 0;
@@ -239,6 +241,7 @@ void		aff(t_stuff *e)
 			raydir(e, e->c.posx, e->c.posy);
 			e->c.colorf = raythingy(e, &e->raydir, &e->poscam);
 			color = rgbtohexa(e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
+			printf("\nyo\n");
 			if (e->pix > 0)
 			{
 				j = -1;
@@ -260,8 +263,28 @@ void		aff(t_stuff *e)
 	}
 	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
 	reboot_list_loop(e, 3);
-	if (e->i.first == 0)
-		launch_interface(e);
+	// if (e->i.first == 0)
+	// 	launch_interface(e);
+}
+
+void		multi_thread(t_stuff *stuff)
+{
+	t_tmpmt 	*tmp;
+
+	stuff->imt = -1;
+	while (++stuff->imt <= MT)
+	{
+		tmp = malloc(sizeof(t_tmpmt));
+		tmp->start = stuff->imt * LENGTH / MT;
+		tmp->end = tmp->start + LENGTH / MT;
+		tmp->stuff = stuff;
+		pthread_create(&stuff->th[stuff->imt], NULL, (void *)(&aff), tmp);
+	}
+	stuff->jmt = -1;
+	while (++stuff->jmt <= MT)
+		pthread_join(stuff->th[stuff->jmt], NULL);
+	mlx_put_image_to_window(stuff->img.mlx_ptr, stuff->img.win_ptr, \
+		stuff->img.img_ptr, 0, 0);
 }
 
 void		check(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
