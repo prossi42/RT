@@ -16,7 +16,7 @@
 # define WIDTH 1280
 # define LENGTH 720
 # define MT 16
-# define RAY 100
+# define RAY 20
 # define BUFF_SIZE 0xfffff
 # define SPHERE 0
 # define PLAN 1
@@ -485,6 +485,8 @@ t_vec				getspeclight2(t_stuff *e, t_vec *norm, t_vec *light);
 t_vec				revvec(t_vec *vec);
 t_vec				getrefracray(t_vec *norm, t_vec *pos, t_vec *inter, \
 					double fac);
+t_rgb				refrac(t_stuff *e, int obj, int nm);
+t_rgb				refracdebug(t_stuff *e, int obj, int nm);
 int					init_tree(t_tree **tree);
 
 int					launch_interface(t_stuff *e);

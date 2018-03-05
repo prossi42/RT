@@ -204,13 +204,25 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 		if (e->ray < RAY && e->test > 0)
 		{
 			if (e->c.obj == SPHERE)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, SPHERE, e->c.objsph), 0.5);
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.3);
+			}
 			else if (e->c.obj == PLAN)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, PLAN, e->c.objpla), 0.5);
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.3);
+			}
 			else if (e->c.obj == CYLINDRE)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CYLINDRE, e->c.objcyl), 0.5);
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
+			}
 			else if (e->c.obj == CONE)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CONE, e->c.objcone), 0.5);
 				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
+			}
 		}
 	}
 	else if (e->c.obj == LIGHT)
