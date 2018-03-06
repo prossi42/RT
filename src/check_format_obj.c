@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:54:37 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/08 15:22:47 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:36:16 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		cylindre(t_stuff *e, int y)
 	if (ft_strcmp(e->b.tab[y + 1], "------") != 0)
 		return (-1);
 	y += 2;
-	if (!(e->d.tabdcyl = (double *)malloc(sizeof(double) * 10)))
+	if (!(e->d.tabdcyl = (double *)malloc(sizeof(double) * 13)))
 		return (-1);
 	if (check_data_cylindre(e, y) == -1)
 		return (-1);
@@ -65,7 +65,7 @@ int		plan(t_stuff *e, int y)
 	if (ft_strcmp(e->b.tab[y + 1], "------") != 0)
 		return (-1);
 	y += 2;
-	if (!(e->d.tabdpla = (double *)malloc(sizeof(double) * 9)))
+	if (!(e->d.tabdpla = (double *)malloc(sizeof(double) * 12)))
 		return (-1);
 	if (check_data_plan(e, y) == -1)
 		return (-1);
@@ -88,7 +88,7 @@ int		sphere(t_stuff *e, int y)
 	if (ft_strcmp(e->b.tab[y + 1], "------") != 0)
 		return (-1);
 	y += 2;
-	if (!(e->d.tabd = (double *)malloc(sizeof(double) * 7)))
+	if (!(e->d.tabd = (double *)malloc(sizeof(double) * 10)))
 		return (-1);
 	if (check_data_sphere(e, y) == -1)
 		return (-1);
@@ -111,7 +111,7 @@ int		cone(t_stuff *e, int y)
 	if (ft_strcmp(e->b.tab[y + 1], "------") != 0)
 		return (-1);
 	y += 2;
-	if (!(e->d.tabdcone = (double *)malloc(sizeof(double) * 10)))
+	if (!(e->d.tabdcone = (double *)malloc(sizeof(double) * 13)))
 		return (-1);
 	if (check_data_cone(e, y) == -1)
 		return (-1);

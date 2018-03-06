@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 10:32:14 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:23:11 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:01:19 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ int		ft_compare_cone_sd(char *str, int i)
 			return (0);
 	if (i == 9)
 		if (ft_strcmp(str, "angle =") == 0)
+			return (0);
+	if (i == 10)
+		if (ft_strcmp(str, "refrac =") == 0)
+			return (0);
+	if (i == 11)
+		if (ft_strcmp(str, "conscol =") == 0)
+			return (0);
+	if (i == 12)
+		if (ft_strcmp(str, "reflex =") == 0)
 			return (0);
 	return (-1);
 }
@@ -67,6 +76,15 @@ int		ft_compare_cylindre_sd(char *str, int i)
 			return (0);
 	if (i == 9)
 		if (ft_strcmp(str, "b =") == 0)
+			return (0);
+	if (i == 10)
+		if (ft_strcmp(str, "refrac =") == 0)
+			return (0);
+	if (i == 11)
+		if (ft_strcmp(str, "conscol =") == 0)
+			return (0);
+	if (i == 12)
+		if (ft_strcmp(str, "reflex =") == 0)
 			return (0);
 	return (-1);
 }

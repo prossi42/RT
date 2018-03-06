@@ -6,7 +6,7 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 12:52:39 by luca              #+#    #+#             */
-/*   Updated: 2018/02/08 15:23:02 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:02:28 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	fill_list_sph(t_sphere **sph, double *tabd, int nbm)
 	(*sph)->color.r = tabd[4];
 	(*sph)->color.g = tabd[5];
 	(*sph)->color.b = tabd[6];
+	(*sph)->refrac = tabd[7];
+	(*sph)->conscol = tabd[8];
+	(*sph)->reflex = tabd[9];
 	(*sph)->nm = nbm;
 	free(tabd);
 }
@@ -36,6 +39,9 @@ void	fill_list_pla(t_plan **pla, double *tabdpla, int nbmpla)
 	(*pla)->norm.x = tabdpla[6];
 	(*pla)->norm.y = tabdpla[7];
 	(*pla)->norm.z = tabdpla[8];
+	(*pla)->refrac = tabdpla[9];
+	(*pla)->conscol = tabdpla[10];
+	(*pla)->reflex = tabdpla[11];
 	(*pla)->nm = nbmpla;
 	free(tabdpla);
 }
@@ -67,6 +73,9 @@ void	fill_list_cyl(t_cyl **cyl, double *tabdcyl, int nbmcyl)
 	(*cyl)->color.r = tabdcyl[7];
 	(*cyl)->color.g = tabdcyl[8];
 	(*cyl)->color.b = tabdcyl[9];
+	(*cyl)->refrac = tabdcyl[10];
+	(*cyl)->conscol = tabdcyl[11];
+	(*cyl)->reflex = tabdcyl[12];
 	(*cyl)->nm = nbmcyl;
 	free(tabdcyl);
 }
@@ -83,6 +92,9 @@ void	fill_list_cone(t_cone **cone, double *tabdcone, int nbmcone)
 	(*cone)->norm.y = tabdcone[7];
 	(*cone)->norm.z = tabdcone[8];
 	(*cone)->angle = tabdcone[9];
+	(*cone)->refrac = tabdcone[10];
+	(*cone)->conscol = tabdcone[11];
+	(*cone)->reflex = tabdcone[12];
 	(*cone)->nm = nbmcone;
 	free(tabdcone);
 }

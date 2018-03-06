@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 18:01:05 by prossi            #+#    #+#             */
-/*   Updated: 2018/03/06 09:31:46 by prossi           ###   ########.fr       */
+/*   Updated: 2018/03/06 17:12:32 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ void	draw_numbers(t_stuff *e)
 		two(e);
 	else if (e->lt.charac == '3')
 		three(e);
+	else if (e->lt.charac == '4')
+		four(e);
+	else if (e->lt.charac == '5')
+		five(e);
+	else if (e->lt.charac == '6')
+		six(e);
+	else if (e->lt.charac == '7')
+		seven(e);
+	else if (e->lt.charac == '8')
+		eight(e);
 }
 
 void	draw_letter(t_stuff *e)

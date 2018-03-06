@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/03/06 09:23:06 by prossi           ###   ########.fr       */
+/*   Updated: 2018/03/06 17:11:37 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ typedef struct		s_sphere
 	double			t1;
 	double			t2;
 	double			t;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	t_vec			norm;
 	t_texture		text;
 	int				nm;
@@ -163,6 +166,9 @@ typedef struct		s_plan
 	t_rgb			color;
 	t_texture		text;
 	double			t;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_plan	*next;
 }					t_plan;
@@ -180,6 +186,9 @@ typedef struct		s_cyl
 	double			t2;
 	double			t;
 	double			det;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_cyl	*next;
 }					t_cyl;
@@ -197,6 +206,9 @@ typedef struct		s_cone
 	double			t2;
 	double			t;
 	double			det;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_cone	*next;
 }					t_cone;
@@ -592,6 +604,11 @@ void				zero(t_stuff *e);
 void				one(t_stuff *e);
 void				two(t_stuff *e);
 void				three(t_stuff *e);
+void				four(t_stuff *e);
+void				five(t_stuff *e);
+void				six(t_stuff *e);
+void				seven(t_stuff *e);
+void				eight(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);

@@ -6,7 +6,7 @@
 #    By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/26 20:10:24 by jgaillar          #+#    #+#              #
-#    Updated: 2018/03/06 09:23:16 by prossi           ###   ########.fr        #
+#    Updated: 2018/03/06 17:11:26 by prossi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ malloc2d.c malloc2d_sd.c objet_courant_fill_tab_data_camera.c rgba_to_hexa.c
 SRC_NAME_LIB_LETTER = AA.c BB.c CC.c \
 DD.c EE.c FF.c GG.c HH.c II.c JJ.c KK.c LL.c MM.c NN.c OO.c PP.c QQ.c RR.c \
 SS.c TT.c UU.c VV.c WW.c XX.c YY.c ZZ.c ft_segment.c ft_arc.c \
-awklm_string_put.c ft_ellipse.c zero.c one.c two.c three.c
+awklm_string_put.c ft_ellipse.c zero.c one.c two.c three.c four.c five.c six.c \
+seven.c eight.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

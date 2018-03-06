@@ -78,6 +78,12 @@ normX = 0.00
 normY = 0.00
 
 normZ = 1.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
 CYLINDRE
 ------
@@ -100,6 +106,12 @@ r = 255.00
 g = 255.00
 
 b = 255.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
 CYLINDRE
 ------
@@ -122,6 +134,12 @@ r = 255.00
 g = 255.00
 
 b = 255.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
 CYLINDRE
 ------
@@ -144,6 +162,12 @@ r = 255.00
 g = 255.00
 
 b = 255.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
 SPHERE
 ------
@@ -160,6 +184,12 @@ r = 255.00
 g = 255.00
 
 b = 255.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
 SPHERE
 ------
@@ -176,6 +206,12 @@ r = 255.00
 g = 255.00
 
 b = 255.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
 SPHERE
 ------
@@ -192,6 +228,12 @@ r = 255.00
 g = 255.00
 
 b = 255.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
 CONE
 ------
@@ -214,4 +256,10 @@ normY = 0.00
 normZ = 1.00
 
 angle = 120.00
+
+refrac = 0.00
+
+conscol = 0.00
+
+reflex = 0.00
 ------
