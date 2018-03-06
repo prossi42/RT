@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:09:15 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/03/06 08:03:21 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/03/06 09:37:47 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	aff_data_camera(t_stuff *e)
 		e->lt.coeff = 0.4;
 		e->lt.couleur = 0xFFFFFF;
 		e->lt.space = 40;
-		awklm_string_put("012", e);
+		awklm_string_put("0123", e);
 	}
 }
