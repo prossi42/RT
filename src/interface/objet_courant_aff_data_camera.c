@@ -1,0 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objet_courant_aff_data_camera.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/05 15:09:15 by Awk-LM            #+#    #+#             */
+/*   Updated: 2018/03/06 08:03:21 by Awk-LM           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt.h"
+
+void	aff_data_camera(t_stuff *e)
+{
+	if (e->i.cobj.ordre == 0)
+	{
+		e->lt.posx = 50;
+		e->lt.posy = (WIN_Y - LENGTH) / 2;
+		e->lt.coeff = 0.4;
+		e->lt.couleur = 0xFFFFFF;
+		e->lt.space = 40;
+		awklm_string_put("012", e);
+	}
+}

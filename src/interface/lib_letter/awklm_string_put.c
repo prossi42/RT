@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 18:01:05 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:25:03 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 08:03:05 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,22 @@ void	draw_high_letter(t_stuff *e)
 		draw_high_letter_sd(e);
 }
 
+void	draw_numbers(t_stuff *e)
+{
+	if (e->lt.charac == '0')
+		zero(e);
+	else if (e->lt.charac == '1')
+		one(e);
+	else if (e->lt.charac == '2')
+		two(e);
+}
+
 void	draw_letter(t_stuff *e)
 {
-	if (e->lt.charac >= 97 && e->lt.charac <= 122)
-		draw_high_letter(e);
 	if (e->lt.charac >= 65 && e->lt.charac <= 90)
 		draw_high_letter(e);
+	if (e->lt.charac >= 48 && e->lt.charac <= 57)
+		draw_numbers(e);
 }
 
 void	awklm_string_put(char *str, t_stuff *e)
@@ -103,7 +113,7 @@ void	awklm_string_put(char *str, t_stuff *e)
 	while (str[++i])
 	{
 		tmp_coeff = e->lt.coeff;
-		if (i == 0)
+		if (i == 0 && (str[i] < 48 || str[i] > 57))
 			e->lt.coeff *= 1.5;
 		e->lt.charac = str[i];
 		draw_letter(e);
