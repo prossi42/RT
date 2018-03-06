@@ -48,7 +48,7 @@ CC = clang
 CCFLAGS = -Wall -Wextra -Werror
 
 FDFFLAGS = -framework OpenGL -framework Appkit -lpthread -D_REENTRANT \
-			-Ofast -march=native
+			-O2 -O3 -march=native
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

@@ -22,13 +22,11 @@ t_rgb		getlightdebug(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e)
 	rgb.b = 0;
 	angle = ((*light)->ray > 0.00001 ? (dot_product(norm, &(*light)->lightdir)) \
 		: 0);
-	if (e->ray > 0)
-		ft_putendl("in get light");
+	ft_putendl("in get light");
 	if ((*light)->ray > 0.00001 && angle > 0.00001)
 	{
 		e->test++;
-		if (e->ray > 0)
-			ft_putendl("calculating lights");
+		ft_putendl("calculating lights");
 		if (e->l == 1)
 		{
 			rgb.r = colorobj->r * (*light)->amb;
@@ -52,6 +50,7 @@ t_rgb		refracdebug(t_stuff *e, int obj, int nm)
 	t_tree *tmp3;
 	t_rgb tmp2;
 
+	ft_putendl("refrac");
 	reboot_list_loop(e, 3);
 	if (!e->tree)
 	{
@@ -127,6 +126,7 @@ t_rgb		reflectdebug(t_stuff *e, int obj, int nm)
 	t_tree *tmp3;
 	t_rgb tmp2;
 
+	ft_putendl("reflect");
 	reboot_list_loop(e, 3);
 	if (!e->tree)
 	{
@@ -204,6 +204,7 @@ double		shadowsdebug(t_stuff *e, t_vec *inter, t_rgb color)
 	caca.g = 0;
 	caca.b = 0;
 
+	ft_putendl("shadows");
 	reboot_list_loop(e, 2);
 	while (e->light)
 	{
@@ -451,31 +452,36 @@ t_rgb		raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos)
 			e->d.color.b *= 0.1;
 			shadowsdebug(e, &e->c.inter, e->d.color);
 		}
+		printf("colorfr : [%d] | colorfg : [%d] | colorfb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 		if (e->ray < RAY && e->test > 0)
 		{
 			if (e->c.obj == SPHERE)
 			{
+				printf("1sphr : [%d] | 1sphg : [%d] | 1sphb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 				rgb_add(&e->c.colorf, e->c.colorf, refracdebug(e, SPHERE, e->c.objsph), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, SPHERE, e->c.objsph), 0.3);
-				printf("r : [%d] | g : [%d] | b : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
+				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, SPHERE, e->c.objsph), 0.5);
+				printf("sphr : [%d] | sphg : [%d] | sphb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 			}
 			else if (e->c.obj == PLAN)
 			{
+				printf("1planr : [%d] | 1plang : [%d] | 1planb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 				rgb_add(&e->c.colorf, e->c.colorf, refracdebug(e, PLAN, e->c.objpla), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, PLAN, e->c.objpla), 0.3);
-				printf("r : [%d] | g : [%d] | b : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
+				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, PLAN, e->c.objpla), 0.5);
+				printf("planr : [%d] | plang : [%d] | planb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 			}
 			else if (e->c.obj == CYLINDRE)
 			{
+				printf("1cylr : [%d] | 1cylg : [%d] | 1cylb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 				rgb_add(&e->c.colorf, e->c.colorf, refracdebug(e, CYLINDRE, e->c.objcyl), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, CYLINDRE, e->c.objcyl), 0.3);
-				printf("r : [%d] | g : [%d] | b : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
+				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, CYLINDRE, e->c.objcyl), 0.5);
+				printf("cylr : [%d] | cylg : [%d] | cylb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 			}
 			else if (e->c.obj == CONE)
 			{
+				printf("1coner : [%d] | 1coneg : [%d] | 1coneb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 				rgb_add(&e->c.colorf, e->c.colorf, refracdebug(e, CONE, e->c.objcone), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, CONE, e->c.objcone), 0.3);
-				printf("r : [%d] | g : [%d] | b : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
+				rgb_add(&e->c.colorf, e->c.colorf, reflectdebug(e, CONE, e->c.objcone), 0.5);
+				printf("coner : [%d] | coneg : [%d] | coneb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 			}
 		}
 	}
@@ -554,6 +560,7 @@ int		mouse_hook(int button, int x, int y, t_stuff *e)
 		e->ray = 0;
 		reboot_list_loop(e, 3);
 		raythingydebug(e, &e->raydir, &e->poscam);
+		printf("endcolorfr : [%d] | endcolorfg : [%d] | endcolorfb : [%d]\n", e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
 		ft_putchar('\n');
 	}
 	return (0);

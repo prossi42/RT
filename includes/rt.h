@@ -16,7 +16,7 @@
 # define WIDTH 1280
 # define LENGTH 720
 # define MT 16
-# define RAY 20
+# define RAY 100
 # define BUFF_SIZE 0xfffff
 # define SPHERE 0
 # define PLAN 1
@@ -510,6 +510,7 @@ void				key_hook_interface(int keycode, t_stuff *e);
 void				malloc2d(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
+t_rgb				rgb_ave(t_rgb i, t_rgb j, double k);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

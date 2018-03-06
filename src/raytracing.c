@@ -140,8 +140,8 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 			check_dist(e, 2);
 			checklight(e->light, &e->light->lightdir, &e->c.inter);
 			reboot_list_loop(e, 1);
-			if (e->c.dist > e->light->t && e->c.dist > 0.00001 && e->light->t > 0.00001)
-			{
+			//if (e->c.dist > e->light->t && e->c.dist > 0.00001 && e->light->t > 0.00001)
+		//	{
 				e->l++;
 				if (e->c.obj == SPHERE)
 				{
@@ -189,39 +189,39 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 					rgb_add(&e->c.colorf, e->c.colorf,\
 					 	getlight(&e->cone->norml, &e->light, &e->cone->color, e), 1);
 			 	}
-			}
+			//}
 			e->light = e->light->next;
 		}
-		if (e->l > 0)
-		 	shadows(e, &e->c.inter, e->c.colorf);
-		else
-		{
-			e->d.color.r *= 0.1;
-			e->d.color.g *= 0.1;
-			e->d.color.b *= 0.1;
-			shadows(e, &e->c.inter, e->d.color);
-		}
+		// if (e->l > 0)
+		//  	shadows(e, &e->c.inter, e->c.colorf);
+		// else
+		// {
+		// 	e->d.color.r *= 0.1;
+		// 	e->d.color.g *= 0.1;
+		// 	e->d.color.b *= 0.1;
+		// 	shadows(e, &e->c.inter, e->d.color);
+		// }
 		if (e->ray < RAY && e->test > 0)
 		{
 			if (e->c.obj == SPHERE)
 			{
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, SPHERE, e->c.objsph), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.3);
+				e->c.colorf = rgb_ave(e->c.colorf, refrac(e, SPHERE, e->c.objsph), 0.2);
+				e->c.colorf = rgb_ave(e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.2);
 			}
 			else if (e->c.obj == PLAN)
 			{
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, PLAN, e->c.objpla), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.3);
+				e->c.colorf = rgb_ave(e->c.colorf, refrac(e, PLAN, e->c.objpla), 0.2);
+				e->c.colorf = rgb_ave(e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.2);
 			}
 			else if (e->c.obj == CYLINDRE)
 			{
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CYLINDRE, e->c.objcyl), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
+				e->c.colorf = rgb_ave(e->c.colorf, refrac(e, CYLINDRE, e->c.objcyl), 0.2);
+				e->c.colorf = rgb_ave(e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.2);
 			}
 			else if (e->c.obj == CONE)
 			{
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CONE, e->c.objcone), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
+				e->c.colorf = rgb_ave(e->c.colorf, refrac(e, CONE, e->c.objcone), 0.2);
+				e->c.colorf = rgb_ave(e->c.colorf, reflect(e, CONE, e->c.objcone), 0.2);
 			}
 		}
 	}
