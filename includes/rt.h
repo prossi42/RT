@@ -16,7 +16,9 @@
 # define WIDTH 1280
 # define LENGTH 720
 # define MT 16
+# define RAY 5
 # define BUFF_SIZE 0xfffff
+# define LENGHT_PROCED 10
 # define SPHERE 0
 # define PLAN 1
 # define CYLINDRE 2
@@ -115,7 +117,6 @@ typedef struct		s_c
 	int				objlight;
 	t_rgb			colorf;
 	t_vec			inter;
-
 }					t_c;
 
 typedef struct		s_b
@@ -232,16 +233,6 @@ typedef struct		s_light
 	struct s_light	*next;
 }					t_light;
 
-typedef	struct		s_tmp
-{
-	t_sphere		*tmpsph;
-	t_plan			*tmpplan;
-	t_cyl			*tmpcyl;
-	t_cone			*tmpcone;
-	t_light			*tmplight;
-	t_rgb			tmpcolor;
-}					t_tmp;
-
 typedef struct		s_img
 {
 	void			*mlx_ptr;
@@ -253,6 +244,25 @@ typedef struct		s_img
 	int				size;
 	char			*data;
 }					t_img;
+
+typedef	struct		s_tree
+{
+	struct s_tree	*prev;
+	t_vec			tmpinter;
+	t_sphere		*tmpsph;
+	t_plan			*tmpplan;
+	t_cyl			*tmpcyl;
+	t_cone			*tmpcone;
+	t_light			*tmplight;
+	t_rgb			tmpcolor;
+	t_rgb			tmpscolor;
+	int				tmpl;
+	int				tmptest;
+	int				objet;
+	int				id;
+	struct s_tree	*left;
+	struct s_tree	*right;
+}					t_tree;
 
 typedef struct		s_data
 {
@@ -278,6 +288,16 @@ typedef struct		s_mlx
 	t_data			data;
 	struct s_mlx	*next;
 }					t_mlx;
+
+typedef struct		s_damier
+{
+	int				x1;
+	int				y1;
+	int				z1;
+	double			px;
+	double			py;
+	double			pz;
+}					t_damier;
 
 typedef struct		s_intermat
 {
@@ -377,7 +397,7 @@ typedef struct		s_camera
 
 typedef	struct		s_stuff
 {
-	t_tmp			ref;
+	t_tree			*tree;
 	t_b				b;
 	t_c				c;
 	t_d				d;
@@ -471,7 +491,8 @@ void				echap(int keycode, t_stuff *e);
 void				cleanexit(t_stuff *e);
 void				vecnorm(t_vec *i);
 void				veclength(t_vec *i);
-void				getintersection(t_stuff *e, double dist, t_vec *raydir, t_vec *pos);
+void				getintersection(t_stuff *e, double dist, t_vec *raydir,\
+	 				t_vec *pos);
 void				movement(int keycode, t_stuff *e);
 t_rgb				raythingy(t_stuff *e, t_vec *raydir, t_vec *pos);
 double				rgbtohexa(int r, int g, int b);
@@ -503,7 +524,6 @@ void				getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, \
 t_vec				getrefray(t_stuff *e, t_vec *norm, t_vec *pos, \
 					t_vec *inter);
 void				oklm(t_stuff *e);
-int					raythingydebug(t_stuff *e);
 void				matrice(char type, char axe, t_stuff *e, t_vec *sujet);
 void				rotation_z(t_vec *sujet, double radian);
 void				rotation_x(t_vec *sujet, double radian);
@@ -514,6 +534,12 @@ void				translation_z(t_vec *sujet, double value);
 void				convert_deg_in_rad(int angle_degre, t_stuff *e);
 t_rgb				reflect(t_stuff *e, int obj, int nm);
 t_vec				getspeclight2(t_stuff *e, t_vec *norm, t_vec *light);
+t_vec				revvec(t_vec *vec);
+t_vec				getrefracray(t_vec *norm, t_vec *pos, t_vec *inter, \
+					double fac);
+t_rgb				refrac(t_stuff *e, int obj, int nm);
+t_rgb				refracdebug(t_stuff *e, int obj, int nm);
+int					init_tree(t_tree **tree);
 
 int					launch_interface(t_stuff *e);
 void 				init_struct(t_stuff *e, int option);
@@ -537,54 +563,9 @@ void				malloc2d(t_stuff *e);
 void				malloc2d_sd(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
-void				aff_new_sphere(t_stuff *e);
-void				end_aff_new_sphere(t_stuff *e);
-void				aff_new_plan(t_stuff *e);
-void				end_aff_new_plan(t_stuff *e);
-void				aff_new_cylindre(t_stuff *e);
-void				end_aff_new_cylindre(t_stuff *e);
-void				aff_new_cone(t_stuff *e);
-void				end_aff_new_cone(t_stuff *e);
-void				aff_new_light(t_stuff *e);
-void				end_aff_new_light(t_stuff *e);
-int					mouse_move(int x, int y, t_stuff *e);
-void				mouse_move_new_obj(int x, int y, t_stuff *e);
-void				set_value_new_objet(t_stuff *e);
-void				newobj_sphere(t_stuff *e, int x);
-void				newobj_plan(t_stuff *e, int x);
-void				newobj_cylindre(t_stuff *e, int x);
-void				newobj_cone(t_stuff *e, int x);
-void				newobj_light(t_stuff *e, int x);
-void				del_sphere(t_stuff *e);
-void				del_plan(t_stuff *e);
-void				del_cylindre(t_stuff *e);
-void				del_cone(t_stuff *e);
-void				del_light(t_stuff *e);
-void				ft_init_value_draw_camera(t_stuff *e, int option);
-void				ft_init_value_draw_camera_sd(t_stuff *e, int option);
-void				ft_init_value_draw_camera_td(t_stuff *e, int option);
-void				draw_central_background(t_stuff *e);
-void				init_value_draw_background(t_stuff *e, int option);
-void				draw_side_background(t_stuff *e);
-void				ft_init_value_draw_sphere(t_stuff *e, int option);
-void				ft_init_value_draw_plan(t_stuff *e, int option);
-void				ft_init_value_draw_plan_sd(t_stuff *e, int option);
-void				ft_init_value_draw_plan_td(t_stuff *e, int option);
-void				ft_init_value_draw_cylindre_cone(t_stuff *e, int option);
-void				ft_init_value_draw_light(t_stuff *e, int option);
-void				ft_init_value_draw_light_sd(t_stuff *e, int option);
-void				draw_light(t_stuff *e);
-void				switch_next_objet(t_stuff *e);
-void				switch_prev_objet(t_stuff *e);
-void				draw_moins(t_stuff *e);
-void				ft_init_value_draw_moins(t_stuff *e, int option);
-void				draw_plus(t_stuff *e);
-void				ft_init_value_draw_plus(t_stuff *e, int option);
-void				draw_ellipse_background(t_stuff *e);
-void				ft_init_value_draw_ellipse_background(t_stuff *e, int option);
-void				aff_data_camera(t_stuff *e);
-void				fill_tab_data_camera(t_stuff *e);
-unsigned long		rgba_to_hexa(int r, int g, int b, int a);
+t_rgb				rgb_ave(t_rgb i, t_rgb j, double k);
+void     			damier(t_stuff *e, t_rgb *color, t_vec *pos);
+void				damier_sd(t_stuff *e, t_rgb *color, t_vec *pos, t_damier *a);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
@@ -625,5 +606,12 @@ void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);
 void				ft_ellipse(t_stuff *e, int piece, int option);
+
+t_rgb				raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos);
+void				checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option);
+void				check_distdebug(t_stuff *e, int option);
+double				shadowsdebug(t_stuff *e, t_vec *inter, t_rgb color);
+t_rgb				reflectdebug(t_stuff *e, int obj, int nm);
+t_rgb				getlightdebug(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e);
 
 #endif

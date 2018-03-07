@@ -110,3 +110,13 @@ void			rgb_add(t_rgb *res, t_rgb i, t_rgb j, double k)
 	else if (res->b < 0)
 		res->b = 0;
 }
+
+t_rgb			rgb_ave(t_rgb i, t_rgb j, double k)
+{
+	t_rgb	res;
+
+	res.r = (i.r + (j.r * k)) / 2;
+	res.g = (i.g + (j.g * k)) / 2;
+	res.b = (i.b + (j.b * k)) / 2;
+	return (res);
+}
