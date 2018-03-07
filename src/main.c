@@ -66,6 +66,12 @@ int			main_sd(t_stuff *e, char **argv)
 	return (0);
 }
 
+int loophook(t_stuff *e)
+{
+	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, \
+      e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
+	return (0);
+}
 
 int			main(int ac, char **av)
 {
@@ -83,7 +89,9 @@ int			main(int ac, char **av)
 	e.img.win_ptr = mlx_new_window(e.img.mlx_ptr, WIN_X, WIN_Y,\
 			"Raytracer");
 	create_image(&e);
-	aff(&e);
+	multi_thread(&e);
+	//aff(&e);
+	mlx_loop_hook(e.img.mlx_ptr, loophook, &e);
 	mlx_hook(e.img.win_ptr, 2, (1L << 0), hooks, &e);
 	mlx_hook(e.img.win_ptr, 17, (1L << 17), (int(*)())cleanexit, &e);
 	mlx_hook(e.img.win_ptr, 4, (1L << 2), mouse_hook, &e);

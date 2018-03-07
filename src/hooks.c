@@ -147,7 +147,7 @@ int		hooks(int keycode, t_stuff *e)
 				keycode == 126 || keycode == 124 || keycode == 123 || \
 				keycode == 78 || keycode == 69)
 				movement(keycode, e);
-			aff(e);
+			multi_thread(e);
 	//	}
 	}
 	if (e->i.mat.act_angle == 1 || e->i.mat.act_value == 1)

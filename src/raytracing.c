@@ -242,16 +242,18 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	return (e->c.colorf);
 }
 
-void		aff(t_stuff *e)
+void		*aff(void *ev)
 {
 	int i;
 	int j;
 	double color;
+	t_stuff *e;
 
+	e = ((t_stuff *)ev);
 	i = 0;
 	j = 0;
-	e->c.posy = -1;
-	while (++e->c.posy < LENGTH)
+	e->c.posy = e->start - 1;
+	while (++e->c.posy < e->end)
 	{
 		e->c.posx = -1;
 		while (++e->c.posx < WIDTH)
@@ -283,10 +285,50 @@ void		aff(t_stuff *e)
 		if (e->pix > 0)
 			e->c.posy += e->pix;
 	}
-	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
+	//pthread_exit(NULL);
+	//mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
 	reboot_list_loop(e, 3);
-	if (e->i.first == 0)
-		launch_interface(e);
+}
+
+void 		dedouble_list(t_stuff *tmp)
+{
+	tmp->sph = copysphlist(tmp->sph);
+	tmp->tmp = copysphlist(tmp->tmp);
+	tmp->pla = copyplalist(tmp->pla);
+	tmp->tmppla = copyplalist(tmp->tmppla);
+	tmp->light = copylightlist(tmp->light);
+	tmp->tmplight = copylightlist(tmp->tmplight);
+	tmp->cyl = copycyllist(tmp->cyl);
+	tmp->tmpcyl = copycyllist(tmp->tmpcyl);
+	tmp->cone = copyconelist(tmp->cone);
+	tmp->tmpcone = copyconelist(tmp->tmpcone);
+}
+
+void		multi_thread(t_stuff *e)
+{
+    //e->exit = 0;
+    t_stuff     *tab;
+    pthread_t   thread[MT];
+    
+    tab = (t_stuff *)malloc(MT * sizeof(t_stuff));
+    e->imt = -1;
+    reboot_list_loop(e, 3);
+    while (++e->imt < MT)
+    {
+        tab[e->imt] = *e;
+        tab[e->imt].start = e->imt * LENGTH / MT ;
+        tab[e->imt].end = tab[e->imt].start + LENGTH / MT;
+        dedouble_list(&(tab[e->imt]));
+        pthread_create(&thread[e->imt], NULL, aff, &tab[e->imt]);
+    }
+  //   if (e->i.first == 0)
+		// launch_interface(e);
+    // e->jmt = -1;
+    // while (++e->jmt < MT)
+    //     pthread_join(thread[e->jmt], NULL);
+    // sleep(10);
+    // mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, \
+    //   e->img.img_ptr, 0, 0);
 }
 
 void		check(t_stuff *e, t_vec *raydir, t_vec *pos, int option)

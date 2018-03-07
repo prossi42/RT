@@ -398,6 +398,10 @@ typedef	struct		s_stuff
 	int				l;
 	int				test;
 	int				ray;
+	int             imt;
+    int             jmt;
+    double          start;
+    double          end;
 	t_mat			m;
 	t_ntmgtk		i;
 	t_letter		lt;
@@ -435,7 +439,8 @@ t_rgb				getlight(t_vec *norm, t_light **light, t_rgb *colorobj, \
 void				ft_exit(int code, t_stuff *e);
 void				ft_init_struct(t_stuff *e, int option);
 void				create_image(t_stuff *e);
-void				aff(t_stuff *e);
+void				*aff(void *e);
+void				multi_thread(t_stuff *e);
 void				vecsous(t_vec *res, t_vec *i, t_vec *j);
 void				vecadd(t_vec *res, t_vec *i, t_vec *j);
 double				dot_product(t_vec *i, t_vec *j);
@@ -562,5 +567,10 @@ void				check_distdebug(t_stuff *e, int option);
 double				shadowsdebug(t_stuff *e, t_vec *inter, t_rgb color);
 t_rgb				reflectdebug(t_stuff *e, int obj, int nm);
 t_rgb				getlightdebug(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e);
+t_sphere			*copysphlist(t_sphere *sph);
+t_light				*copylightlist(t_light *light);
+t_plan				*copyplalist(t_plan *pla);
+t_cone				*copyconelist(t_cone *cone);
+t_cyl				*copycyllist(t_cyl *cyl);
 
 #endif
