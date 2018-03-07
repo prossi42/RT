@@ -6,7 +6,7 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 12:51:49 by luca              #+#    #+#             */
-/*   Updated: 2018/02/19 07:47:20 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/03/06 13:01:50 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int		init_list_cone(t_cone **cone)
 	(*cone)->norm.z = 0;
 	(*cone)->angle = 0;
 	(*cone)->nm = 0;
+	(*cone)->refrac = 0;
+	(*cone)->conscol = 0;
+	(*cone)->reflex = 0;
 	(*cone)->next = NULL;
 	return (0);
 }
@@ -48,6 +51,9 @@ int		init_list_cyl(t_cyl **cyl)
 	(*cyl)->norm.z = 0;
 	(*cyl)->ray = 0;
 	(*cyl)->nm = 0;
+	(*cyl)->refrac = 0;
+	(*cyl)->reflex = 0;
+	(*cyl)->conscol = 0;
 	(*cyl)->next = NULL;
 	return (0);
 }
@@ -84,6 +90,9 @@ int		init_list_sph(t_sphere **sph)
 	(*sph)->color.b = 0;
 	(*sph)->ray = 0;
 	(*sph)->nm = 0;
+	(*sph)->refrac = 0;
+	(*sph)->conscol = 0;
+	(*sph)->reflex = 0;
 	(*sph)->next = NULL;
 	return (0);
 }
@@ -103,6 +112,9 @@ int		init_list_pla(t_plan **pla)
 	(*pla)->norm.y = 0;
 	(*pla)->norm.z = 0;
 	(*pla)->nm = 0;
+	(*pla)->refrac = 0;
+	(*pla)->reflex = 0;
+	(*pla)->conscol = 0;
 	(*pla)->next = NULL;
 	return (0);
 }

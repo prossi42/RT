@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:30:23 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:22:14 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:54:00 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		check_data_sphere(t_stuff *e, int y)
 
 	tmp = y - 1;
 	i = 0;
-	while (++tmp < y + 7)
+	while (++tmp < y + 10)
 	{
 		if (check_data_sphere_sd(e, e->b.tab[tmp]) == -1)
 			return (-1);

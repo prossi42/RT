@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/22 23:46:34 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/03/06 17:11:37 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ typedef struct		s_sphere
 	double			t1;
 	double			t2;
 	double			t;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	t_vec			norm;
 	t_texture		text;
 	int				nm;
@@ -163,6 +166,9 @@ typedef struct		s_plan
 	t_rgb			color;
 	t_texture		text;
 	double			t;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_plan	*next;
 }					t_plan;
@@ -180,6 +186,9 @@ typedef struct		s_cyl
 	double			t2;
 	double			t;
 	double			det;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_cyl	*next;
 }					t_cyl;
@@ -197,6 +206,9 @@ typedef struct		s_cone
 	double			t2;
 	double			t;
 	double			det;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_cone	*next;
 }					t_cone;
@@ -296,8 +308,15 @@ typedef struct		s_newobj
 	int				first;
 	int				type;
 	int				open;
+	int				old_open;
 	int				power;
 }					t_newobj;
+
+typedef struct		s_curobj
+{
+	char			**tab;
+	int				ordre;
+}					t_curobj;
 
 typedef	struct		s_ntmgtk
 {
@@ -317,12 +336,13 @@ typedef	struct		s_ntmgtk
 	t_intermat		mat;
 	t_interterm		term;
 	t_newobj		nobj;
+	t_curobj		cobj;
 }					t_ntmgtk;
 
 typedef struct		s_letter
 {
 	char			charac;
-	int				couleur;
+	unsigned long	couleur;
 	int				posx;
 	int				posy;
 	double			coeff;
@@ -514,6 +534,7 @@ void				matrice_interface(t_stuff *e);
 void				mouse_hook_interface(t_stuff *e, int x, int y);
 void				key_hook_interface(int keycode, t_stuff *e);
 void				malloc2d(t_stuff *e);
+void				malloc2d_sd(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
 void				aff_new_sphere(t_stuff *e);
@@ -555,6 +576,15 @@ void				ft_init_value_draw_light_sd(t_stuff *e, int option);
 void				draw_light(t_stuff *e);
 void				switch_next_objet(t_stuff *e);
 void				switch_prev_objet(t_stuff *e);
+void				draw_moins(t_stuff *e);
+void				ft_init_value_draw_moins(t_stuff *e, int option);
+void				draw_plus(t_stuff *e);
+void				ft_init_value_draw_plus(t_stuff *e, int option);
+void				draw_ellipse_background(t_stuff *e);
+void				ft_init_value_draw_ellipse_background(t_stuff *e, int option);
+void				aff_data_camera(t_stuff *e);
+void				fill_tab_data_camera(t_stuff *e);
+unsigned long		rgba_to_hexa(int r, int g, int b, int a);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
@@ -582,6 +612,15 @@ void				W(t_stuff *e);
 void				X(t_stuff *e);
 void				Y(t_stuff *e);
 void				Z(t_stuff *e);
+void				zero(t_stuff *e);
+void				one(t_stuff *e);
+void				two(t_stuff *e);
+void				three(t_stuff *e);
+void				four(t_stuff *e);
+void				five(t_stuff *e);
+void				six(t_stuff *e);
+void				seven(t_stuff *e);
+void				eight(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);

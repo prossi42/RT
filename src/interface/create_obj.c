@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 10:39:00 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/22 22:47:00 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/03/05 12:04:32 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	create_obj(t_stuff *e)
 	if (e->i.nobj.power == 1)
 	{
 		draw_obj(e);
-		// draw_garbage(e);
-		// draw_plus(e);
+		draw_moins(e);
+		draw_plus(e);
 	}
 	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->i.mlx->img, 0, WIN_Y - LENGTH + WIN_Y - LENGTH);
 }

@@ -6,7 +6,7 @@
 /*   By: Awk-LM <Awk-LM@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 19:37:19 by Awk-LM            #+#    #+#             */
-/*   Updated: 2018/02/22 23:44:29 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/03/05 13:13:52 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@ void	set_value_new_objet(t_stuff *e)
 {
 	e->i.nobj.first = 0;
 	terminal(e);
+}
+
+void	set_del_objet(t_stuff *e)
+{
+	if (e->i.objet == SPHERE)
+		del_sphere(e);
+	else if (e->i.objet == PLAN)
+		del_plan(e);
+	else if (e->i.objet == LIGHT)
+		del_light(e);
+	else if (e->i.objet == CYLINDRE)
+		del_cylindre(e);
+	else if (e->i.objet == CONE)
+		del_cone(e);
 }
 
 // void	newobj_camera(t_stuff *e, int x)
@@ -80,21 +94,12 @@ void	mouse_hook_newobj(t_stuff *e, int x, int y)
 		}
 	}
 	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x > centerx + 100 && x < 402)
-	{
 		switch_next_objet(e);
-	}
+	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x < centerx - 100 && x > 123)
+		switch_prev_objet(e);
+	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x > WIN_X - WIDTH -  100 && x < WIN_X - WIDTH)
+		set_value_new_objet(e);
+	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x > 0 && x < 100)
+		set_del_objet(e);
 	create_obj(e);
-	// if (y >= bordery + 5 && y <= bordery + 40)
-	// 	newobj_sphere(e, x);
-	// if (y >= bordery + 50 && y <= bordery + 85)
-	// 	newobj_plan(e, x);
-	// if (y >= bordery + 95 && y <= bordery + 130)
-	// 	newobj_cylindre(e, x);
-	// if (y >= bordery + 140 && y <= bordery + 175)
-	// 	newobj_cone(e, x);
-	// if (y >= bordery + 185 && y <= bordery + 220)
-	// 	newobj_light(e, x);
-	// if (y >= bordery + 230 && y <= bordery + 265)
-	// 	// newobj_camera(e, x);
-	// 	ft_putstr("En cours...\n");
 }
