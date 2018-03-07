@@ -16,8 +16,9 @@
 # define WIDTH 1280
 # define LENGTH 720
 # define MT 16
-# define RAY 100
+# define RAY 5
 # define BUFF_SIZE 0xfffff
+# define LENGHT_PROCED 10
 # define SPHERE 0
 # define PLAN 1
 # define CYLINDRE 2
@@ -244,6 +245,7 @@ typedef	struct		s_tree
 	t_rgb			tmpcolor;
 	t_rgb			tmpscolor;
 	int				tmpl;
+	int				tmptest;
 	int				objet;
 	int				id;
 	struct s_tree	*left;
@@ -273,6 +275,16 @@ typedef struct		s_mlx
 	t_data			data;
 	struct s_mlx	*next;
 }					t_mlx;
+
+typedef struct		s_damier
+{
+	int				x1;
+	int				y1;
+	int				z1;
+	double			px;
+	double			py;
+	double			pz;
+}					t_damier;
 
 typedef struct		s_intermat
 {
@@ -511,6 +523,8 @@ void				malloc2d(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
 t_rgb				rgb_ave(t_rgb i, t_rgb j, double k);
+void     			damier(t_stuff *e, t_rgb *color, t_vec *pos);
+void				damier_sd(t_stuff *e, t_rgb *color, t_vec *pos, t_damier *a);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);

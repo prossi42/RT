@@ -56,6 +56,7 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 	}
 	e->tree->tmpcolor = e->c.colorf;
 	e->tree->tmpl = e->l;
+	e->tree->tmptest = e->test;
 	e->tree->tmpinter = e->c.inter;
 	e->tree->tmpscolor = e->d.color;
 	e->tree->objet = e->c.obj;
@@ -97,6 +98,7 @@ t_rgb		reflect(t_stuff *e, int obj, int nm)
 	}
 	e->c.colorf = e->tree->tmpcolor;
 	e->l = e->tree->tmpl;
+	e->test = e->tree->tmptest;
 	e->c.inter = e->tree->tmpinter;
 	e->d.color = e->tree->tmpscolor;
 	e->c.obj = e->tree->objet;
@@ -131,6 +133,7 @@ t_rgb		refrac(t_stuff *e, int obj, int nm)
 	}
 	e->tree->tmpcolor = e->c.colorf;
 	e->tree->tmpl = e->l;
+	e->tree->tmptest = e->test;
 	e->tree->tmpinter = e->c.inter;
 	e->tree->tmpscolor = e->d.color;
 	e->tree->objet = e->c.obj;
@@ -172,6 +175,7 @@ t_rgb		refrac(t_stuff *e, int obj, int nm)
 	}
 	e->c.colorf = e->tree->tmpcolor;
 	e->l = e->tree->tmpl;
+	e->test = e->tree->tmptest;
 	e->c.inter = e->tree->tmpinter;
 	e->d.color = e->tree->tmpscolor;
 	e->c.obj = e->tree->objet;

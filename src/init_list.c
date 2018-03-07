@@ -32,6 +32,7 @@ int		init_tree(t_tree **tree)
 	(*tree)->tmpscolor.g = 0;
 	(*tree)->tmpscolor.b = 0;
 	(*tree)->tmpl = 0;
+	(*tree)->tmptest = 0;
 	(*tree)->objet = 0;
 	(*tree)->left = NULL;
 	(*tree)->right = NULL;
