@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/08 13:09:32 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/16 21:16:37 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/12 10:32:39 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_init_struct(t_stuff *e, int option)
 		e->c.longvue = 0.3;
 		e->c.largvue = 0.5;
 		e->c.i = 0;
-		e->pix = 20;
+		e->pix = 0;
 		reboot_list(e);
 		e->c.n = -1;
 		e->m.angle = 0;

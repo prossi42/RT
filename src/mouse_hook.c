@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 16:14:48 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/22 00:27:41 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/12 10:15:16 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -553,7 +553,6 @@ int		mouse_hook(int button, int x, int y, t_stuff *e)
 		e->i.objet = e->c.obj;
 		objet_courant(e);
 		apercu_courant(e);
-		create_obj(e);
 	}
 	else if (button == 1 && ((x > 0 && x <= WIN_X && y > 0 && y < WIN_Y - LENGTH) || (x > 0 && x < WIN_X - WIDTH && y > 0 && y < WIN_Y)))
 	{

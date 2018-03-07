@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 23:46:25 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/22 19:38:50 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:25:46 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,30 +90,6 @@ void	ft_arc(t_stuff *e, int option)
 			pixel_put_to_img(&e->i.mlx, -y + e->bs.x_arc, x + e->bs.y_arc, e->lt.couleur);
 			pixel_put_to_img(&e->i.mlx, -x + e->bs.x_arc, -y + e->bs.y_arc, e->lt.couleur);
 			pixel_put_to_img(&e->i.mlx, -y + e->bs.x_arc, -x + e->bs.y_arc, e->lt.couleur);
-		}
-		// QUART GAUCHE
-		else if (option == 10)
-		{
-			pixel_put_to_img(&e->i.mlx, -y + e->bs.x_arc, x + e->bs.y_arc, e->lt.couleur);
-			pixel_put_to_img(&e->i.mlx, -y + e->bs.x_arc, -x + e->bs.y_arc, e->lt.couleur);
-		}
-		// QUART DROIT
-		else if (option == 11)
-		{
-			pixel_put_to_img(&e->i.mlx, y + e->bs.x_arc, x + e->bs.y_arc, e->lt.couleur);
-			pixel_put_to_img(&e->i.mlx, y + e->bs.x_arc, -x + e->bs.y_arc, e->lt.couleur);
-		}
-		// quart HAUT
-		else if (option == 12)
-		{
-			pixel_put_to_img(&e->i.mlx, x + e->bs.x_arc, -y + e->bs.y_arc, e->lt.couleur);
-			pixel_put_to_img(&e->i.mlx, -x + e->bs.x_arc, -y + e->bs.y_arc, e->lt.couleur);
-		}
-		// QUART BAS
-		else if (option == 13)
-		{
-			pixel_put_to_img(&e->i.mlx, x + e->bs.x_arc, y + e->bs.y_arc, e->lt.couleur);
-			pixel_put_to_img(&e->i.mlx, -x + e->bs.x_arc, y + e->bs.y_arc, e->lt.couleur);
 		}
 		if (d > 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 14:08:00 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/16 15:26:24 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/08 15:23:53 by lhermann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	matrice(char type, char axe, t_stuff *e, t_vec *sujet)
 		}
 		else if (axe == 'y')
 		{
-			translation_y(sujet, e->m.value);
+			translation_x(sujet, e->m.value);
 		}
 		else if (axe == 'z')
 		{
-			translation_z(sujet, e->m.value);
+			translation_x(sujet, e->m.value);
 		}
 	}
 }

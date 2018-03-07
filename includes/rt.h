@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/03/06 17:11:37 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/12 11:23:10 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,9 +149,6 @@ typedef struct		s_sphere
 	double			t1;
 	double			t2;
 	double			t;
-	double			refrac;
-	double			reflex;
-	double			conscol;
 	t_vec			norm;
 	t_texture		text;
 	int				nm;
@@ -167,9 +164,6 @@ typedef struct		s_plan
 	t_rgb			color;
 	t_texture		text;
 	double			t;
-	double			refrac;
-	double			reflex;
-	double			conscol;
 	int				nm;
 	struct s_plan	*next;
 }					t_plan;
@@ -187,9 +181,6 @@ typedef struct		s_cyl
 	double			t2;
 	double			t;
 	double			det;
-	double			refrac;
-	double			reflex;
-	double			conscol;
 	int				nm;
 	struct s_cyl	*next;
 }					t_cyl;
@@ -207,9 +198,6 @@ typedef struct		s_cone
 	double			t2;
 	double			t;
 	double			det;
-	double			refrac;
-	double			reflex;
-	double			conscol;
 	int				nm;
 	struct s_cone	*next;
 }					t_cone;
@@ -271,7 +259,6 @@ typedef struct		s_data
 	t_rgb			color;
 	t_texture		text;
 	double			ray;
-	double			angle;
 }					t_data;
 
 typedef struct		s_mlx
@@ -319,24 +306,12 @@ typedef struct		s_interterm
 	int				first;
 	char			*wbuf;
 	int				tabfill;
-	int				dot;
 }					t_interterm;
 
 typedef struct		s_newobj
 {
 	int				act_obj;
-	int				first;
-	int				type;
-	int				open;
-	int				old_open;
-	int				power;
 }					t_newobj;
-
-typedef struct		s_curobj
-{
-	char			**tab;
-	int				ordre;
-}					t_curobj;
 
 typedef	struct		s_ntmgtk
 {
@@ -356,13 +331,12 @@ typedef	struct		s_ntmgtk
 	t_intermat		mat;
 	t_interterm		term;
 	t_newobj		nobj;
-	t_curobj		cobj;
 }					t_ntmgtk;
 
 typedef struct		s_letter
 {
 	char			charac;
-	unsigned long	couleur;
+	int				couleur;
 	int				posx;
 	int				posy;
 	double			coeff;
@@ -380,11 +354,9 @@ typedef struct		s_bres
 	int				cumul;
 	int				xinc;
 	int				yinc;
-	double			ray_arc;
+	int				ray_arc;
 	int				x_arc;
 	int				y_arc;
-	int				width;
-	int				height;
 }					t_bres;
 
 typedef struct		s_camera
@@ -426,22 +398,11 @@ typedef	struct		s_stuff
 	int				l;
 	int				test;
 	int				ray;
-	pthread_t		*th;
-	int				imt;
-	int				jmt;
-	double 			end;
 	t_mat			m;
 	t_ntmgtk		i;
 	t_letter		lt;
 	t_bres			bs;
 }					t_stuff;
-
-typedef	struct		s_tmpmt
-{
-	t_stuff			*stuff;
-	double			start;
-	double			end;
-}					t_tmpmt;
 
 void				vectorcalc(t_stuff *e);
 void				reboot_list(t_stuff *e);
@@ -474,8 +435,7 @@ t_rgb				getlight(t_vec *norm, t_light **light, t_rgb *colorobj, \
 void				ft_exit(int code, t_stuff *e);
 void				ft_init_struct(t_stuff *e, int option);
 void				create_image(t_stuff *e);
-void				*aff(t_tmpmt *tmp);
-void				multi_thread(t_stuff *stuff);
+void				aff(t_stuff *e);
 void				vecsous(t_vec *res, t_vec *i, t_vec *j);
 void				vecadd(t_vec *res, t_vec *i, t_vec *j);
 double				dot_product(t_vec *i, t_vec *j);
@@ -560,7 +520,6 @@ void				matrice_interface(t_stuff *e);
 void				mouse_hook_interface(t_stuff *e, int x, int y);
 void				key_hook_interface(int keycode, t_stuff *e);
 void				malloc2d(t_stuff *e);
-void				malloc2d_sd(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
 t_rgb				rgb_ave(t_rgb i, t_rgb j, double k);
@@ -593,19 +552,9 @@ void				W(t_stuff *e);
 void				X(t_stuff *e);
 void				Y(t_stuff *e);
 void				Z(t_stuff *e);
-void				zero(t_stuff *e);
-void				one(t_stuff *e);
-void				two(t_stuff *e);
-void				three(t_stuff *e);
-void				four(t_stuff *e);
-void				five(t_stuff *e);
-void				six(t_stuff *e);
-void				seven(t_stuff *e);
-void				eight(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);
-void				ft_ellipse(t_stuff *e, int piece, int option);
 
 t_rgb				raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos);
 void				checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option);

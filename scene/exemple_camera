@@ -1,14 +1,14 @@
-Poscam.x = -10.00
+Poscam.x = 0.00
 
 Poscam.y = 0.00
 
-Poscam.z = 2.00
+Poscam.z = 0.00
 
 Ptregard.x = 30.00
 
-Ptregard.y = 0.0
+Ptregard.y = 0.00
 
-Ptregard.z = 1.00
+Ptregard.z = 0.00
 
 Vhaut.x = 0.00
 

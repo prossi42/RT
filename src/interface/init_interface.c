@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/03/05 22:05:49 by Awk-LM           ###   ########.fr       */
+/*   Updated: 2018/02/12 11:19:54 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,35 @@ void	free2d(t_stuff *e)
 
 	i = -1;
 	while (e->i.term.tab[++i])
+	{
 		ft_strdel(&e->i.term.tab[i]);
+	}
 	free(e->i.term.tab);
+}
+
+void	malloc2d(t_stuff *e)
+{
+	int		i;
+	int		err;
+
+	if (!(e->i.term.tab = (char **)malloc(sizeof(char *) * 4)))
+		err = 1;
+	i = -1;
+	while (e->i.term.tab[++i] && err != 1)
+	{
+		if (!(e->i.term.tab[i] = ft_strnew(100)))
+			err = 1;
+	}
+	if (err == 1)
+	{
+		ft_putstr("\nLe malloc du tableau (interface - terminal) a echoué\n");
+		exit (0);
+	}
+	e->i.term.tab[i] = NULL;
 }
 
 void 	init_struct(t_stuff *e, int option)
 {
-	int		i;
-
-	i = -1;
 	if (option == 0 && e->i.first == 0)
 	{
 		e->i.nb_img = 0;
@@ -46,24 +66,14 @@ void 	init_struct(t_stuff *e, int option)
 	}
 	if (option == 2 && e->i.first == 0)
 	{
-		e->i.term.dot = 0;
 		e->i.term.index = 0;
 		e->i.term.first = 0;
 		e->i.term.indextab = 0;
 		e->i.term.tabfill = 0;
-		malloc2d(e);
-		e->i.term.wbuf = ft_strnew(100);
 	}
 	if (option == 3 && e->i.first == 0)
 	{
-		e->i.nobj.first = -1;
-		e->i.nobj.open = 0;
-		e->i.nobj.power = 0;
-	}
-	if (option == 4 && e->i.first == 0)
-	{
-		malloc2d_sd(e);
-		e->i.cobj.ordre = 0;
+		e->i.nobj.act_obj = 0;
 	}
 }
 

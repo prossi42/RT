@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 11:09:06 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/19 13:54:48 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/12 11:15:11 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, t_light **light)
 	tmp3.x *= -1;
 	tmp3.y *= -1;
 	tmp3.z *= -1;
-	a = pow(dot_product(&ref, &tmp3), 300);
+	a = pow(dot_product(&ref, &tmp3), 1000);
 	tmp.r = ((*light)->color.r * (*light)->diff) * a;
 	tmp.g = ((*light)->color.g * (*light)->diff) * a;
 	tmp.b = ((*light)->color.b * (*light)->diff) * a;
@@ -242,24 +242,20 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	return (e->c.colorf);
 }
 
-void		*aff(t_tmpmt *tmp)
+void		aff(t_stuff *e)
 {
 	int i;
 	int j;
 	double color;
-	t_stuff	*e;
 
 	i = 0;
 	j = 0;
-	e = tmp->stuff;
-	e->c.posy = tmp->start - 1;
-	e->end = tmp->end;
-	while (++e->c.posy < e->end)
+	e->c.posy = -1;
+	while (++e->c.posy < LENGTH)
 	{
 		e->c.posx = -1;
 		while (++e->c.posx < WIDTH)
 		{
-			printf("\ny\n");
 			e->c.colorf.r = 0;
 			e->c.colorf.g = 0;
 			e->c.colorf.b = 0;
@@ -268,7 +264,6 @@ void		*aff(t_tmpmt *tmp)
 			raydir(e, e->c.posx, e->c.posy);
 			e->c.colorf = raythingy(e, &e->raydir, &e->poscam);
 			color = rgbtohexa(e->c.colorf.r, e->c.colorf.g, e->c.colorf.b);
-			printf("\nyo\n");
 			if (e->pix > 0)
 			{
 				j = -1;
@@ -290,28 +285,8 @@ void		*aff(t_tmpmt *tmp)
 	}
 	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
 	reboot_list_loop(e, 3);
-	// if (e->i.first == 0)
-	// 	launch_interface(e);
-}
-
-void		multi_thread(t_stuff *stuff)
-{
-	t_tmpmt 	*tmp;
-
-	stuff->imt = -1;
-	while (++stuff->imt <= MT)
-	{
-		tmp = malloc(sizeof(t_tmpmt));
-		tmp->start = stuff->imt * LENGTH / MT;
-		tmp->end = tmp->start + LENGTH / MT;
-		tmp->stuff = stuff;
-		pthread_create(&stuff->th[stuff->imt], NULL, (void *)(&aff), tmp);
-	}
-	stuff->jmt = -1;
-	while (++stuff->jmt <= MT)
-		pthread_join(stuff->th[stuff->jmt], NULL);
-	mlx_put_image_to_window(stuff->img.mlx_ptr, stuff->img.win_ptr, \
-		stuff->img.img_ptr, 0, 0);
+	if (e->i.first == 0)
+		launch_interface(e);
 }
 
 void		check(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
