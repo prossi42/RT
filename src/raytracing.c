@@ -6,29 +6,11 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 11:09:06 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/12 11:15:11 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/20 11:47:01 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-t_vec		getrefracray(t_vec *norm, t_vec *pos, t_vec *inter, double fac)
-{
-	t_vec	res;
-	t_vec	v;
-	double	a;
-	double	b;
-
-	vecsous(&v, inter, pos);
-	vecnorm(&v);
-	a = dot_product(&v, norm);
-	b = 1 / fac;
-	res.x = b * v.x - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->x;
-	res.y = b * v.y - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->y;
-	res.z = b * v.z - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->z;
-	vecnorm(&res);
-	return (res);
-}
 
 t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *pos, t_vec *inter)
 {
@@ -44,6 +26,16 @@ t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *pos, t_vec *inter)
 	res.z = v.z - (2 * a * norm->z);
 	vecnorm(&res);
 	return (res);
+}
+
+t_vec		revvec(t_vec *vec)
+{
+	t_vec ret;
+
+	ret.x = vec->x * -1;
+	ret.y = vec->y * -1;
+	ret.z = vec->z * -1;
+	return (ret);
 }
 
 t_vec		getspeclight2(t_stuff *e, t_vec *norm, t_vec *light)
@@ -76,7 +68,7 @@ void		getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, t_light **light)
 	tmp3.x *= -1;
 	tmp3.y *= -1;
 	tmp3.z *= -1;
-	a = pow(dot_product(&ref, &tmp3), 1000);
+	a = pow(dot_product(&ref, &tmp3), 300);
 	tmp.r = ((*light)->color.r * (*light)->diff) * a;
 	tmp.g = ((*light)->color.g * (*light)->diff) * a;
 	tmp.b = ((*light)->color.b * (*light)->diff) * a;
@@ -121,11 +113,11 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	double	doti;
 
 	e->l = 0;
-	e->ray++;
 	e->test = 0;
 	e->c.colorf.r = 0;
 	e->c.colorf.g = 0;
 	e->c.colorf.b = 0;
+	e->ray++;
 	check(e, raydir, pos, 1);
 	check_dist(e, 1);
 	reboot_list_loop(e, 3);
@@ -154,7 +146,6 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == PLAN)
 				{
 					searchlist(e, e->c.objpla, PLAN);
-					damier(e, &e->pla->color, &e->pla->pos);
 					if (dot_product(&e->raydir, &e->pla->norm) < 0)
 						rgb_add(&e->c.colorf, e->c.colorf, \
 							getlight(&e->pla->norm, &e->light, &e->pla->color, e), 1);
@@ -183,9 +174,13 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CONE)
 				{
 					searchlist(e, e->c.objcone, CONE);
-					vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
-					vecnorm(&e->cone->norml);
-					e->cone->norml.z = 0;
+					// vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
+					vecsous(&v, &e->c.inter, &e->cyl->pos);
+					doti = dot_product(&v, &e->cyl->norm);
+					project.x = doti * e->cyl->norm.x;
+					project.y = doti * e->cyl->norm.y;
+					project.z = doti * e->cyl->norm.z;
+					vecsous(&e->cyl->norml, &v, &project);
 					vecnorm(&e->cone->norml);
 					rgb_add(&e->c.colorf, e->c.colorf,\
 					 	getlight(&e->cone->norml, &e->light, &e->cone->color, e), 1);
@@ -193,45 +188,25 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 			}
 			e->light = e->light->next;
 		}
-		if (e->ray < RAY && e->test > 0)
-		{
-			if (e->c.obj == SPHERE)
-			{
-				// e->c.colorf = rgb_ave(e->c.colorf, refrac(e, SPHERE, e->c.objsph), 1);
-				// e->c.colorf = rgb_ave(e->c.colorf, reflect(e, SPHERE, e->c.objsph), 1);
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, SPHERE, e->c.objsph), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.5);
-			}
-			else if (e->c.obj == PLAN)
-			{
-				// e->c.colorf = rgb_ave(e->c.colorf, refrac(e, PLAN, e->c.objpla), 1);
-				// e->c.colorf = rgb_ave(e->c.colorf, reflect(e, PLAN, e->c.objpla), 1);
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, PLAN, e->c.objpla), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.5);
-			}
-			else if (e->c.obj == CYLINDRE)
-			{
-				// e->c.colorf = rgb_ave(e->c.colorf, refrac(e, CYLINDRE, e->c.objcyl), 1);
-				// e->c.colorf = rgb_ave(e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 1);
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CYLINDRE, e->c.objcyl), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.5);
-			}
-			else if (e->c.obj == CONE)
-			{
-				// e->c.colorf = rgb_ave(e->c.colorf, refrac(e, CONE, e->c.objcone), 1);
-				// e->c.colorf = rgb_ave(e->c.colorf, reflect(e, CONE, e->c.objcone), 1);
-				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CONE, e->c.objcone), 0.5);
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.5);
-			}
-		}
 		if (e->l > 0)
-		 	shadows(e, &e->c.inter, e->c.colorf);
+			shadows(e, &e->c.inter, e->c.colorf);
 		else
 		{
 			e->d.color.r *= 0.1;
 			e->d.color.g *= 0.1;
 			e->d.color.b *= 0.1;
 			shadows(e, &e->c.inter, e->d.color);
+		}
+		if (e->ray < 1 && e->test > 0)
+		{
+			if (e->c.obj == SPHERE)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.3);
+			else if (e->c.obj == PLAN)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 1);
+			else if (e->c.obj == CYLINDRE)
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
+			// else if (e->c.obj == CONE)
+			// 	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
 		}
 	}
 	else if (e->c.obj == LIGHT)
@@ -242,18 +217,16 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	return (e->c.colorf);
 }
 
-void		*aff(void *ev)
+void		aff(t_stuff *e)
 {
 	int i;
 	int j;
 	double color;
-	t_stuff *e;
 
-	e = ((t_stuff *)ev);
 	i = 0;
 	j = 0;
-	e->c.posy = e->start - 1;
-	while (++e->c.posy < e->end)
+	e->c.posy = -1;
+	while (++e->c.posy < LENGTH)
 	{
 		e->c.posx = -1;
 		while (++e->c.posx < WIDTH)
@@ -261,7 +234,7 @@ void		*aff(void *ev)
 			e->c.colorf.r = 0;
 			e->c.colorf.g = 0;
 			e->c.colorf.b = 0;
-			e->ray = 0;
+			e->ray = -1;
 			reboot_list_loop(e, 3);
 			raydir(e, e->c.posx, e->c.posy);
 			e->c.colorf = raythingy(e, &e->raydir, &e->poscam);
@@ -285,50 +258,10 @@ void		*aff(void *ev)
 		if (e->pix > 0)
 			e->c.posy += e->pix;
 	}
-	//pthread_exit(NULL);
-	//mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
+	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
 	reboot_list_loop(e, 3);
-}
-
-void 		dedouble_list(t_stuff *tmp)
-{
-	tmp->sph = copysphlist(tmp->sph);
-	tmp->tmp = copysphlist(tmp->tmp);
-	tmp->pla = copyplalist(tmp->pla);
-	tmp->tmppla = copyplalist(tmp->tmppla);
-	tmp->light = copylightlist(tmp->light);
-	tmp->tmplight = copylightlist(tmp->tmplight);
-	tmp->cyl = copycyllist(tmp->cyl);
-	tmp->tmpcyl = copycyllist(tmp->tmpcyl);
-	tmp->cone = copyconelist(tmp->cone);
-	tmp->tmpcone = copyconelist(tmp->tmpcone);
-}
-
-void		multi_thread(t_stuff *e)
-{
-    //e->exit = 0;
-    t_stuff     *tab;
-    pthread_t   thread[MT];
-    
-    tab = (t_stuff *)malloc(MT * sizeof(t_stuff));
-    e->imt = -1;
-    reboot_list_loop(e, 3);
-    while (++e->imt < MT)
-    {
-        tab[e->imt] = *e;
-        tab[e->imt].start = e->imt * LENGTH / MT ;
-        tab[e->imt].end = tab[e->imt].start + LENGTH / MT;
-        dedouble_list(&(tab[e->imt]));
-        pthread_create(&thread[e->imt], NULL, aff, &tab[e->imt]);
-    }
-  //   if (e->i.first == 0)
-		// launch_interface(e);
-    // e->jmt = -1;
-    // while (++e->jmt < MT)
-    //     pthread_join(thread[e->jmt], NULL);
-    // sleep(10);
-    // mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, \
-    //   e->img.img_ptr, 0, 0);
+	if (e->i.first == 0)
+		launch_interface(e);
 }
 
 void		check(t_stuff *e, t_vec *raydir, t_vec *pos, int option)
@@ -464,7 +397,7 @@ void		check_dist(t_stuff *e, int option)
 			e->c.obj = (e->c.distcone < e->c.dist ? CONE : e->c.obj);
 			e->d.color.r = e->d.colcone.r;
 			e->d.color.g = e->d.colcone.g;
-			e->d.color.b = e->d.colcone.b;
+			e->d.color.g = e->d.colcone.b;
 		}
 		e->c.dist = e->c.distcone;
 	}

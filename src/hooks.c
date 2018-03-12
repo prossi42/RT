@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 10:47:04 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/12 11:17:37 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/20 11:50:26 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ void	choose_sujet(t_stuff *e)
 {
 	reboot_list_loop(e, 3);
 	e->c.obj = e->i.objet;
-	if (e->c.obj == SPHERE)
+	if (e->c.obj == SPHERE && e->d.nbmsph != 0)
 	{
 		searchlist(e, e->i.each_obj, SPHERE);
 		if (e->m.type_sujet == 1)
 			matrice(e->m.type, e->m.axe, e, &e->sph->pos);
 	}
-	else if (e->c.obj == LIGHT)
+	else if (e->c.obj == LIGHT && e->d.nbmlight != 0)
 	{
 		searchlist(e, e->i.each_obj, LIGHT);
 		matrice(e->m.type, e->m.axe, e, &e->light->pos);
 	}
-	else if (e->c.obj == CYLINDRE)
+	else if (e->c.obj == CYLINDRE && e->d.nbmcyl != 0)
 	{
 		searchlist(e, e->i.each_obj, CYLINDRE);
 		if (e->m.type_sujet == 1)
@@ -35,7 +35,7 @@ void	choose_sujet(t_stuff *e)
 		else
 			matrice(e->m.type, e->m.axe, e, &e->cyl->norm);
 	}
-	else if (e->c.obj == PLAN)
+	else if (e->c.obj == PLAN && e->d.nbmpla != 0)
 	{
 		searchlist(e, e->i.each_obj, PLAN);
 		if (e->m.type_sujet == 1)
@@ -43,7 +43,7 @@ void	choose_sujet(t_stuff *e)
 		else
 			matrice(e->m.type, e->m.axe, e, &e->pla->norm);
 	}
-	else if (e->c.obj == CONE)
+	else if (e->c.obj == CONE && e->d.nbmcone != 0)
 	{
 		searchlist(e, e->i.each_obj, CONE);
 		if (e->m.type_sujet == 1)
@@ -69,7 +69,7 @@ void	movement_matrice(int keycode, t_stuff *e)
 	apercu_courant(e);
 }
 
-void	move_objet(int keycode, t_vec *pos_obj)
+void	move_objet(int keycode, t_vec *pos_obj, t_stuff *e)
 {
 	if (keycode == 123)
 		pos_obj->y += 0.5;
@@ -83,6 +83,15 @@ void	move_objet(int keycode, t_vec *pos_obj)
 		pos_obj->z += 0.5;
 	else if (keycode == 78)
 		pos_obj->z -= 0.5;
+	else if (keycode == 0)
+		e->pr.y += 0.5;
+	else if (keycode == 1)
+		e->pr.z -= 0.5;
+	else if (keycode == 2)
+		e->pr.y -= 0.5;
+	else if (keycode == 13)
+		e->pr.z += 0.5;
+	vectorcalc(e);
 }
 
 void	movement(int keycode, t_stuff *e)
@@ -90,17 +99,17 @@ void	movement(int keycode, t_stuff *e)
 	if (e->i.objet != -1)
 		searchlist(e, e->i.each_obj, e->i.objet);
 	if (e->i.objet == -1)
-		move_objet(keycode, &e->poscam);
+		move_objet(keycode, &e->poscam, e);
 	else if (e->i.objet == SPHERE)
-		move_objet(keycode, &e->sph->pos);
+		move_objet(keycode, &e->sph->pos, e);
 	else if (e->i.objet == PLAN)
-		move_objet(keycode, &e->pla->pos);
+		move_objet(keycode, &e->pla->pos, e);
 	else if (e->i.objet == CONE)
-		move_objet(keycode, &e->cone->pos);
+		move_objet(keycode, &e->cone->pos, e);
 	else if (e->i.objet == CYLINDRE)
-		move_objet(keycode, &e->cyl->pos);
+		move_objet(keycode, &e->cyl->pos, e);
 	else if (e->i.objet == LIGHT)
-		move_objet(keycode, &e->light->pos);
+		move_objet(keycode, &e->light->pos, e);
 	objet_courant(e);
 	apercu_courant(e);
 }
@@ -132,25 +141,22 @@ void	pixel(int keycode, t_stuff *e)
 
 int		hooks(int keycode, t_stuff *e)
 {
-	if (e->i.mat.act_angle == 0 && e->i.mat.act_value == 0)
+	if (e->i.mat.act_angle == 0 && e->i.mat.act_value == 0 && e->i.nobj.first == -1)
 	{
-		if (keycode == 43 || keycode == 47)
-			pixel(keycode, e);
+		if (keycode == 36)
+			movement_matrice(keycode, e);
 		else if (keycode == 53)
 			echap(keycode, e);
-		// if (e->pix > 0)
-		// {
-			else if (keycode == 36)
-				movement_matrice(keycode, e);
-			else if (keycode == 2 || keycode == 0 || keycode == 1 || keycode == 13 \
-				|| keycode == 49 || keycode == 8 || keycode == 125 || \
-				keycode == 126 || keycode == 124 || keycode == 123 || \
-				keycode == 78 || keycode == 69)
-				movement(keycode, e);
-			multi_thread(e);
-	//	}
+		else if (keycode == 2 || keycode == 0 || keycode == 1 || keycode == 13 \
+			|| keycode == 49 || keycode == 8 || keycode == 125 || \
+			keycode == 126 || keycode == 124 || keycode == 123 || \
+			keycode == 78 || keycode == 69)
+			movement(keycode, e);
+		else if (keycode == 43 || keycode == 47)
+			pixel(keycode, e);
+		aff(e);
 	}
-	if (e->i.mat.act_angle == 1 || e->i.mat.act_value == 1)
+	if (e->i.mat.act_angle == 1 || e->i.mat.act_value == 1 || e->i.nobj.first != -1)
 		key_hook_interface(keycode, e);
 	return (0);
 }

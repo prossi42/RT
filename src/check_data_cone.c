@@ -6,7 +6,7 @@
 /*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 10:22:03 by luca              #+#    #+#             */
-/*   Updated: 2018/02/08 15:21:57 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:00:03 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		check_data_cone(t_stuff *e, int y)
 
 	tmp = y - 1;
 	i = 0;
-	while (++tmp < y + 10)
+	while (++tmp < y + 13)
 	{
 		if (check_data_cone_sd(e, e->b.tab[tmp]) == -1)
 			return (-1);

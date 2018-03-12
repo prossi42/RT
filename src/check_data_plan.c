@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 15:43:33 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:22:10 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:44:21 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		check_data_plan(t_stuff *e, int y)
 
 	tmp = y - 1;
 	i = 0;
-	while (++tmp < y + 9)
+	while (++tmp < y + 12)
 	{
 		if (check_data_plan_sd(e, e->b.tab[tmp]) == -1)
 			return (-1);

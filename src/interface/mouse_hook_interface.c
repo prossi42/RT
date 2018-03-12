@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 15:28:50 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 11:20:11 by prossi           ###   ########.fr       */
+/*   Updated: 2018/03/12 11:48:13 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	mouse_hook_matrice(t_stuff *e, int x, int y)
 	}
 	else if (x > borderx + 40 && x < borderx + 240 && y > 160 && y < 200)
 	{
-		if (e->i.mat.act_trans == 0)
+		if (e->i.mat.act_trans == 0 && e->i.mat.dir_or_pos != 1)
 		{
 			e->i.mat.act_trans = 1;
 			e->m.type = 't';
@@ -47,7 +47,7 @@ void	mouse_hook_matrice(t_stuff *e, int x, int y)
 	}
 	else if (x > borderx + 40 && x < borderx + 240 && y > 220 && y < 260)
 	{
-		if (e->i.mat.dir_or_pos != 1)
+		if (e->i.mat.dir_or_pos != 1 && e->i.mat.act_trans == 0)
 		{
 			e->i.mat.dir_or_pos = 1;
 			e->m.type_sujet = 2;
@@ -110,29 +110,25 @@ void	mouse_hook_matrice(t_stuff *e, int x, int y)
 			e->m.axe = '\0';
 		}
 	}
-	else if (x > borderx + 430 && x < borderx + 510 && y > 100 && y < 140 && e->i.mat.act_angle == 0)
+	else if (x > borderx + 430 && x < borderx + 510 && y > 100 && y < 140 && e->i.mat.act_angle == 0 && e->i.mat.act_value == 0)
 	{
-		if (e->i.term.first == 0)
-		{
-			malloc2d(e);
-		}
-		e->i.term.wbuf = ft_strnew(15);
 		e->i.mat.act_angle = 1;
-		e->i.term.first = 1;
 		terminal(e);
 	}
-	else if (x > borderx + 430 && x < borderx + 510 && y > 160 && y < 200 && e->i.mat.act_value == 0)
+	else if (x > borderx + 430 && x < borderx + 510 && y > 160 && y < 200 && e->i.mat.act_value == 0 && e->i.mat.act_angle == 0)
 	{
-		if (e->i.term.first == 0)
-		{
-			malloc2d(e);
-		}
-		e->i.term.wbuf = ft_strnew(15);
 		e->i.mat.act_value = 1;
-		e->i.term.first = 1;
 		terminal(e);
 	}
 	matrice_interface(e);
+}
+
+void	mouse_hook_objet_courant(t_stuff *e, int x, int y)
+{
+	if (y > 0 && y < 20 && x > WIN_X - WIDTH - 20 && x < WIN_X - WIDTH)
+	{
+		ft_putendl("NTM JULS");
+	}
 }
 
 void	mouse_hook_interface(t_stuff *e, int x, int y)
@@ -147,4 +143,14 @@ void	mouse_hook_interface(t_stuff *e, int x, int y)
 		objet_courant(e);
 		apercu_courant(e);
 	}
+	if (x > 0 && x < WIN_X - WIDTH && y > 0 && y < WIN_Y - LENGTH)
+	{
+		if (e->i.cobj.power == 0)
+			e->i.cobj.power = 1;
+		else
+			e->i.cobj.power = 0;
+		objet_courant(e);
+	}
+	if (y > 0 && y < WIN_Y - LENGTH && x > 0 && x < WIN_X - WIDTH)
+		mouse_hook_objet_courant(e, x, y);
 }

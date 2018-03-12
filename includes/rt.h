@@ -6,7 +6,7 @@
 /*   By: jgaillar <jgaillar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:06:29 by jgaillar          #+#    #+#             */
-/*   Updated: 2018/02/12 11:23:10 by prossi           ###   ########.fr       */
+/*   Updated: 2018/03/12 13:27:56 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 # define WIDTH 1280
 # define LENGTH 720
 # define MT 16
-# define RAY 5
 # define BUFF_SIZE 0xfffff
-# define LENGHT_PROCED 10
 # define SPHERE 0
 # define PLAN 1
 # define CYLINDRE 2
@@ -117,6 +115,7 @@ typedef struct		s_c
 	int				objlight;
 	t_rgb			colorf;
 	t_vec			inter;
+
 }					t_c;
 
 typedef struct		s_b
@@ -149,6 +148,9 @@ typedef struct		s_sphere
 	double			t1;
 	double			t2;
 	double			t;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	t_vec			norm;
 	t_texture		text;
 	int				nm;
@@ -164,6 +166,9 @@ typedef struct		s_plan
 	t_rgb			color;
 	t_texture		text;
 	double			t;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_plan	*next;
 }					t_plan;
@@ -181,6 +186,9 @@ typedef struct		s_cyl
 	double			t2;
 	double			t;
 	double			det;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_cyl	*next;
 }					t_cyl;
@@ -198,6 +206,9 @@ typedef struct		s_cone
 	double			t2;
 	double			t;
 	double			det;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 	int				nm;
 	struct s_cone	*next;
 }					t_cone;
@@ -221,6 +232,16 @@ typedef struct		s_light
 	struct s_light	*next;
 }					t_light;
 
+typedef	struct		s_tmp
+{
+	t_sphere		*tmpsph;
+	t_plan			*tmpplan;
+	t_cyl			*tmpcyl;
+	t_cone			*tmpcone;
+	t_light			*tmplight;
+	t_rgb			tmpcolor;
+}					t_tmp;
+
 typedef struct		s_img
 {
 	void			*mlx_ptr;
@@ -233,25 +254,6 @@ typedef struct		s_img
 	char			*data;
 }					t_img;
 
-typedef	struct		s_tree
-{
-	struct s_tree	*prev;
-	t_vec			tmpinter;
-	t_sphere		*tmpsph;
-	t_plan			*tmpplan;
-	t_cyl			*tmpcyl;
-	t_cone			*tmpcone;
-	t_light			*tmplight;
-	t_rgb			tmpcolor;
-	t_rgb			tmpscolor;
-	int				tmpl;
-	int				tmptest;
-	int				objet;
-	int				id;
-	struct s_tree	*left;
-	struct s_tree	*right;
-}					t_tree;
-
 typedef struct		s_data
 {
 	t_vec			pos;
@@ -259,6 +261,12 @@ typedef struct		s_data
 	t_rgb			color;
 	t_texture		text;
 	double			ray;
+	double			angle;
+	double			amb;
+	double			diff;
+	double			refrac;
+	double			reflex;
+	double			conscol;
 }					t_data;
 
 typedef struct		s_mlx
@@ -275,16 +283,6 @@ typedef struct		s_mlx
 	t_data			data;
 	struct s_mlx	*next;
 }					t_mlx;
-
-typedef struct		s_damier
-{
-	int				x1;
-	int				y1;
-	int				z1;
-	double			px;
-	double			py;
-	double			pz;
-}					t_damier;
 
 typedef struct		s_intermat
 {
@@ -306,12 +304,38 @@ typedef struct		s_interterm
 	int				first;
 	char			*wbuf;
 	int				tabfill;
+	int				dot;
 }					t_interterm;
 
 typedef struct		s_newobj
 {
 	int				act_obj;
+	int				first;
+	int				type;
+	int				open;
+	int				old_open;
+	int				power;
 }					t_newobj;
+
+typedef struct		s_curobj
+{
+	char			**tab;
+	int				power;
+}					t_curobj;
+
+typedef struct		s_scouleur
+{
+	int				col1;
+	int				col2;
+	int				col3;
+}					t_scouleur;
+
+typedef struct		s_couleur
+{
+	t_scouleur		nobj;
+	t_scouleur		cobj;
+	t_scouleur		saves;
+}					t_couleur;
 
 typedef	struct		s_ntmgtk
 {
@@ -331,12 +355,14 @@ typedef	struct		s_ntmgtk
 	t_intermat		mat;
 	t_interterm		term;
 	t_newobj		nobj;
+	t_curobj		cobj;
+	t_couleur		color;
 }					t_ntmgtk;
 
 typedef struct		s_letter
 {
 	char			charac;
-	int				couleur;
+	unsigned long	couleur;
 	int				posx;
 	int				posy;
 	double			coeff;
@@ -354,9 +380,11 @@ typedef struct		s_bres
 	int				cumul;
 	int				xinc;
 	int				yinc;
-	int				ray_arc;
+	double			ray_arc;
 	int				x_arc;
 	int				y_arc;
+	int				width;
+	int				height;
 }					t_bres;
 
 typedef struct		s_camera
@@ -369,7 +397,7 @@ typedef struct		s_camera
 
 typedef	struct		s_stuff
 {
-	t_tree			*tree;
+	t_tmp			ref;
 	t_b				b;
 	t_c				c;
 	t_d				d;
@@ -398,10 +426,6 @@ typedef	struct		s_stuff
 	int				l;
 	int				test;
 	int				ray;
-	int             imt;
-    int             jmt;
-    double          start;
-    double          end;
 	t_mat			m;
 	t_ntmgtk		i;
 	t_letter		lt;
@@ -439,8 +463,7 @@ t_rgb				getlight(t_vec *norm, t_light **light, t_rgb *colorobj, \
 void				ft_exit(int code, t_stuff *e);
 void				ft_init_struct(t_stuff *e, int option);
 void				create_image(t_stuff *e);
-void				*aff(void *e);
-void				multi_thread(t_stuff *e);
+void				aff(t_stuff *e);
 void				vecsous(t_vec *res, t_vec *i, t_vec *j);
 void				vecadd(t_vec *res, t_vec *i, t_vec *j);
 double				dot_product(t_vec *i, t_vec *j);
@@ -456,8 +479,7 @@ void				echap(int keycode, t_stuff *e);
 void				cleanexit(t_stuff *e);
 void				vecnorm(t_vec *i);
 void				veclength(t_vec *i);
-void				getintersection(t_stuff *e, double dist, t_vec *raydir,\
-	 				t_vec *pos);
+void				getintersection(t_stuff *e, double dist, t_vec *raydir, t_vec *pos);
 void				movement(int keycode, t_stuff *e);
 t_rgb				raythingy(t_stuff *e, t_vec *raydir, t_vec *pos);
 double				rgbtohexa(int r, int g, int b);
@@ -489,6 +511,7 @@ void				getspeclight(t_stuff *e, t_vec *norm, t_rgb *color, \
 t_vec				getrefray(t_stuff *e, t_vec *norm, t_vec *pos, \
 					t_vec *inter);
 void				oklm(t_stuff *e);
+int					raythingydebug(t_stuff *e);
 void				matrice(char type, char axe, t_stuff *e, t_vec *sujet);
 void				rotation_z(t_vec *sujet, double radian);
 void				rotation_x(t_vec *sujet, double radian);
@@ -499,12 +522,6 @@ void				translation_z(t_vec *sujet, double value);
 void				convert_deg_in_rad(int angle_degre, t_stuff *e);
 t_rgb				reflect(t_stuff *e, int obj, int nm);
 t_vec				getspeclight2(t_stuff *e, t_vec *norm, t_vec *light);
-t_vec				revvec(t_vec *vec);
-t_vec				getrefracray(t_vec *norm, t_vec *pos, t_vec *inter, \
-					double fac);
-t_rgb				refrac(t_stuff *e, int obj, int nm);
-t_rgb				refracdebug(t_stuff *e, int obj, int nm);
-int					init_tree(t_tree **tree);
 
 int					launch_interface(t_stuff *e);
 void 				init_struct(t_stuff *e, int option);
@@ -527,9 +544,68 @@ void				key_hook_interface(int keycode, t_stuff *e);
 void				malloc2d(t_stuff *e);
 void				free2d(t_stuff *e);
 void				mouse_hook_newobj(t_stuff *e, int x, int y);
-t_rgb				rgb_ave(t_rgb i, t_rgb j, double k);
-void     			damier(t_stuff *e, t_rgb *color, t_vec *pos);
-void				damier_sd(t_stuff *e, t_rgb *color, t_vec *pos, t_damier *a);
+void				aff_new_sphere(t_stuff *e);
+void				end_aff_new_sphere(t_stuff *e);
+void				aff_new_plan(t_stuff *e);
+void				end_aff_new_plan(t_stuff *e);
+void				aff_new_cylindre(t_stuff *e);
+void				end_aff_new_cylindre(t_stuff *e);
+void				aff_new_cone(t_stuff *e);
+void				end_aff_new_cone(t_stuff *e);
+void				aff_new_light(t_stuff *e);
+void				end_aff_new_light(t_stuff *e);
+int					mouse_move(int x, int y, t_stuff *e);
+void				mouse_move_new_obj(int x, int y, t_stuff *e);
+void				set_value_new_objet(t_stuff *e);
+void				newobj_sphere(t_stuff *e, int x);
+void				newobj_plan(t_stuff *e, int x);
+void				newobj_cylindre(t_stuff *e, int x);
+void				newobj_cone(t_stuff *e, int x);
+void				newobj_light(t_stuff *e, int x);
+void				del_sphere(t_stuff *e);
+void				del_plan(t_stuff *e);
+void				del_cylindre(t_stuff *e);
+void				del_cone(t_stuff *e);
+void				del_light(t_stuff *e);
+void				ft_init_value_draw_camera(t_stuff *e, int option);
+void				ft_init_value_draw_camera_sd(t_stuff *e, int option);
+void				ft_init_value_draw_camera_td(t_stuff *e, int option);
+void				draw_central_background(t_stuff *e);
+void				init_value_draw_background(t_stuff *e, int option);
+void				draw_side_background(t_stuff *e);
+void				ft_init_value_draw_sphere(t_stuff *e, int option);
+void				ft_init_value_draw_plan(t_stuff *e, int option);
+void				ft_init_value_draw_plan_sd(t_stuff *e, int option);
+void				ft_init_value_draw_plan_td(t_stuff *e, int option);
+void				ft_init_value_draw_cylindre_cone(t_stuff *e, int option);
+void				ft_init_value_draw_light(t_stuff *e, int option);
+void				ft_init_value_draw_light_sd(t_stuff *e, int option);
+void				draw_light(t_stuff *e);
+void				switch_next_objet(t_stuff *e);
+void				switch_prev_objet(t_stuff *e);
+void				draw_moins(t_stuff *e);
+void				ft_init_value_draw_moins(t_stuff *e, int option);
+void				draw_plus(t_stuff *e);
+void				ft_init_value_draw_plus(t_stuff *e, int option);
+void				draw_ellipse_background(t_stuff *e);
+void				ft_init_value_draw_ellipse_background(t_stuff *e, int option);
+void				aff_data_camera(t_stuff *e);
+void				aff_data_sphere(t_stuff *e);
+void				aff_data_plan(t_stuff *e);
+void				aff_data_light(t_stuff *e);
+void				aff_data_cylindre(t_stuff *e);
+void				aff_data_cone(t_stuff *e);
+unsigned long		rgba_to_hexa(int r, int g, int b, int a);
+void				draw_title_background(t_stuff *e);
+void				ft_init_value_draw_title_background(t_stuff *e, int option);
+void				ft_init_value_aff_data_camera(t_stuff *e, int option, int len);
+void				ft_init_value_aff_data_sphere(t_stuff *e, int option, int len);
+void				ft_init_value_aff_data_plan(t_stuff *e, int option, int len);
+void				ft_init_value_aff_data_light(t_stuff *e, int option, int len);
+void				ft_init_value_aff_data_cylindre(t_stuff *e, int option, int len);
+void				ft_init_value_aff_data_cone(t_stuff *e, int option, int len);
+void				save_scene(t_stuff *e);
+void				save_scene_draw_ellipse_background(t_stuff *e);
 
 void				A(t_stuff *e);
 void				B(t_stuff *e);
@@ -557,20 +633,23 @@ void				W(t_stuff *e);
 void				X(t_stuff *e);
 void				Y(t_stuff *e);
 void				Z(t_stuff *e);
+void				zero(t_stuff *e);
+void				one(t_stuff *e);
+void				two(t_stuff *e);
+void				three(t_stuff *e);
+void				four(t_stuff *e);
+void				five(t_stuff *e);
+void				six(t_stuff *e);
+void				seven(t_stuff *e);
+void				eight(t_stuff *e);
+void				nine(t_stuff *e);
+void				dot(t_stuff *e);
+void				minus(t_stuff *e);
+void				colons(t_stuff *e);
+void				slash(t_stuff *e);
 void				ft_segment_letter(t_stuff *e);
 void				ft_arc(t_stuff *e, int option);
 void				awklm_string_put(char *str, t_stuff *e);
-
-t_rgb				raythingydebug(t_stuff *e, t_vec *raydir, t_vec *pos);
-void				checkdebug(t_stuff *e, t_vec *raydir, t_vec *pos, int option);
-void				check_distdebug(t_stuff *e, int option);
-double				shadowsdebug(t_stuff *e, t_vec *inter, t_rgb color);
-t_rgb				reflectdebug(t_stuff *e, int obj, int nm);
-t_rgb				getlightdebug(t_vec *norm, t_light **light, t_rgb *colorobj, t_stuff *e);
-t_sphere			*copysphlist(t_sphere *sph);
-t_light				*copylightlist(t_light *light);
-t_plan				*copyplalist(t_plan *pla);
-t_cone				*copyconelist(t_cone *cone);
-t_cyl				*copycyllist(t_cyl *cyl);
+void				ft_ellipse(t_stuff *e, int piece, int option);
 
 #endif
