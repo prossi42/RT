@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 22:26:52 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 11:20:27 by prossi           ###   ########.fr       */
+/*   Updated: 2018/02/16 13:59:15 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	draw_terminal(t_stuff *e)
 {
 	int		x;
 	int		y;
+	int		i;
 
 	y = -1;
 	while (++y < e->i.img_y)
@@ -41,32 +42,59 @@ void	aff_value(t_stuff *e)
 	mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, WIN_X - WIDTH - 200, (WIN_Y - LENGTH) * 3 + 3 * 40, 0xFFFFFF, e->i.term.wbuf);
 }
 
-void	aff_tab(t_stuff *e)
+void	redraw_tab(t_stuff *e)
 {
-	if (e->i.term.tabfill == 1)
+	int		x;
+	int		y;
+
+	y = ((WIN_Y - LENGTH) * 3) - 1;
+	while (++y < WIN_Y - 40)
 	{
-		if (e->i.term.indextab >= 0)
-			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (0 * 40), 0xFFFFFF, e->i.term.tab[0]);
-		if (e->i.term.indextab >= 1)
-			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (1 * 40), 0xFFFFFF, e->i.term.tab[1]);
-		if (e->i.term.indextab > 2)
+		x = -1;
+		while (++x < WIN_X - WIDTH)
 		{
-			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (2 * 40), 0xFFFFFF, e->i.term.tab[2]);
-			free2d(e);
-			e->i.term.indextab = 0;
-			e->i.term.tabfill = 0;
-			e->i.term.first = 0;
+			mlx_pixel_put(e->img.mlx_ptr, e->img.win_ptr, x, y, 0x000000);
 		}
 	}
 }
 
-void	end_aff(t_stuff *e)
+void	aff_tab(t_stuff *e)
+{
+	if (e->i.term.tabfill == 1)
+	{
+		if (e->i.term.indextab == 4)
+		{
+			ft_strclr(e->i.term.tab[0]);
+			e->i.term.tab[0] = ft_strcpy(e->i.term.tab[0], e->i.term.tab[1]);
+			ft_strclr(e->i.term.tab[1]);
+			e->i.term.tab[1] = ft_strcpy(e->i.term.tab[1], e->i.term.tab[2]);
+			ft_strclr(e->i.term.tab[2]);
+			e->i.term.tab[2] = ft_strcpy(e->i.term.tab[2], e->i.term.tab[3]);
+			e->i.term.indextab -= 1;
+			redraw_tab(e);
+		}
+		if (e->i.term.indextab >= 0)
+		{
+			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (0 * 40), 0xFFFFFF, e->i.term.tab[0]);
+		}
+		if (e->i.term.indextab > 1)
+		{
+			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (1 * 40), 0xFFFFFF, e->i.term.tab[1]);
+		}
+		if (e->i.term.indextab > 2)
+		{
+			mlx_string_put(e->img.mlx_ptr, e->img.win_ptr, 15, (WIN_Y - LENGTH) * 3 + (2 * 40), 0xFFFFFF, e->i.term.tab[2]);
+		}
+	}
+}
+
+void	end_aff_matrice(t_stuff *e)
 {
 	char	*tmp;
 	int		err;
 
 	err = 0;
-	if (!(tmp = ft_strnew(35)))
+	if (!(tmp = ft_strnew(100)))
 		err = 1;
 	if (err == 0)
 	{
@@ -84,11 +112,39 @@ void	end_aff(t_stuff *e)
 		}
 		e->i.term.tab[e->i.term.indextab] = ft_strcpy(e->i.term.tab[e->i.term.indextab], tmp);
 		e->i.term.tabfill = 1;
-		ft_strdel(&e->i.term.wbuf);
+		ft_strclr(e->i.term.wbuf);
 		ft_strdel(&tmp);
 	}
 	else
 		ft_putstr("\nMalloc error in end_aff - terminal (interface)\n");
+}
+
+void	end_aff_newobj(t_stuff *e)
+{
+	if (e->i.objet == SPHERE)
+		end_aff_new_sphere(e);
+	else if (e->i.objet == PLAN)
+		end_aff_new_plan(e);
+	else if (e->i.objet == CYLINDRE)
+		end_aff_new_cylindre(e);
+	else if (e->i.objet == CONE)
+		end_aff_new_cone(e);
+	else if (e->i.objet == LIGHT)
+		end_aff_new_light(e);
+}
+
+void	aff_new_obj(t_stuff *e)
+{
+	if (e->i.objet == SPHERE)
+		aff_new_sphere(e);
+	else if (e->i.objet == PLAN)
+		aff_new_plan(e);
+	else if (e->i.objet == CYLINDRE)
+		aff_new_cylindre(e);
+	else if (e->i.objet == CONE)
+		aff_new_cone(e);
+	else if (e->i.objet == LIGHT)
+		aff_new_light(e);
 }
 
 void	terminal(t_stuff *e)
@@ -110,13 +166,24 @@ void	terminal(t_stuff *e)
 			aff_angle(e);
 		if (e->i.mat.act_value == 1 && e->i.term.wbuf[e->i.term.index] != '\n')
 			aff_value(e);
+		if (e->i.nobj.first != -1 && e->i.term.wbuf[e->i.term.index] != '\n')
+		{
+			aff_new_obj(e);
+		}
 		if (e->i.term.wbuf[e->i.term.index] == '\n')
 		{
-			end_aff(e);
-			e->i.mat.act_angle = 0;
-			e->i.mat.act_value = 0;
+			if (e->i.mat.act_angle != 0 || e->i.mat.act_value != 0)
+			{
+				end_aff_matrice(e);
+				e->i.mat.act_angle = 0;
+				e->i.mat.act_value = 0;
+			}
+			else if (e->i.nobj.first != -1)
+				end_aff_newobj(e);
 			e->i.term.index = 0;
-			e->i.term.indextab++;
+			if (e->i.term.indextab <= 3)
+				e->i.term.indextab++;
+			e->i.term.dot = 0;
 		}
 		aff_tab(e);
 	}

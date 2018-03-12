@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:25:42 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/12 11:19:54 by prossi           ###   ########.fr       */
+/*   Updated: 2018/03/12 13:07:25 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,15 @@ void	free2d(t_stuff *e)
 
 	i = -1;
 	while (e->i.term.tab[++i])
-	{
 		ft_strdel(&e->i.term.tab[i]);
-	}
 	free(e->i.term.tab);
-}
-
-void	malloc2d(t_stuff *e)
-{
-	int		i;
-	int		err;
-
-	if (!(e->i.term.tab = (char **)malloc(sizeof(char *) * 4)))
-		err = 1;
-	i = -1;
-	while (e->i.term.tab[++i] && err != 1)
-	{
-		if (!(e->i.term.tab[i] = ft_strnew(100)))
-			err = 1;
-	}
-	if (err == 1)
-	{
-		ft_putstr("\nLe malloc du tableau (interface - terminal) a echoué\n");
-		exit (0);
-	}
-	e->i.term.tab[i] = NULL;
 }
 
 void 	init_struct(t_stuff *e, int option)
 {
+	int		i;
+
+	i = -1;
 	if (option == 0 && e->i.first == 0)
 	{
 		e->i.nb_img = 0;
@@ -66,14 +46,33 @@ void 	init_struct(t_stuff *e, int option)
 	}
 	if (option == 2 && e->i.first == 0)
 	{
+		e->i.term.dot = 0;
 		e->i.term.index = 0;
 		e->i.term.first = 0;
 		e->i.term.indextab = 0;
 		e->i.term.tabfill = 0;
+		malloc2d(e);
+		e->i.term.wbuf = ft_strnew(100);
 	}
 	if (option == 3 && e->i.first == 0)
 	{
-		e->i.nobj.act_obj = 0;
+		e->i.nobj.first = -1;
+		e->i.nobj.open = 0;
+		e->i.nobj.power = 0;
+		e->i.color.nobj.col1 = 0x202020;
+		e->i.color.nobj.col2 = 0x000000;
+		e->i.color.nobj.col3 = 0xFFFFFF;
+	}
+	if (option == 4 && e->i.first == 0)
+	{
+		e->i.cobj.power = 0;
+		e->i.color.cobj.col1 = 0x202020;
+		e->i.color.cobj.col2 = 0x000000;
+		e->i.color.cobj.col3 = 0xFFFFFF;
+	}
+	if (option == 5 && e->i.first == 0)
+	{
+		e->i.color.saves.col1 = 0x202020;
 	}
 }
 
@@ -85,6 +84,7 @@ int		launch_interface(t_stuff *e)
 	create_obj(e);
 	terminal(e);
 	matrice_interface(e);
+	save_scene(e);
 	if (e->i.first == 0)
 	{
 		e->i.first = 1;

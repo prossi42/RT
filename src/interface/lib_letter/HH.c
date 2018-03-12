@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 14:02:10 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:26:03 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/08 15:12:50 by Awk-LM           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	ft_init_segment_H(t_stuff *e, int option)
 	}
 	if (option == 5)
 	{
-		e->bs.xi = e->lt.posx + (25 * e->lt.coeff) + 1;
+		e->bs.xi = e->lt.posx + (25 * e->lt.coeff) - 1;
 		e->bs.xf = e->bs.xi;
 		e->bs.yi = e->lt.posy;
 		e->bs.yf = e->bs.yi - (50 * e->lt.coeff);
 	}
 	if (option == 6)
 	{
-		e->bs.xi = e->lt.posx + (25 * e->lt.coeff) + 2;
+		e->bs.xi = e->lt.posx + (25 * e->lt.coeff) - 2;
 		e->bs.xf = e->bs.xi;
 		e->bs.yi = e->lt.posy;
 		e->bs.yf = e->bs.yi - (50 * e->lt.coeff);
@@ -67,14 +67,14 @@ void	ft_init_segment_H(t_stuff *e, int option)
 	{
 		e->bs.xi = e->lt.posx;
 		e->bs.xf = e->bs.xi + (25 * e->lt.coeff);
-		e->bs.yi = (e->lt.posy - 1) - (25 * e->lt.coeff);
+		e->bs.yi = e->lt.posy - (25 * e->lt.coeff) - 1;
 		e->bs.yf = e->bs.yi;
 	}
 	if (option == 9)
 	{
 		e->bs.xi = e->lt.posx;
 		e->bs.xf = e->bs.xi + (25 * e->lt.coeff);
-		e->bs.yi = (e->lt.posy - 2) - (25 * e->lt.coeff);
+		e->bs.yi = e->lt.posy - (25 * e->lt.coeff) + 1;
 		e->bs.yf = e->bs.yi;
 	}
 }

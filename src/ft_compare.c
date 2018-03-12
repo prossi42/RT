@@ -6,7 +6,7 @@
 /*   By: prossi <prossi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 18:28:57 by prossi            #+#    #+#             */
-/*   Updated: 2018/02/08 15:23:19 by lhermann         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:58:02 by prossi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ int		ft_compare_plan_sd(char *str, int i)
 			return (0);
 	if (i == 8)
 		if (ft_strcmp(str, "normZ =") == 0)
+			return (0);
+	if (i == 9)
+		if (ft_strcmp(str, "refrac =") == 0)
+			return (0);
+	if (i == 10)
+		if (ft_strcmp(str, "conscol =") == 0)
+			return (0);
+	if (i == 11)
+		if (ft_strcmp(str, "reflex =") == 0)
 			return (0);
 	return (-1);
 }
@@ -73,6 +82,15 @@ int		ft_compare_sphere(char *str, int i)
 			return (0);
 	if (i == 6)
 		if (ft_strcmp(str, "b =") == 0)
+			return (0);
+	if (i == 7)
+		if (ft_strcmp(str, "refrac =") == 0)
+			return (0);
+	if (i == 8)
+		if (ft_strcmp(str, "conscol =") == 0)
+			return (0);
+	if (i == 9)
+		if (ft_strcmp(str, "reflex =") == 0)
 			return (0);
 	return (-1);
 }
