@@ -57,7 +57,7 @@ void	ft_init_struct(t_stuff *e, int option)
 		e->c.longvue = 0.3;
 		e->c.largvue = 0.5;
 		e->c.i = 0;
-		e->pix = 20;
+		e->pix = 0;
 		reboot_list(e);
 		e->c.n = -1;
 		e->m.angle = 0;

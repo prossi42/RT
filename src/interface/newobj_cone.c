@@ -27,18 +27,4 @@ void	new_cone(t_stuff *e)
 		e->cone->nm = e->d.nbmcone;
 	}
 	e->d.nbmcone++;
-	set_value_new_objet(e);
-}
-
-void	newobj_cone(t_stuff *e, int x)
-{
-	if (x >= ((WIN_X - WIDTH) / 4) && x <= ((WIN_X - WIDTH) / 4) * 3)
-	{
-		e->i.objet = CONE;
-		e->i.each_obj = 0;
-	}
-	else if (x >= (((WIN_X - WIDTH) / 4) * 3) + 70 && x <= (((WIN_X - WIDTH) / 4) * 3) + 95 && e->i.nobj.act_obj == 4)
-		new_cone(e);
-	else if (x >= (e->i.mlx->img_x / 4) - 90 && x <= (e->i.mlx->img_x / 4) - 70 && e->i.nobj.act_obj == 4)
-		del_cone(e);
 }

@@ -66,6 +66,18 @@ int			main_sd(t_stuff *e, char **argv)
 	return (0);
 }
 
+int 		release(int keycode, t_stuff *e)
+{
+	if (keycode == 2 || keycode == 0 || keycode == 1 || keycode == 13 \
+					|| keycode == 49 || keycode == 8 || keycode == 125 || \
+					keycode == 126 || keycode == 124 || keycode == 123 || \
+					keycode == 78 || keycode == 69)
+	{
+		multi_thread(e);
+		multi_thread2(e);
+	}
+	return (0);
+}
 
 int			main(int ac, char **av)
 {
@@ -85,9 +97,10 @@ int			main(int ac, char **av)
 	e->img.win_ptr = mlx_new_window(e->img.mlx_ptr, WIN_X, WIN_Y,\
 			"Raytracer");
 	create_image(e);
-	aff(e);
+	multi_thread(e);
 	mlx_hook(e->img.win_ptr, 2, (1L << 0), hooks, e);
 	mlx_hook(e->img.win_ptr, 17, (1L << 17), (int(*)())cleanexit, e);
+	mlx_hook(e->img.win_ptr, 3, (1L << 1), release, e);
 	mlx_hook(e->img.win_ptr, 4, (1L << 2), mouse_hook, e);
 	mlx_hook(e->img.win_ptr, 6, (1L << 6), mouse_move, e);
 	mlx_loop(e->img.mlx_ptr);

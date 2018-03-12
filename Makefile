@@ -18,7 +18,7 @@ SRC_NAME = main.c raytracing.c struct.c image.c vector.c vector2.c hooks.c \
 			ft_parsing_sd.c ft_parsing.c list_tools.c vectorcalc.c \
 			check_format.c check_format_obj.c check_data_cone.c check_obj.c \
 			shadows.c mouse_hook.c matrice.c rot_matrice.c trans_matrice.c \
-			init_list.c fill_list.c ft_compare_td.c \
+			init_list.c fill_list.c ft_compare_td.c damier.c copy_list.c \
 
 PATH_INTERFACE = src/interface/
 

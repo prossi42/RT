@@ -144,16 +144,18 @@ void		raydir_apercu(t_stuff *e, int x, int y)
 	vecnorm(&e->raydir);
 }
 
-void		aff_apercu(t_stuff *e)
+void		*aff_apercu(void *ev)
 {
 	double color;
 	t_vec	tmp_poscam;
 	int		j;
 	int		i;
+	t_stuff *e;
 
+	e = ((t_stuff *)ev);
 	vectorcalc_apercu(e);
 	tmp_poscam = e->poscam;
-	e->c.posy = -1;
+	e->c.posy = e->start - 1;
 	while (++e->c.posy < e->i.mlx->img_y)
 	{
 		e->c.posx = -1;
@@ -185,9 +187,33 @@ void		aff_apercu(t_stuff *e)
 		if (e->pix > 0)
 			e->c.posy += e->pix;
 	}
+	pthread_exit(NULL);
 	reboot_list_loop(e, 3);
 	// e->c.obj = -1;
 	e->poscam = tmp_poscam;
+}
+
+void		multi_thread2(t_stuff *e)
+{
+    t_stuff     *tab;
+    pthread_t   thread[MTI];
+    
+    tab = (t_stuff *)malloc(MT * sizeof(t_stuff));
+    e->jmt = -1;
+    reboot_list_loop(e, 3);
+    while (++e->jmt < MTI)
+    {
+        tab[e->jmt] = *e;
+        tab[e->jmt].start = e->jmt * e->i.mlx->img_y / MT ;
+        tab[e->jmt].end = tab[e->jmt].start + e->i.mlx->img_y / MT;
+        dedouble_list(&(tab[e->jmt]));
+        pthread_create(&thread[e->jmt], NULL, aff_apercu, &tab[e->jmt]);
+    }
+    e->jmt = -1;
+    while (++e->jmt < MTI)
+    	pthread_join(thread[e->jmt], NULL);
+   	e->img.img_ptrI = e->i.mlx->img;
+    mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->i.mlx->img, 0, WIN_Y - LENGTH);
 }
 
 void	apercu_courant(t_stuff *e)
@@ -205,6 +231,5 @@ void	apercu_courant(t_stuff *e)
 	}
 	// cadre_apercu(e);
 	get_value_apercu(e);
-	aff_apercu(e);
-	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->i.mlx->img, 0, WIN_Y - LENGTH);
+	multi_thread2(e);
 }

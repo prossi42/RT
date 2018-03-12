@@ -76,5 +76,6 @@ void	del_cylindre(t_stuff *e)
 		del_cylindre_td(e);
 	else if (e->cyl->next == NULL && e->cyl->prev == NULL)
 		del_cylindre_fh(e);
-	aff(e);
+	multi_thread(e);
+	multi_thread2(e);
 }

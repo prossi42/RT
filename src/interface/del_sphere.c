@@ -73,5 +73,6 @@ void	del_sphere(t_stuff *e)
 		del_sphere_td(e);
 	else if (e->sph->next == NULL && e->sph->prev == NULL)
 		del_sphere_fh(e);
-	aff(e);
+	multi_thread(e);
+	multi_thread2(e);
 }

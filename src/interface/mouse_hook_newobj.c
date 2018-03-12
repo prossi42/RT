@@ -32,6 +32,22 @@ void	set_del_objet(t_stuff *e)
 		del_cone(e);
 }
 
+void	set_new_obj(t_stuff *e)
+{
+	if (e->i.objet == SPHERE)
+		new_sphere(e);
+	else if (e->i.objet == PLAN)
+		new_plan(e);
+	else if (e->i.objet == LIGHT)
+		new_light(e);
+	else if (e->i.objet == CYLINDRE)
+		new_cylindre(e);
+	else if (e->i.objet == CONE)
+		new_cone(e);
+	if (e->i.objet != -1)
+		set_value_new_objet(e);
+}
+
 // void	newobj_camera(t_stuff *e, int x)
 // {
 // 	if (x >= ((WIN_X - WIDTH) / 4) && x <= ((WIN_X - WIDTH) / 4) * 3)
@@ -98,7 +114,7 @@ void	mouse_hook_newobj(t_stuff *e, int x, int y)
 	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x < centerx - 100 && x > 123)
 		switch_prev_objet(e);
 	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x > WIN_X - WIDTH -  100 && x < WIN_X - WIDTH)
-		set_value_new_objet(e);
+		set_new_obj(e);
 	else if (e->i.nobj.power == 1 && y > centery - 100 && y < centery + 100 && x > 0 && x < 100)
 		set_del_objet(e);
 	else if (y > bordery && y < bordery + 20 && x > WIN_X - WIDTH - 20 && x < WIN_X - WIDTH)

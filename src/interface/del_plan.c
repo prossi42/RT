@@ -75,5 +75,6 @@ void	del_plan(t_stuff *e)
 		del_plan_td(e);
 	else if (e->pla->next == NULL && e->pla->prev == NULL)
 		del_plan_fh(e);
-	aff(e);
+	multi_thread(e);
+	multi_thread2(e);
 }

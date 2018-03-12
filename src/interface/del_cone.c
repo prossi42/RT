@@ -76,5 +76,6 @@ void	del_cone(t_stuff *e)
 		del_cone_td(e);
 	else if (e->cone->next == NULL && e->cone->prev == NULL)
 		del_cone_fh(e);
-	aff(e);
+	multi_thread(e);
+	multi_thread2(e);
 }

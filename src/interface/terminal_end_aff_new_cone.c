@@ -91,7 +91,8 @@ void 	end_aff_new_cone(t_stuff *e)
 		if (e->i.nobj.first == 9)
 		{
 			e->i.nobj.first = -1;
-			aff(e);
+			multi_thread(e);
+			multi_thread2(e);
 		}
 		else
 		{

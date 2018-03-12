@@ -12,6 +12,33 @@
 
 #include "rt.h"
 
+int		init_tree(t_tree **tree)
+{
+	if (!(*tree = (t_tree *)malloc(sizeof(t_tree))))
+		return (-1);
+	(*tree)->prev = NULL;
+	(*tree)->tmpinter.x = 0;
+	(*tree)->tmpinter.y = 0;
+	(*tree)->tmpinter.z = 0;
+	(*tree)->tmpsph = NULL;
+	(*tree)->tmpplan = NULL;
+	(*tree)->tmpcyl = NULL;
+	(*tree)->tmpcone = NULL;
+	(*tree)->tmplight = NULL;
+	(*tree)->tmpcolor.r = 0;
+	(*tree)->tmpcolor.g = 0;
+	(*tree)->tmpcolor.b = 0;
+	(*tree)->tmpscolor.r = 0;
+	(*tree)->tmpscolor.g = 0;
+	(*tree)->tmpscolor.b = 0;
+	(*tree)->tmpl = 0;
+	(*tree)->tmptest = 0;
+	(*tree)->objet = 0;
+	(*tree)->left = NULL;
+	(*tree)->right = NULL;
+	return (0);
+}
+
 int		init_list_cone(t_cone **cone)
 {
 	if (!(*cone = (t_cone *)malloc(sizeof(t_cone))))

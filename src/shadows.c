@@ -37,48 +37,153 @@ double		shadows(t_stuff *e, t_vec *inter, t_rgb color)
 t_rgb		reflect(t_stuff *e, int obj, int nm)
 {
 	t_vec tmp;
+	t_tree *tmp3;
 	t_rgb tmp2;
 
 	reboot_list_loop(e, 3);
-	e->ref.tmpcolor = e->c.colorf;
+	if (!e->tree)
+	{
+		if (init_tree(&e->tree) == -1)
+			exit(-1);
+	}
+	else
+	{
+		tmp3 = e->tree;
+		if (init_tree(&e->tree->left) == -1)
+			exit(-1);
+		e->tree = e->tree->left;
+		e->tree->prev = tmp3;
+	}
+	e->tree->tmpcolor = e->c.colorf;
+	e->tree->tmpl = e->l;
+	e->tree->tmptest = e->test;
+	e->tree->tmpinter = e->c.inter;
+	e->tree->tmpscolor = e->d.color;
+	e->tree->objet = e->c.obj;
 	if (obj == SPHERE)
 	{
 		searchlist(e, e->c.objsph, SPHERE);
-		e->ref.tmpsph = e->sph;
+		e->tree->tmpsph = e->sph;
 		tmp = getrefray(e, &e->sph->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->sph = e->ref.tmpsph;
+		e->sph = e->tree->tmpsph;
 	}
-	if (obj == PLAN)
+	else if (obj == PLAN)
 	{
 		searchlist(e, e->c.objpla, PLAN);
-		e->ref.tmpplan = e->pla;
+		e->tree->tmpplan = e->pla;
 		tmp = getrefray(e, &e->pla->norm, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->pla = e->ref.tmpplan;
+		e->pla = e->tree->tmpplan;
 	}
-	if (obj == CYLINDRE)
+	else if (obj == CYLINDRE)
 	{
 		searchlist(e, e->c.objcyl, CYLINDRE);
-		vecsous(&e->cyl->norml, &e->c.inter, &e->cyl->pos);
-		vecnorm(&e->cyl->norml);
-		e->ref.tmpcyl = e->cyl;
+		e->tree->tmpcyl = e->cyl;
 		tmp = getrefray(e, &e->cyl->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->cyl = e->ref.tmpcyl;
+		e->cyl = e->tree->tmpcyl;
 	}
-	if (obj == CONE)
+	else if (obj == CONE)
 	{
 		searchlist(e, e->c.objcone, CONE);
-		e->ref.tmpcone = e->cone;
-		tmp = getrefray(e, &e->cone->norm, &e->poscam, &e->c.inter);
+		e->tree->tmpcone = e->cone;
+		tmp = getrefray(e, &e->cone->norml, &e->poscam, &e->c.inter);
 		reboot_list_loop(e, 3);
 		tmp2 = raythingy(e, &tmp, &e->c.inter);
-		e->cone = e->ref.tmpcone;
+		e->cone = e->tree->tmpcone;
 	}
-	e->c.colorf = e->ref.tmpcolor;
+	e->c.colorf = e->tree->tmpcolor;
+	e->l = e->tree->tmpl;
+	e->test = e->tree->tmptest;
+	e->c.inter = e->tree->tmpinter;
+	e->d.color = e->tree->tmpscolor;
+	e->c.obj = e->tree->objet;
+	if (e->ray > 1)
+	{
+		tmp3 = e->tree->prev;
+		free(e->tree);
+		e->tree = tmp3;
+	}
+	return (tmp2);
+}
+
+t_rgb		refrac(t_stuff *e, int obj, int nm)
+{
+	t_vec tmp;
+	t_tree *tmp3;
+	t_rgb tmp2;
+
+	reboot_list_loop(e, 3);
+	if (!e->tree)
+	{
+		if (init_tree(&e->tree) == -1)
+			exit(-1);
+	}
+	else
+	{
+		tmp3 = e->tree;
+		if (init_tree(&e->tree->right) == -1)
+			exit(-1);
+		e->tree = e->tree->right;
+		e->tree->prev = tmp3;
+	}
+	e->tree->tmpcolor = e->c.colorf;
+	e->tree->tmpl = e->l;
+	e->tree->tmptest = e->test;
+	e->tree->tmpinter = e->c.inter;
+	e->tree->tmpscolor = e->d.color;
+	e->tree->objet = e->c.obj;
+	if (obj == SPHERE)
+	{
+		searchlist(e, e->c.objsph, SPHERE);
+		e->tree->tmpsph = e->sph;
+		tmp = getrefracray(&e->sph->norm, &e->poscam, &e->c.inter, 1);
+		reboot_list_loop(e, 3);
+		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		e->sph = e->tree->tmpsph;
+	}
+	else if (obj == PLAN)
+	{
+		searchlist(e, e->c.objpla, PLAN);
+		e->tree->tmpplan = e->pla;
+		tmp = getrefracray(&e->pla->norm, &e->poscam, &e->c.inter, 1);
+		reboot_list_loop(e, 3);
+		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		e->pla = e->tree->tmpplan;
+	}
+	else if (obj == CYLINDRE)
+	{
+		searchlist(e, e->c.objcyl, CYLINDRE);
+		e->tree->tmpcyl = e->cyl;
+		tmp = getrefracray(&e->cyl->norml, &e->poscam, &e->c.inter, 1);
+		reboot_list_loop(e, 3);
+		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		e->cyl = e->tree->tmpcyl;
+	}
+	else if (obj == CONE)
+	{
+		searchlist(e, e->c.objcone, CONE);
+		e->tree->tmpcone = e->cone;
+		tmp = getrefracray(&e->cone->norml, &e->poscam, &e->c.inter, 1);
+		reboot_list_loop(e, 3);
+		tmp2 = raythingy(e, &tmp, &e->c.inter);
+		e->cone = e->tree->tmpcone;
+	}
+	e->c.colorf = e->tree->tmpcolor;
+	e->l = e->tree->tmpl;
+	e->test = e->tree->tmptest;
+	e->c.inter = e->tree->tmpinter;
+	e->d.color = e->tree->tmpscolor;
+	e->c.obj = e->tree->objet;
+	if (e->ray > 1)
+	{
+		tmp3 = e->tree->prev;
+		free(e->tree);
+		e->tree = tmp3;
+	}
 	return (tmp2);
 }

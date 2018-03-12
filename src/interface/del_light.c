@@ -73,5 +73,6 @@ void	del_light(t_stuff *e)
 		del_light_td(e);
 	else if (e->light->next == NULL && e->light->prev == NULL)
 		del_light_fh(e);
-	aff(e);
+	multi_thread(e);
+	multi_thread2(e);
 }

@@ -12,6 +12,24 @@
 
 #include "rt.h"
 
+t_vec		getrefracray(t_vec *norm, t_vec *pos, t_vec *inter, double fac)
+{
+	t_vec	res;
+	t_vec	v;
+	double	a;
+	double	b;
+
+	vecsous(&v, inter, pos);
+	vecnorm(&v);
+	a = dot_product(&v, norm);
+	b = 1 / fac;
+	res.x = b * v.x - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->x;
+	res.y = b * v.y - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->y;
+	res.z = b * v.z - (b * a + sqrt(1 - (b * b) * (1 - (a * a)))) * norm->z;
+	vecnorm(&res);
+	return (res);
+}
+
 t_vec		getrefray(t_stuff *e, t_vec *norm, t_vec *pos, t_vec *inter)
 {
 	t_vec res;
@@ -113,16 +131,18 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	double	doti;
 
 	e->l = 0;
+	e->ray++;
 	e->test = 0;
 	e->c.colorf.r = 0;
 	e->c.colorf.g = 0;
 	e->c.colorf.b = 0;
-	e->ray++;
 	check(e, raydir, pos, 1);
 	check_dist(e, 1);
 	reboot_list_loop(e, 3);
 	if (e->c.obj >= 0 && e->c.obj <= 3)
 	{
+		// if (e->c.obj == 1)
+		// 	dam(e, e->c.obj);
 		getintersection(e, e->c.dist, raydir, pos);
 		while (e->light)
 		{
@@ -174,13 +194,9 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 				else if (e->c.obj == CONE)
 				{
 					searchlist(e, e->c.objcone, CONE);
-					// vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
-					vecsous(&v, &e->c.inter, &e->cyl->pos);
-					doti = dot_product(&v, &e->cyl->norm);
-					project.x = doti * e->cyl->norm.x;
-					project.y = doti * e->cyl->norm.y;
-					project.z = doti * e->cyl->norm.z;
-					vecsous(&e->cyl->norml, &v, &project);
+					vecsous(&e->cone->norml, &e->c.inter, &e->cone->pos);
+					vecnorm(&e->cone->norml);
+					e->cone->norml.z = 0;
 					vecnorm(&e->cone->norml);
 					rgb_add(&e->c.colorf, e->c.colorf,\
 					 	getlight(&e->cone->norml, &e->light, &e->cone->color, e), 1);
@@ -188,25 +204,37 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 			}
 			e->light = e->light->next;
 		}
+		if (e->ray < RAY && e->test > 0)
+		{
+			if (e->c.obj == SPHERE)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, SPHERE, e->c.objsph), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.5);
+			}
+			else if (e->c.obj == PLAN)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, PLAN, e->c.objpla), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 0.5);
+			}
+			else if (e->c.obj == CYLINDRE)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CYLINDRE, e->c.objcyl), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.5);
+			}
+			else if (e->c.obj == CONE)
+			{
+				rgb_add(&e->c.colorf, e->c.colorf, refrac(e, CONE, e->c.objcone), 0.5);
+				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.5);
+			}
+		}
 		if (e->l > 0)
-			shadows(e, &e->c.inter, e->c.colorf);
+		 	shadows(e, &e->c.inter, e->c.colorf);
 		else
 		{
 			e->d.color.r *= 0.1;
 			e->d.color.g *= 0.1;
 			e->d.color.b *= 0.1;
 			shadows(e, &e->c.inter, e->d.color);
-		}
-		if (e->ray < 1 && e->test > 0)
-		{
-			if (e->c.obj == SPHERE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, SPHERE, e->c.objsph), 0.3);
-			else if (e->c.obj == PLAN)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, PLAN, e->c.objpla), 1);
-			else if (e->c.obj == CYLINDRE)
-				rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CYLINDRE, e->c.objcyl), 0.3);
-			// else if (e->c.obj == CONE)
-			// 	rgb_add(&e->c.colorf, e->c.colorf, reflect(e, CONE, e->c.objcone), 0.3);
 		}
 	}
 	else if (e->c.obj == LIGHT)
@@ -217,16 +245,18 @@ t_rgb		raythingy(t_stuff *e, t_vec *raydir, t_vec *pos)
 	return (e->c.colorf);
 }
 
-void		aff(t_stuff *e)
+void		*aff(void *ev)
 {
 	int i;
 	int j;
 	double color;
+	t_stuff *e;
 
+	e = ((t_stuff *)ev);
 	i = 0;
 	j = 0;
-	e->c.posy = -1;
-	while (++e->c.posy < LENGTH)
+	e->c.posy = e->start - 1;
+	while (++e->c.posy < e->end)
 	{
 		e->c.posx = -1;
 		while (++e->c.posx < WIDTH)
@@ -258,10 +288,47 @@ void		aff(t_stuff *e)
 		if (e->pix > 0)
 			e->c.posy += e->pix;
 	}
-	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
+	pthread_exit(NULL);
 	reboot_list_loop(e, 3);
-	if (e->i.first == 0)
+}
+
+void 		dedouble_list(t_stuff *tmp)
+{
+	tmp->sph = copysphlist(tmp->sph);
+	tmp->tmp = copysphlist(tmp->tmp);
+	tmp->pla = copyplalist(tmp->pla);
+	tmp->tmppla = copyplalist(tmp->tmppla);
+	tmp->light = copylightlist(tmp->light);
+	tmp->tmplight = copylightlist(tmp->tmplight);
+	tmp->cyl = copycyllist(tmp->cyl);
+	tmp->tmpcyl = copycyllist(tmp->tmpcyl);
+	tmp->cone = copyconelist(tmp->cone);
+	tmp->tmpcone = copyconelist(tmp->tmpcone);
+}
+
+void		multi_thread(t_stuff *e)
+{
+    t_stuff     *tab;
+    pthread_t   thread[MT];
+
+    tab = (t_stuff *)malloc(MT * sizeof(t_stuff));
+    e->imt = -1;
+    reboot_list_loop(e, 3);
+    while (++e->imt < MT)
+    {
+        tab[e->imt] = *e;
+        tab[e->imt].start = e->imt * LENGTH / MT ;
+        tab[e->imt].end = tab[e->imt].start + LENGTH / MT;
+        dedouble_list(&(tab[e->imt]));
+        pthread_create(&thread[e->imt], NULL, aff, &tab[e->imt]);
+    }
+    e->imt = -1;
+    while (++e->imt < MT)
+    	pthread_join(thread[e->imt], NULL);
+    if (e->i.first == 0)
 		launch_interface(e);
+	mlx_put_image_to_window(e->img.mlx_ptr, e->img.win_ptr, \
+      e->img.img_ptr, WIN_X - WIDTH, WIN_Y - LENGTH);
 }
 
 void		check(t_stuff *e, t_vec *raydir, t_vec *pos, int option)

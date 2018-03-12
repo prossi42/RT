@@ -67,6 +67,7 @@ void	movement_matrice(int keycode, t_stuff *e)
 		choose_sujet(e);
 	objet_courant(e);
 	apercu_courant(e);
+	multi_thread(e);
 }
 
 void	move_objet(int keycode, t_vec *pos_obj, t_stuff *e)
@@ -112,6 +113,7 @@ void	movement(int keycode, t_stuff *e)
 		move_objet(keycode, &e->light->pos, e);
 	objet_courant(e);
 	apercu_courant(e);
+	multi_thread(e);
 }
 
 void	echap(int keycode, t_stuff *e)
@@ -131,30 +133,24 @@ void	cleanexit(t_stuff *e)
 	exit(0);
 }
 
-void	pixel(int keycode, t_stuff *e)
-{
-	if (keycode == 43 && e->pix - 2 >= 0)
-		e->pix -= 2;
-	if (keycode == 47 && e->pix + 2 < 20)
-		e->pix += 2;
-}
-
 int		hooks(int keycode, t_stuff *e)
 {
 	if (e->i.mat.act_angle == 0 && e->i.mat.act_value == 0 && e->i.nobj.first == -1)
 	{
-		if (keycode == 36)
-			movement_matrice(keycode, e);
-		else if (keycode == 53)
-			echap(keycode, e);
-		else if (keycode == 2 || keycode == 0 || keycode == 1 || keycode == 13 \
-			|| keycode == 49 || keycode == 8 || keycode == 125 || \
-			keycode == 126 || keycode == 124 || keycode == 123 || \
-			keycode == 78 || keycode == 69)
-			movement(keycode, e);
-		else if (keycode == 43 || keycode == 47)
-			pixel(keycode, e);
-		aff(e);
+		if (keycode)
+		{
+			e->pix += 8;
+			if (keycode == 53)
+				echap(keycode, e);
+			else if (keycode == 36)
+					movement_matrice(keycode, e);
+			else if (keycode == 2 || keycode == 0 || keycode == 1 || keycode == 13 \
+					|| keycode == 49 || keycode == 8 || keycode == 125 || \
+					keycode == 126 || keycode == 124 || keycode == 123 || \
+					keycode == 78 || keycode == 69)
+					movement(keycode, e);
+			e->pix -= 8;
+		}
 	}
 	if (e->i.mat.act_angle == 1 || e->i.mat.act_value == 1 || e->i.nobj.first != -1)
 		key_hook_interface(keycode, e);
